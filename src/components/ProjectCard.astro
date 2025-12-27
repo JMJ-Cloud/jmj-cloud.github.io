@@ -1,0 +1,155 @@
+---
+// ProjectCard.astro
+// Project preview card for resume page
+interface Props {
+  title: string;
+  status: 'Active' | 'Completed';
+  year?: number;
+  summary: string;
+  slug: string;
+  technologies?: string[];
+  industry: string;
+  metrics?: string[];
+}
+
+const { title, status, year, summary, slug, technologies = [], industry, metrics = [] } = Astro.props;
+
+const statusLabel = status === 'Completed' && year ? `Completed ${year}` : status;
+---
+
+<article class="project-card glow-border">
+  <div class="project-status">
+    <span class={`status-badge ${status.toLowerCase()}`}>{statusLabel}</span>
+  </div>
+  <h3 class="project-title">
+    <a href={`/projects/${slug}`}>{title}</a>
+  </h3>
+  <p class="project-summary">{summary}</p>
+  {metrics.length > 0 && (
+    <div class="project-metrics">
+      {metrics.map((metric) => (
+        <span class="metric">✓ {metric}</span>
+      ))}
+    </div>
+  )}
+  <div class="project-tags">
+    {technologies.map((tech) => (
+      <span class="tag tech">{tech}</span>
+    ))}
+    <span class="tag industry">{industry}</span>
+  </div>
+  <a href={`/projects/${slug}`} class="project-link">
+    Read more <span aria-hidden="true">→</span>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: transform var(--transition-base);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .project-status {
+    margin-bottom: var(--space-3);
+  }
+
+  .status-badge {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+  }
+
+  .status-badge.active {
+    background-color: var(--accent-glow);
+    color: var(--accent-primary);
+  }
+
+  .status-badge.completed {
+    background-color: rgba(0, 255, 136, 0.15);
+    color: var(--success);
+  }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: 1.3;
+    margin-bottom: var(--space-3);
+  }
+
+  .project-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .project-title a:hover {
+    color: var(--accent-primary);
+  }
+
+  .project-summary {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+    flex-grow: 1;
+  }
+
+  .project-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+  }
+
+  .metric {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--success);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .tag {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .tag.tech {
+    color: var(--accent-primary);
+    background-color: var(--accent-glow);
+  }
+
+  .tag.industry {
+    color: var(--warning);
+    background-color: rgba(255, 170, 0, 0.15);
+  }
+
+  .project-link {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .project-link:hover {
+    color: var(--accent-secondary);
+  }
+</style>

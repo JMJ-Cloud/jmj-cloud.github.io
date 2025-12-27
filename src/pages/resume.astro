@@ -2,6 +2,16 @@
 // resume.astro
 // Resume page - Company portfolio and expertise
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all projects and sort by order (lower = more recent/featured)
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+// Separate active and completed projects
+const activeProjects = sortedProjects.filter(p => p.data.status === 'Active');
+const completedProjects = sortedProjects.filter(p => p.data.status === 'Completed');
 ---
 
 <BaseLayout
@@ -24,39 +34,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="projects-grid">
-        <article class="project-card glow-border">
-          <div class="project-status">
-            <span class="status-badge active">Active</span>
-          </div>
-          <h3 class="project-title">Fortune 500 ERP Cloud Implementation</h3>
-          <p class="project-summary">
-            Leading Oracle Fusion Cloud ERP implementation for a global manufacturing client.
-            Designing and implementing GL, AP, AR, and PPM modules with custom integrations to legacy systems.
-          </p>
-          <div class="project-tags">
-            <span class="tag tech">Oracle Fusion Cloud</span>
-            <span class="tag tech">OTBI</span>
-            <span class="tag tech">REST APIs</span>
-            <span class="tag industry">Manufacturing</span>
-          </div>
-        </article>
-
-        <article class="project-card glow-border">
-          <div class="project-status">
-            <span class="status-badge active">Active</span>
-          </div>
-          <h3 class="project-title">APEX Modernization Initiative</h3>
-          <p class="project-summary">
-            Building modern web interfaces for critical E-Business Suite workflows using Oracle APEX.
-            Creating mobile-responsive approval workflows and self-service portals.
-          </p>
-          <div class="project-tags">
-            <span class="tag tech">Oracle APEX 24.1</span>
-            <span class="tag tech">ORDS</span>
-            <span class="tag tech">PWA</span>
-            <span class="tag industry">Enterprise</span>
-          </div>
-        </article>
+        {activeProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            status={project.data.status}
+            year={project.data.year}
+            summary={project.data.summary}
+            slug={project.slug}
+            technologies={project.data.technologies}
+            industry={project.data.industry}
+            metrics={project.data.metrics}
+          />
+        ))}
       </div>
 
       <!-- Recent Projects -->
@@ -65,93 +54,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="projects-grid">
-        <article class="project-card glow-border">
-          <div class="project-status">
-            <span class="status-badge completed">Completed 2024</span>
-          </div>
-          <h3 class="project-title">Healthcare ERP Cloud Migration</h3>
-          <p class="project-summary">
-            Successfully migrated 5,000-user healthcare organization from on-premise EBS to Oracle Cloud ERP.
-            Implemented Financials, Procurement, and HCM modules with zero downtime cutover.
-          </p>
-          <div class="project-metrics">
-            <span class="metric">✓ 99.9% data migration accuracy</span>
-            <span class="metric">✓ 40% reduction in month-end close time</span>
-            <span class="metric">✓ Zero critical issues post go-live</span>
-          </div>
-          <div class="project-tags">
-            <span class="tag tech">Oracle Cloud ERP</span>
-            <span class="tag tech">Cloud HCM</span>
-            <span class="tag tech">OIC</span>
-            <span class="tag industry">Healthcare</span>
-          </div>
-        </article>
-
-        <article class="project-card glow-border">
-          <div class="project-status">
-            <span class="status-badge completed">Completed 2023</span>
-          </div>
-          <h3 class="project-title">E-Business Suite Performance Optimization</h3>
-          <p class="project-summary">
-            Optimized critical business processes for global distributor running EBS 12.2.
-            Redesigned inefficient customizations and implemented performance best practices.
-          </p>
-          <div class="project-metrics">
-            <span class="metric">✓ 70% improvement in order processing speed</span>
-            <span class="metric">✓ Reduced database size by 35%</span>
-            <span class="metric">✓ Enhanced user satisfaction scores</span>
-          </div>
-          <div class="project-tags">
-            <span class="tag tech">Oracle EBS 12.2</span>
-            <span class="tag tech">PL/SQL</span>
-            <span class="tag tech">SQL Tuning</span>
-            <span class="tag industry">Distribution</span>
-          </div>
-        </article>
-
-        <article class="project-card glow-border">
-          <div class="project-status">
-            <span class="status-badge completed">Completed 2023</span>
-          </div>
-          <h3 class="project-title">APEX Portal for Manufacturing Operations</h3>
-          <p class="project-summary">
-            Developed comprehensive APEX application suite for 40+ manufacturing plants.
-            Replaced paper-based processes with mobile-friendly digital workflows.
-          </p>
-          <div class="project-metrics">
-            <span class="metric">✓ Deployed across 40 locations</span>
-            <span class="metric">✓ 1,200+ daily active users</span>
-            <span class="metric">✓ 50% reduction in data entry errors</span>
-          </div>
-          <div class="project-tags">
-            <span class="tag tech">Oracle APEX</span>
-            <span class="tag tech">ORDS</span>
-            <span class="tag tech">Mobile</span>
-            <span class="tag industry">Manufacturing</span>
-          </div>
-        </article>
-
-        <article class="project-card glow-border">
-          <div class="project-status">
-            <span class="status-badge completed">Completed 2022</span>
-          </div>
-          <h3 class="project-title">Oracle Cloud PPM Implementation</h3>
-          <p class="project-summary">
-            Implemented Oracle Project Portfolio Management for a major university system.
-            Delivered grants management, project costing, and resource management capabilities.
-          </p>
-          <div class="project-metrics">
-            <span class="metric">✓ 500+ projects tracked</span>
-            <span class="metric">✓ $200M+ in grant funding managed</span>
-            <span class="metric">✓ Real-time project visibility</span>
-          </div>
-          <div class="project-tags">
-            <span class="tag tech">Oracle Cloud PPM</span>
-            <span class="tag tech">Grants Management</span>
-            <span class="tag tech">OTBI</span>
-            <span class="tag industry">Education</span>
-          </div>
-        </article>
+        {completedProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            status={project.data.status}
+            year={project.data.year}
+            summary={project.data.summary}
+            slug={project.slug}
+            technologies={project.data.technologies}
+            industry={project.data.industry}
+            metrics={project.data.metrics}
+          />
+        ))}
       </div>
 
       <!-- Technical Expertise -->
@@ -249,87 +163,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: grid;
     gap: var(--space-6);
     margin-bottom: var(--space-8);
-  }
-
-  .project-card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-  }
-
-  .project-status {
-    margin-bottom: var(--space-3);
-  }
-
-  .status-badge {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-sm);
-    display: inline-block;
-  }
-
-  .status-badge.active {
-    background-color: var(--accent-glow);
-    color: var(--accent-primary);
-  }
-
-  .status-badge.completed {
-    background-color: rgba(0, 255, 136, 0.15);
-    color: var(--success);
-  }
-
-  .project-title {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    line-height: 1.3;
-    margin-bottom: var(--space-3);
-    color: var(--text-primary);
-  }
-
-  .project-summary {
-    font-size: var(--text-sm);
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--space-4);
-  }
-
-  .project-metrics {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    margin-bottom: var(--space-4);
-  }
-
-  .metric {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    color: var(--success);
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .tag {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-sm);
-  }
-
-  .tag.tech {
-    color: var(--accent-primary);
-    background-color: var(--accent-glow);
-  }
-
-  .tag.industry {
-    color: var(--warning);
-    background-color: rgba(255, 170, 0, 0.15);
   }
 
   .expertise-grid {

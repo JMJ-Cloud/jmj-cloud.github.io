@@ -1,0 +1,29 @@
+---
+// projects/[...slug].astro
+// Individual project detail pages
+import { getCollection } from 'astro:content';
+import ProjectPost from '../../layouts/ProjectPost.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<ProjectPost
+  title={project.data.title}
+  status={project.data.status}
+  year={project.data.year}
+  summary={project.data.summary}
+  technologies={project.data.technologies}
+  industry={project.data.industry}
+  metrics={project.data.metrics}
+>
+  <Content />
+</ProjectPost>

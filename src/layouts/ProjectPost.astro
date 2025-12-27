@@ -1,0 +1,243 @@
+---
+// ProjectPost.astro
+// Project detail page layout
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  status: 'Active' | 'Completed';
+  year?: number;
+  summary: string;
+  technologies: string[];
+  industry: string;
+  metrics: string[];
+}
+
+const { title, status, year, summary, technologies, industry, metrics } = Astro.props;
+
+const statusLabel = status === 'Completed' && year ? `Completed ${year}` : status;
+---
+
+<BaseLayout title={title} description={summary} currentPath="/resume">
+  <article class="project-post">
+    <div class="container">
+      <header class="post-header">
+        <a href="/resume" class="back-link">
+          <span aria-hidden="true">←</span> Back to Portfolio
+        </a>
+
+        <div class="post-status">
+          <span class={`status-badge ${status.toLowerCase()}`}>{statusLabel}</span>
+        </div>
+
+        <h1 class="post-title">{title}</h1>
+
+        <div class="post-meta">
+          <div class="meta-tags">
+            {technologies.map((tech) => (
+              <span class="tag tech">{tech}</span>
+            ))}
+            <span class="tag industry">{industry}</span>
+          </div>
+        </div>
+
+        {metrics.length > 0 && (
+          <div class="post-metrics">
+            {metrics.map((metric) => (
+              <span class="metric">✓ {metric}</span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="post-content prose">
+        <slot />
+      </div>
+
+      <footer class="post-footer">
+        <a href="/resume" class="back-link">
+          <span aria-hidden="true">←</span> Back to Portfolio
+        </a>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-post {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .post-header {
+    max-width: 700px;
+    margin: 0 auto var(--space-12);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: var(--space-6);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .post-status {
+    margin-bottom: var(--space-4);
+  }
+
+  .status-badge {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+  }
+
+  .status-badge.active {
+    background-color: var(--accent-glow);
+    color: var(--accent-primary);
+  }
+
+  .status-badge.completed {
+    background-color: rgba(0, 255, 136, 0.15);
+    color: var(--success);
+  }
+
+  .post-title {
+    font-size: var(--text-3xl);
+    line-height: 1.2;
+    margin-bottom: var(--space-4);
+  }
+
+  .post-meta {
+    margin-bottom: var(--space-4);
+  }
+
+  .meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tag {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .tag.tech {
+    color: var(--accent-primary);
+    background-color: var(--accent-glow);
+  }
+
+  .tag.industry {
+    color: var(--warning);
+    background-color: rgba(255, 170, 0, 0.15);
+  }
+
+  .post-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .metric {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--success);
+  }
+
+  /* Prose styles for article content */
+  .post-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .prose {
+    font-size: var(--text-base);
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .prose :global(h2) {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-4);
+    color: var(--text-primary);
+  }
+
+  .prose :global(h3) {
+    font-size: var(--text-xl);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    color: var(--text-primary);
+  }
+
+  .prose :global(h4) {
+    font-size: var(--text-lg);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-6);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .prose :global(a) {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--accent-secondary);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--accent-primary);
+    padding-left: var(--space-4);
+    margin: var(--space-6) 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .prose :global(strong) {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .prose :global(hr) {
+    margin: var(--space-8) 0;
+  }
+
+  .post-footer {
+    max-width: 700px;
+    margin: var(--space-12) auto 0;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border-subtle);
+  }
+</style>
