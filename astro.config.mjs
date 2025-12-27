@@ -3,5 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jmj-site.netlify.app',
+  site: 'https://jmj-cloud.github.io',
+  base: '/jmj-website',
 });
