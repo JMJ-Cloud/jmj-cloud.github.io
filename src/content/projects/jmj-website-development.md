@@ -214,8 +214,8 @@ Our deployment process is streamlined and automated:
 **Git-Based Workflow**
 All changes are committed to Git with clear, descriptive messages. We maintain a clean commit history that serves as documentation of the project's evolution.
 
-**Netlify Auto-Deployment**
-Every push to the `main` branch triggers an automatic deployment to Netlify. This ensures our live site always reflects the latest code.
+**GitHub Pages Auto-Deployment**
+Every push to the `main` branch triggers an automatic deployment via GitHub Actions. The workflow builds the Astro site and deploys to GitHub Pages, ensuring our live site always reflects the latest code. This provides free, reliable hosting directly from our Git repository.
 
 **Local Development**
 Running `npm run dev` starts a local development server with hot module reloading. Changes appear instantly in the browser, enabling rapid iteration.
