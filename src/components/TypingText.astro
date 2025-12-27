@@ -1,0 +1,96 @@
+---
+// TypingText.astro
+// Animated typing effect that types out text on page load
+interface Props {
+  text: string;
+  tag?: 'h1' | 'h2' | 'h3' | 'span' | 'p';
+  class?: string;
+  typingSpeed?: number; // milliseconds per character
+  startDelay?: number; // delay before typing starts (ms)
+}
+
+const {
+  text,
+  tag: Tag = 'p',
+  class: className = '',
+  typingSpeed = 100,
+  startDelay = 800
+} = Astro.props;
+
+// Generate a unique ID for this instance
+const uniqueId = `typing-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<Tag class:list={['typing-text', className]} id={uniqueId} data-text={text}>
+  <span class="typing-content"></span><span class="typing-cursor" aria-hidden="true">_</span>
+</Tag>
+
+<style>
+  .typing-text {
+    font-family: var(--font-display);
+    display: inline-block;
+  }
+
+  .typing-content {
+    display: inline-block;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    color: var(--accent-primary);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typing-cursor {
+      animation: none;
+      opacity: 1;
+    }
+
+    .typing-content {
+      /* Show full text immediately for reduced motion */
+      opacity: 1;
+    }
+  }
+</style>
+
+<script define:vars={{ typingSpeed, startDelay }}>
+  // Get all typing text elements
+  const typingElements = document.querySelectorAll('.typing-text');
+
+  typingElements.forEach((element) => {
+    const text = element.getAttribute('data-text') || '';
+    const contentSpan = element.querySelector('.typing-content');
+
+    if (!contentSpan) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Show full text immediately
+      contentSpan.textContent = text;
+      return;
+    }
+
+    let currentIndex = 0;
+
+    // Start typing after delay
+    setTimeout(() => {
+      const typeInterval = setInterval(() => {
+        if (currentIndex < text.length) {
+          contentSpan.textContent += text[currentIndex];
+          currentIndex++;
+        } else {
+          clearInterval(typeInterval);
+        }
+      }, typingSpeed);
+    }, startDelay);
+  });
+</script>

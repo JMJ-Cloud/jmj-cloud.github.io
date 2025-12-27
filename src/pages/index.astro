@@ -3,6 +3,7 @@
 // Home page
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TerminalText from '../components/TerminalText.astro';
+import TypingText from '../components/TypingText.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 
 const services = [
@@ -57,14 +58,14 @@ const latestProjects = [
   <section class="hero">
     <div class="container">
       <div class="hero-content fade-in fade-in-1">
-        <TerminalText text="JMJ Cloud" tag="h1" class="hero-title" />
-        <p class="hero-tagline">Enterprise Oracle. Modern Speed.</p>
+        <TerminalText text="JMJ Cloud" tag="h1" class="hero-title" showCursor={false} />
+        <TypingText text="Enterprise Oracle. Modern Speed." tag="p" class="hero-tagline" typingSpeed={80} startDelay={400} />
         <p class="hero-description">
           We transform Oracle ERP Cloud and E-Business Suite into powerful, production-ready systems using APEX, OIC integrations, mobile experiences, and AI automations that are shipped in agile sprints, not years.
         </p>
         <div class="hero-actions">
           <a href="/resume" class="btn btn-primary">View Our Work</a>
-          <a href="mailto:info@jmjcloud.com" class="btn btn-secondary">Get in Touch</a>
+          <a href="/contact" class="btn btn-secondary">Get in Touch</a>
         </div>
       </div>
     </div>

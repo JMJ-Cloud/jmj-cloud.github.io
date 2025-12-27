@@ -1,17 +1,18 @@
 ---
 // TerminalText.astro
-// Animated typing effect with blinking cursor
+// Animated typing effect with optional blinking cursor
 interface Props {
   text: string;
   tag?: 'h1' | 'h2' | 'h3' | 'span' | 'p';
   class?: string;
+  showCursor?: boolean;
 }
 
-const { text, tag: Tag = 'h1', class: className = '' } = Astro.props;
+const { text, tag: Tag = 'h1', class: className = '', showCursor = true } = Astro.props;
 ---
 
 <Tag class:list={['terminal-text', className]}>
-  {text}<span class="cursor" aria-hidden="true">_</span>
+  {text}{showCursor && <span class="cursor" aria-hidden="true">_</span>}
 </Tag>
 
 <style>
