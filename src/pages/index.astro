@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TerminalText from '../components/TerminalText.astro';
 import TypingText from '../components/TypingText.astro';
 import ServiceCard from '../components/ServiceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 
 const services = [
   {
@@ -31,22 +32,25 @@ const services = [
 const latestProjects = [
   {
     title: 'Enterprise Data Migration Platform',
-    description: 'Delivering a comprehensive Oracle APEX-based data conversion and interface management solution with automated validation and real-time progress tracking.',
-    status: 'Active',
+    summary: 'Delivering a comprehensive Oracle APEX-based data conversion and interface management solution with automated validation and real-time progress tracking.',
+    status: 'Active' as const,
+    slug: 'apex-data-migration-platform',
     technologies: ['Oracle APEX', 'PL/SQL', 'Oracle EBS R12.2'],
     industry: 'Manufacturing',
   },
   {
     title: 'JMJ Cloud Website Development',
-    description: 'Building our company website using modern web technologies and AI-assisted development, showcasing technical excellence through performance and security.',
-    status: 'Active',
+    summary: 'Building our company website using modern web technologies and AI-assisted development, showcasing technical excellence through performance and security.',
+    status: 'Active' as const,
+    slug: 'jmj-website-development',
     technologies: ['Astro 5.16.6', 'TypeScript', 'GitHub Pages'],
     industry: 'Professional Services',
   },
   {
     title: 'Fortune 500 ERP Cloud Implementation',
-    description: 'Leading Oracle Fusion Cloud ERP implementation for a global manufacturing client with GL, AP, AR, and PPM modules.',
-    status: 'Active',
+    summary: 'Leading Oracle Fusion Cloud ERP implementation for a global manufacturing client with GL, AP, AR, and PPM modules.',
+    status: 'Active' as const,
+    slug: 'fortune-500-erp-cloud',
     technologies: ['Oracle Fusion Cloud', 'OTBI', 'REST APIs'],
     industry: 'Manufacturing',
   },
@@ -120,21 +124,7 @@ const latestProjects = [
       <h2 class="section-title">Latest Projects</h2>
       <div class="projects-grid">
         {latestProjects.map((project) => (
-          <article class="project-card glow-border">
-            <div class="project-status">
-              <span class={`status-badge ${project.status.includes('Active') ? 'active' : 'completed'}`}>
-                {project.status}
-              </span>
-            </div>
-            <h3 class="project-title">{project.title}</h3>
-            <p class="project-summary">{project.description}</p>
-            <div class="project-tags">
-              {project.technologies.map((tech) => (
-                <span class="tag tech">{tech}</span>
-              ))}
-              <span class="tag industry">{project.industry}</span>
-            </div>
-          </article>
+          <ProjectCard {...project} />
         ))}
       </div>
       <div class="posts-footer">
@@ -245,74 +235,6 @@ const latestProjects = [
     display: grid;
     gap: var(--space-6);
     margin-bottom: var(--space-8);
-  }
-
-  .project-card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-  }
-
-  .project-status {
-    margin-bottom: var(--space-3);
-  }
-
-  .status-badge {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-sm);
-    display: inline-block;
-  }
-
-  .status-badge.active {
-    background-color: var(--accent-glow);
-    color: var(--accent-primary);
-  }
-
-  .status-badge.completed {
-    background-color: rgba(0, 255, 136, 0.15);
-    color: var(--success);
-  }
-
-  .project-title {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    line-height: 1.3;
-    margin-bottom: var(--space-3);
-    color: var(--text-primary);
-  }
-
-  .project-summary {
-    font-size: var(--text-sm);
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--space-4);
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .tag {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-sm);
-  }
-
-  .tag.tech {
-    color: var(--accent-primary);
-    background-color: var(--accent-glow);
-  }
-
-  .tag.industry {
-    color: var(--warning);
-    background-color: rgba(255, 170, 0, 0.15);
   }
 
   .posts-footer {
