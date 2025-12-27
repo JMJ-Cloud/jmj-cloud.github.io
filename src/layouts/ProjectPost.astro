@@ -18,11 +18,11 @@ const { title, status, year, summary, technologies, industry, metrics } = Astro.
 const statusLabel = status === 'Completed' && year ? `Completed ${year}` : status;
 ---
 
-<BaseLayout title={title} description={summary} currentPath="/resume">
+<BaseLayout title={title} description={summary} currentPath="/portfolio">
   <article class="project-post">
     <div class="container">
       <header class="post-header">
-        <a href="/resume" class="back-link">
+        <a href="/portfolio" class="back-link">
           <span aria-hidden="true">←</span> Back to Portfolio
         </a>
 
@@ -55,7 +55,7 @@ const statusLabel = status === 'Completed' && year ? `Completed ${year}` : statu
       </div>
 
       <footer class="post-footer">
-        <a href="/resume" class="back-link">
+        <a href="/portfolio" class="back-link">
           <span aria-hidden="true">←</span> Back to Portfolio
         </a>
       </footer>
