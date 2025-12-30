@@ -71,36 +71,19 @@ Edit team member information in `src/pages/about.astro`.
 
 ## 🚢 Deployment
 
-### Deploy to Netlify (Recommended)
+### Deploy to GitHub Pages
 
-1. Push this repository to GitHub
-2. Go to [Netlify](https://app.netlify.com/)
-3. Click "Add new site" → "Import an existing project"
-4. Connect your GitHub repository
-5. Build settings (auto-detected):
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-6. Click "Deploy site"
+This site is configured to automatically deploy to GitHub Pages using GitHub Actions.
 
-Your site will auto-deploy on every push to main!
+1. Push this repository to GitHub (already done)
+2. Go to your repository settings: https://github.com/JMJ-Cloud/jmj-cloud.github.io/settings/pages
+3. Under "Build and deployment":
+   - **Source**: Select "GitHub Actions"
+4. Your site will automatically deploy on every push to main!
 
-### Deploy to Vercel
+**Live URL**: https://jmj-cloud.github.io
 
-1. Push to GitHub
-2. Go to [Vercel](https://vercel.com/)
-3. Import your GitHub repository
-4. Vercel auto-detects Astro settings
-5. Click "Deploy"
-
-### Deploy to Cloudflare Pages
-
-1. Push to GitHub
-2. Go to [Cloudflare Pages](https://pages.cloudflare.com/)
-3. Connect your GitHub repository
-4. Build settings:
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-5. Click "Save and Deploy"
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) handles the build and deployment automatically.
 
 ## 🛠️ Technologies
 
