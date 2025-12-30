@@ -6,6 +6,7 @@ import TerminalText from '../components/TerminalText.astro';
 import TypingText from '../components/TypingText.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
 
 const services = [
   {
@@ -28,48 +29,23 @@ const services = [
   },
 ];
 
-// Latest projects data
-const latestProjects = [
-  {
-    title: 'Enterprise Data Migration Platform',
-    summary: 'Delivering a comprehensive Oracle APEX-based data conversion and interface management solution with automated validation and real-time progress tracking.',
-    status: 'Active' as const,
-    slug: 'apex-data-migration-platform',
-    technologies: ['Oracle APEX', 'PL/SQL', 'Oracle EBS R12.2'],
-    industry: 'Manufacturing',
-    metrics: [
-      'Multiple conversion modules in UAT',
-      'Automated validation & error detection',
-      'Real-time conversion progress tracking',
-    ],
-  },
-  {
-    title: 'JMJ Cloud Website Development',
-    summary: 'Building our company website using modern web technologies and AI-assisted development, showcasing technical excellence through performance and security.',
-    status: 'Active' as const,
-    slug: 'jmj-website-development',
-    technologies: ['Astro 5.16.6', 'TypeScript', 'GitHub Pages'],
-    industry: 'Professional Services',
-    metrics: [
-      'Zero-JavaScript by default for fast performance',
-      'Full contact form with bot protection',
-      '7+ pages with dynamic content',
-    ],
-  },
-  {
-    title: 'Fortune 500 ERP Cloud Implementation',
-    summary: 'Leading Oracle Fusion Cloud ERP implementation for a global manufacturing client with GL, AP, AR, and PPM modules.',
-    status: 'Active' as const,
-    slug: 'fortune-500-erp-cloud',
-    technologies: ['Oracle Fusion Cloud', 'OTBI', 'REST APIs'],
-    industry: 'Manufacturing',
-    metrics: [
-      '15+ Oracle Cloud modules implemented',
-      'Multi-country deployment across 3 continents',
-      'Real-time integration with legacy systems',
-    ],
-  },
-];
+// Get featured projects from the projects collection
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter(project => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+// Map to ProjectCard format
+const latestProjects = featuredProjects.map(project => ({
+  title: project.data.title,
+  summary: project.data.summary,
+  status: project.data.status,
+  slug: project.slug,
+  technologies: project.data.technologies,
+  industry: project.data.industry,
+  metrics: project.data.metrics,
+}));
 ---
 
 <BaseLayout title="Home" currentPath="/">
