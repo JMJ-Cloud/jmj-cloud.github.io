@@ -87,7 +87,7 @@ The system follows an asynchronous processing pattern:
 - Designed for testability with standalone test scripts that exercise full end-to-end workflow
 
 **Oracle EBS Integration:**
-- Followed Oracle EBS 12.2 Edition-Based Redefinition standards with three-tier schema architecture (XXAZZ_CUS table owner, APPS package owner, XXAPX APEX access)
+- Followed Oracle EBS 12.2 Edition-Based Redefinition standards with three-tier schema architecture
 - Created edition views with proper AD_ZD_UPGRADE procedures for online patching compatibility
 - Implemented standard EBS audit columns (CREATION_DATE, CREATED_BY, LAST_UPDATE_DATE, LAST_UPDATED_BY) with trigger automation
 - Built indexed foreign key relationship to upload table (TC_UPLOAD_ID) for join query performance
