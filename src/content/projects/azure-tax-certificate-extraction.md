@@ -1,6 +1,6 @@
 ---
 title: "Automated Tax Certificate Data Extraction with Azure AI"
-status: "Completed"
+status: "Active"
 year: 2024
 summary: "Built an intelligent document processing solution using Azure Content Understanding API and Oracle EBS integration to automatically extract tax exemption data from thousands of PDFs, eliminating manual data entry and reducing processing time from hours to seconds."
 technologies:
