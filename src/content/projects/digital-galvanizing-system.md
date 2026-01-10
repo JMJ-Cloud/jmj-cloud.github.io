@@ -24,7 +24,7 @@ order: 3
 
 ## Project Overview
 
-A leading North American galvanizing and metal-coating company (AZZ Inc.) operated approximately 40 galvanizing plants across the U.S. and Canada. Their operations relied on paper tickets, spreadsheets, and manual entry into Oracle ERP—creating delays, data duplication, and zero real-time visibility. Customers had to call for status updates, and internal teams struggled with scattered information and inefficient billing.
+A leading North American galvanizing and metal-coating company operated approximately 40 galvanizing plants across the U.S. and Canada. Their operations relied on paper tickets, spreadsheets, and manual entry into Oracle ERP—creating delays, data duplication, and zero real-time visibility. Customers had to call for status updates, and internal teams struggled with scattered information and inefficient billing.
 
 We delivered the Digital Galvanizing System (DGS), a custom Oracle APEX platform that digitized the entire hot-dip galvanizing process from receiving raw steel pieces to final shipment. The solution provides a unified web application for plant operators to scan incoming materials, track each job through galvanizing stages, record weights and process times, and automatically post completed job data to Oracle ERP for invoicing—while sending real-time status updates with photos to customers at every key step.
 
@@ -144,7 +144,7 @@ Oracle APEX was the ideal choice over off-the-shelf Manufacturing Execution Syst
 - **Eliminates licensing costs** — Built on existing Oracle Database infrastructure with no per-user fees or vendor lock-in
 - **Integrates seamlessly** with Oracle EBS ERP—no complex middleware, fewer points of failure, real-time data consistency
 - **Leverages existing security** — Oracle roles, SSO, and database security aligned with corporate IT policies
-- **Provides full control** — AZZ owns the code and roadmap, enabling rapid enhancements without vendor release cycles
+- **Provides full control** — Client owns the code and roadmap, enabling rapid enhancements without vendor release cycles
 - **Scales enterprise-wide** — Architected for hundreds of concurrent users and tens of thousands of transactions with no bloat or unnecessary features
 - **Reduces complexity** — Single technology stack eliminating the need for integration platforms or external applications
 
@@ -155,4 +155,4 @@ Oracle APEX was the ideal choice over off-the-shelf Manufacturing Execution Syst
 - **Security Configuration**: SSO integration and role/permission scheme with admin tools for user access management
 - **Reporting Dashboards**: Real-time reports and KPI dashboards covering production status, turnaround time, inventory usage, and audit logs
 - **Documentation & Training**: User guides for plant operators, admin runbook for IT support, and training sessions for each plant
-- **Source Code Handoff**: Complete transition to AZZ's internal IT team with post-launch support period for smooth adoption
+- **Source Code Handoff**: Complete transition to client's internal IT team with post-launch support period for smooth adoption
