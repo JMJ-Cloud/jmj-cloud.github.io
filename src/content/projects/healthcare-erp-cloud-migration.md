@@ -12,7 +12,7 @@ metrics:
   - "99.9% data migration accuracy"
   - "40% reduction in month-end close time"
   - "Zero critical issues post go-live"
-featured: true
+featured: false
 order: 2
 ---
 
