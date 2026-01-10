@@ -5,17 +5,13 @@ import BaseLayout from './BaseLayout.astro';
 
 interface Props {
   title: string;
-  status: 'Active' | 'Completed';
-  year?: number;
   summary: string;
   technologies: string[];
   industry: string;
   metrics: string[];
 }
 
-const { title, status, year, summary, technologies, industry, metrics } = Astro.props;
-
-const statusLabel = status === 'Completed' && year ? `Completed ${year}` : status;
+const { title, summary, technologies, industry, metrics } = Astro.props;
 ---
 
 <BaseLayout title={title} description={summary} currentPath="/portfolio">
@@ -25,10 +21,6 @@ const statusLabel = status === 'Completed' && year ? `Completed ${year}` : statu
         <a href="/portfolio" class="back-link">
           <span aria-hidden="true">←</span> Back to Portfolio
         </a>
-
-        <div class="post-status">
-          <span class={`status-badge ${status.toLowerCase()}`}>{statusLabel}</span>
-        </div>
 
         <h1 class="post-title">{title}</h1>
 
@@ -87,28 +79,6 @@ const statusLabel = status === 'Completed' && year ? `Completed ${year}` : statu
 
   .back-link:hover {
     color: var(--accent-primary);
-  }
-
-  .post-status {
-    margin-bottom: var(--space-4);
-  }
-
-  .status-badge {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-sm);
-    display: inline-block;
-  }
-
-  .status-badge.active {
-    background-color: var(--accent-glow);
-    color: var(--accent-primary);
-  }
-
-  .status-badge.completed {
-    background-color: rgba(0, 255, 136, 0.15);
-    color: var(--success);
   }
 
   .post-title {
