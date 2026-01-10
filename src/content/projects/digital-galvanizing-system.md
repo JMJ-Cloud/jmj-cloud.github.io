@@ -9,7 +9,6 @@ technologies:
   - "PL/SQL"
   - "Oracle Database"
   - "REST APIs"
-  - "Barcode Scanning"
   - "SSO Integration"
   - "Multi-Org Security"
 industry: "Manufacturing"
@@ -50,7 +49,7 @@ A purpose-built Oracle APEX application tightly integrated with Oracle E-Busines
 
 ### Digital Job Management
 
-Provides an end-to-end digital workflow for galvanizing jobs at each plant. Operators use the app to receive and register incoming steel pieces (scanning barcodes and capturing photos), log quality notes, track every processing stage (from pre-treatment to zinc bath to final inspection), and record the weight and time taken at each step.
+Provides an end-to-end digital workflow for galvanizing jobs at each plant. Operators use the app to receive and register incoming steel pieces (capturing photos), log quality notes, track every processing stage (from pre-treatment to zinc bath to final inspection), and record the weight and time taken at each step.
 
 This replaces clipboards and spreadsheets with a real-time, guided process. Every item is accounted for in the system with full traceability. Issues like damage or missing pieces are flagged immediately with photos, so they can be resolved with the customer before work proceeds—boosting efficiency and ensuring nothing falls through the cracks.
 
@@ -80,8 +79,7 @@ Internally, the system provides dashboards and reports on key metrics: throughpu
 - Exception handling with issue resolution sub-flows that pause jobs and notify customer service
 - Automated notifications triggered on key events (job delayed, order completed, etc.)
 
-**Barcode Scanning & Data Capture:**
-- Industrial barcode scanner integration for streamlined receiving and item check-in
+**Data Capture:**
 - Photo capture documenting condition at multiple stages for immediate issue detection
 - Digital scale integration for accurate zinc consumption calculations
 - Mobile tablet interface for shop floor data entry
@@ -102,7 +100,6 @@ Internally, the system provides dashboards and reports on key metrics: throughpu
 
 | Feature | Description |
 |---------|-------------|
-| Barcode Scanning | Digitize item check-in and document condition with images for immediate issue resolution |
 | Live Job Status | Monitor each order in real time from arrival through shipment across all plants |
 | Integrated Invoicing | Calculate zinc usage and service fees automatically, posting accurate invoices to ERP instantly |
 | Customer Notifications | Proactive updates with photos and documents at each milestone improving transparency |
