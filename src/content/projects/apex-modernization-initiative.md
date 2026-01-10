@@ -8,7 +8,7 @@ technologies:
   - "PWA"
 industry: "Enterprise"
 metrics: []
-featured: true
+featured: false
 order: 11
 ---
 

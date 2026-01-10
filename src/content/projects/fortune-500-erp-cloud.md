@@ -8,7 +8,7 @@ technologies:
   - "REST APIs"
 industry: "Manufacturing"
 metrics: []
-featured: true
+featured: false
 order: 10
 ---
 
