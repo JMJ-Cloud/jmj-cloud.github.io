@@ -3,8 +3,6 @@
 // Project preview card for resume page
 interface Props {
   title: string;
-  status: 'Active' | 'Completed';
-  year?: number;
   summary: string;
   slug: string;
   technologies?: string[];
@@ -12,15 +10,10 @@ interface Props {
   metrics?: string[];
 }
 
-const { title, status, year, summary, slug, technologies = [], industry, metrics = [] } = Astro.props;
-
-const statusLabel = status === 'Completed' && year ? `Completed ${year}` : status;
+const { title, summary, slug, technologies = [], industry, metrics = [] } = Astro.props;
 ---
 
 <article class="project-card glow-border">
-  <div class="project-status">
-    <span class={`status-badge ${status.toLowerCase()}`}>{statusLabel}</span>
-  </div>
   <h3 class="project-title">
     <a href={`/projects/${slug}`}>{title}</a>
   </h3>
@@ -55,28 +48,6 @@ const statusLabel = status === 'Completed' && year ? `Completed ${year}` : statu
 
   .project-card:hover {
     transform: translateY(-4px);
-  }
-
-  .project-status {
-    margin-bottom: var(--space-3);
-  }
-
-  .status-badge {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-sm);
-    display: inline-block;
-  }
-
-  .status-badge.active {
-    background-color: var(--accent-glow);
-    color: var(--accent-primary);
-  }
-
-  .status-badge.completed {
-    background-color: rgba(0, 255, 136, 0.15);
-    color: var(--success);
   }
 
   .project-title {

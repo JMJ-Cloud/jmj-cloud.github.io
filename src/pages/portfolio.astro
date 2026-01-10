@@ -8,10 +8,6 @@ import { getCollection } from 'astro:content';
 // Get all projects and sort by order (lower = more recent/featured)
 const allProjects = await getCollection('projects');
 const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
-
-// Separate active and completed projects
-const activeProjects = sortedProjects.filter(p => p.data.status === 'Active');
-const completedProjects = sortedProjects.filter(p => p.data.status === 'Completed');
 ---
 
 <BaseLayout
@@ -28,37 +24,11 @@ const completedProjects = sortedProjects.filter(p => p.data.status === 'Complete
         </p>
       </header>
 
-      <!-- Current Projects -->
-      <div class="section-header">
-        <h2 class="section-title">Current Projects</h2>
-      </div>
-
+      <!-- All Projects -->
       <div class="projects-grid">
-        {activeProjects.map((project) => (
+        {sortedProjects.map((project) => (
           <ProjectCard
             title={project.data.title}
-            status={project.data.status}
-            year={project.data.year}
-            summary={project.data.summary}
-            slug={project.slug}
-            technologies={project.data.technologies}
-            industry={project.data.industry}
-            metrics={project.data.metrics}
-          />
-        ))}
-      </div>
-
-      <!-- Recent Projects -->
-      <div class="section-header">
-        <h2 class="section-title">Recent Projects</h2>
-      </div>
-
-      <div class="projects-grid">
-        {completedProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            status={project.data.status}
-            year={project.data.year}
             summary={project.data.summary}
             slug={project.slug}
             technologies={project.data.technologies}
@@ -93,16 +63,6 @@ const completedProjects = sortedProjects.filter(p => p.data.status === 'Complete
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
-  }
-
-  .section-header {
-    margin: var(--space-16) 0 var(--space-8);
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: var(--text-2xl);
-    color: var(--text-primary);
   }
 
   .projects-grid {
