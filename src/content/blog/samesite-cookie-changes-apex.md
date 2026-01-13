@@ -1,90 +1,53 @@
 ---
-title: "Upcoming SameSite Cookie Changes and Oracle APEX"
+title: "Upcoming SameSite Cookie Changes and the Impact for APEX Apps Running in an iframe"
 date: 2020-04-12
-author: "Jon Dixon"
-tags: ["APEX", "Security", "Cookies", "Chrome", "Browser"]
-summary: "Understanding the impact of Chrome's SameSite cookie changes on Oracle APEX applications and how to prepare your applications for these security updates."
+author: "Jon Dixon and Matt Paine"
+tags: ["APEX", "Security", "Cookies", "Chrome", "Browser", "iframe"]
+summary: "In May 2019, Google announced upcoming cookie handling changes. By February 2020, Chrome version 80 began rolling out these modifications. This post covers the impact on APEX applications running in iframes and how to work around it."
 ---
 
-## Introduction
+![Chrome console showing SameSite cookie warning](/images/blog/samesite-cookie/picture1_4_orig.png)
 
-Google Chrome has been rolling out changes to how cookies work, specifically around the `SameSite` attribute. These changes can impact Oracle APEX applications, particularly those that use third-party integrations or are embedded in iframes.
+## Background
 
-## What is SameSite?
+One of our primary use cases is embedding APEX applications within iframes alongside Oracle's ERP Cloud. This gives users a near seamless experience when moving between standard ERP Cloud pages and our custom APEX pages.
 
-The `SameSite` cookie attribute controls when cookies are sent with cross-site requests. It can have three values:
+APEX relies on session cookies for user authentication. Without the ability to maintain a session cookie, you are forced to make your application public (99% of the time, this is not a good idea).
 
-- **Strict**: Cookies only sent in first-party context
-- **Lax**: Cookies sent with top-level navigations and GET requests from third-party sites
-- **None**: Cookies sent in all contexts (requires Secure flag)
+In May 2019, Google announced upcoming cookie handling changes. By February 2020, Chrome version 80 began rolling out these modifications. See [Google's announcement](https://blog.chromium.org/2020/02/samesite-cookie-changes-in-february.html) for more details.
 
-## Chrome's Changes
+## What Will Happen
 
-Chrome now treats cookies without a SameSite attribute as `SameSite=Lax` by default. Previously, cookies without this attribute were treated as `SameSite=None`.
+Applications relying on cookies in iframes with different URLs from the container site will fail. Users will see console warnings indicating cookie rejection due to SameSite policy violations.
 
-This means:
-- Cookies won't be sent with cross-site requests by default
-- Applications relying on cross-site cookies may break
-- Explicit `SameSite=None; Secure` is required for cross-site cookies
+![Console warning about cookie being rejected](/images/blog/samesite-cookie/picture3_1_orig.png)
 
-## Impact on APEX Applications
+## Workaround
 
-### Affected Scenarios
+We contacted the APEX development team and they provided a workaround that works for APEX 18.1 and above.
 
-1. **APEX in iframes**: Applications embedded in third-party sites
-2. **Social Sign-On**: OAuth flows that rely on cookies
-3. **Third-Party Integrations**: REST calls that include cookies
-4. **Cross-Domain Deployments**: APEX and ORDS on different domains
+Navigate to: **Application > Shared Components > Authentication Schemes > Create/Edit**
 
-### Symptoms
+![Authentication Scheme settings](/images/blog/samesite-cookie/picture4_1.png)
 
-If affected, you may see:
-- Session loss after redirect
-- Social login failures
-- Unexpected logouts
-- Cross-site requests failing
+Then make the following changes:
 
-## Solutions
+- Change Type to 'Custom'
+- Set Cookie Path to '/apex; SameSite=none' (for /apex URLs) or '/ords; SameSite=none' (for default ORDS)
+- Enable 'Secure'
 
-### ORDS Configuration
+![Cookie Path setting with SameSite=none](/images/blog/samesite-cookie/picture5_1_orig.png)
 
-Configure ORDS to set the SameSite attribute explicitly:
+**Note:** Some older versions of browsers do not support samesite=none.
 
-```properties
-# In ORDS configuration
-security.cookies.samesite=None
-```
+## Long Term
 
-### Application Express Settings
-
-Review your APEX instance settings:
-1. Check Session Cookie settings
-2. Review Authentication Scheme configuration
-3. Test OAuth/Social Sign-On flows
-
-### SSL/TLS Requirement
-
-Cookies with `SameSite=None` must also have the `Secure` flag, meaning:
-- Your application must use HTTPS
-- This is a good security practice regardless
-
-## Testing Your Application
-
-1. Open Chrome DevTools
-2. Navigate to Application > Cookies
-3. Check for warnings about SameSite
-4. Test cross-site scenarios in your application
-
-## Timeline
-
-Chrome has been rolling out these changes gradually:
-- Chrome 80: Started enforcing SameSite=Lax default
-- Chrome 84+: Full enforcement
+The development team plans to include the SameSite=none attribute by default in future APEX releases, though no specific version was committed at the time of writing.
 
 ## Conclusion
 
-While these cookie changes improve web security, they require attention for APEX applications that rely on cross-site cookie functionality. Review your applications, update your ORDS configuration if needed, and test thoroughly.
+Browsers are changing constantly. As full-stack developers, we need to keep an eye on browser developments as well as database changes. Regularly checking your developer tool warnings is a good practice.
 
-## Author
+---
 
-Jon Dixon, Co-Founder JMJ Cloud
+Jon Dixon and Matt Paine, Co-Founders of JMJ Cloud
