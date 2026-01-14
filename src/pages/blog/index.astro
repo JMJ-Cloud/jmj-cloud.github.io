@@ -3,6 +3,7 @@
 // Blog listing page
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
+import BlogSearch from '../../components/BlogSearch.astro';
 import { getCollection } from 'astro:content';
 
 // Get all non-draft blog posts sorted by date
@@ -26,7 +27,9 @@ const sortedPosts = allPosts.sort(
         </p>
       </header>
 
-      <div class="posts-grid">
+      <BlogSearch />
+
+      <div id="posts-grid" class="posts-grid">
         {sortedPosts.map((post) => (
           <BlogPostCard
             title={post.data.title}

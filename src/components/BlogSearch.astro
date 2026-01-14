@@ -1,0 +1,236 @@
+---
+// BlogSearch.astro - Full-text search component using Pagefind
+---
+
+<div class="blog-search">
+  <div class="search-container">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+    <input
+      type="text"
+      id="blog-search-input"
+      placeholder="Search posts..."
+      autocomplete="off"
+    />
+    <button id="search-clear" class="search-clear" aria-label="Clear search" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <div id="search-results" class="search-results" hidden></div>
+</div>
+
+<style>
+  .blog-search {
+    margin-bottom: var(--space-8);
+  }
+
+  .search-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  #blog-search-input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    padding-left: calc(var(--space-4) + 28px);
+    padding-right: calc(var(--space-4) + 32px);
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  #blog-search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  #blog-search-input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .search-clear {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: var(--space-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast);
+  }
+
+  .search-clear:hover {
+    color: var(--accent-primary);
+  }
+
+  .search-results {
+    margin-top: var(--space-6);
+  }
+
+  .search-results :global(.search-result) {
+    display: block;
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .search-results :global(.search-result:hover) {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .search-results :global(.search-result-title) {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .search-results :global(.search-result-excerpt) {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .search-results :global(.search-result-excerpt mark) {
+    background-color: var(--accent-glow);
+    color: var(--accent-primary);
+    padding: 0.1em 0.2em;
+    border-radius: 2px;
+  }
+
+  .search-results :global(.search-loading),
+  .search-results :global(.search-no-results) {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    padding: var(--space-8) 0;
+  }
+
+  .search-results :global(.search-count) {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-4);
+    font-family: var(--font-display);
+  }
+</style>
+
+<script>
+  let pagefind: any = null;
+
+  async function initPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      // Use string concatenation to prevent Vite from analyzing this import
+      const pagefindPath = '/pagefind/pagefind.js';
+      pagefind = await import(/* @vite-ignore */ pagefindPath);
+      await pagefind.init();
+      return pagefind;
+    } catch (e) {
+      console.error('Failed to load Pagefind:', e);
+      return null;
+    }
+  }
+
+  const searchInput = document.getElementById('blog-search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results') as HTMLDivElement;
+  const clearButton = document.getElementById('search-clear') as HTMLButtonElement;
+  const postsGrid = document.getElementById('posts-grid') as HTMLDivElement;
+
+  let debounceTimer: ReturnType<typeof setTimeout>;
+
+  searchInput?.addEventListener('input', (e) => {
+    const query = (e.target as HTMLInputElement).value.trim();
+
+    clearTimeout(debounceTimer);
+
+    if (query.length === 0) {
+      clearSearch();
+      return;
+    }
+
+    clearButton.hidden = false;
+
+    debounceTimer = setTimeout(() => {
+      performSearch(query);
+    }, 200);
+  });
+
+  clearButton?.addEventListener('click', () => {
+    searchInput.value = '';
+    clearSearch();
+    searchInput.focus();
+  });
+
+  function clearSearch() {
+    searchResults.hidden = true;
+    searchResults.innerHTML = '';
+    clearButton.hidden = true;
+    if (postsGrid) postsGrid.hidden = false;
+  }
+
+  async function performSearch(query: string) {
+    searchResults.hidden = false;
+    searchResults.innerHTML = '<div class="search-loading">Searching...</div>';
+    if (postsGrid) postsGrid.hidden = true;
+
+    const pf = await initPagefind();
+    if (!pf) {
+      searchResults.innerHTML = '<div class="search-no-results">Search unavailable</div>';
+      return;
+    }
+
+    const search = await pf.search(query);
+
+    if (search.results.length === 0) {
+      searchResults.innerHTML = '<div class="search-no-results">No posts found</div>';
+      return;
+    }
+
+    const resultsData = await Promise.all(
+      search.results.slice(0, 10).map((r: any) => r.data())
+    );
+
+    let html = `<div class="search-count">${search.results.length} post${search.results.length === 1 ? '' : 's'} found</div>`;
+
+    for (const result of resultsData) {
+      html += `
+        <a href="${result.url}" class="search-result">
+          <div class="search-result-title">${result.meta?.title || 'Untitled'}</div>
+          <div class="search-result-excerpt">${result.excerpt}</div>
+        </a>
+      `;
+    }
+
+    searchResults.innerHTML = html;
+  }
+</script>
