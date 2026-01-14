@@ -5,11 +5,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 
-// Get all projects and sort by order (lower = more recent/featured)
+// Get all projects and sort by order (lower = first)
 const allProjects = await getCollection('projects');
-// Filter to only show featured projects
-const featuredProjects = allProjects.filter(p => p.data.featured === true);
-const sortedProjects = featuredProjects.sort((a, b) => a.data.order - b.data.order);
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout
