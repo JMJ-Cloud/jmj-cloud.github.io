@@ -1,6 +1,7 @@
 ---
 title: "Automated GL Code Combination Creator for Third-Party Integration"
 status: "Completed"
+date: 2025-01-08
 year: 2026
 summary: "Built intelligent Oracle Integration Cloud solution that automatically creates required GL code combinations for BirchStreet integration—eliminating validation errors and enabling seamless financial data flow."
 technologies:

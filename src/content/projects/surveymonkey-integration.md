@@ -1,6 +1,7 @@
 ---
 title: "Automated Customer Feedback System with SurveyMonkey Integration"
 status: "Active"
+date: 2024-11-15
 year: 2024
 summary: "Built seamless REST API integration between Oracle APEX and SurveyMonkey to automate customer satisfaction tracking, NPS scoring, and feedback collection across 40+ galvanizing plants."
 technologies:

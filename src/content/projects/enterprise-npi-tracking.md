@@ -1,6 +1,7 @@
 ---
 title: "Enterprise New Product Introduction Tracking System"
 status: "Active"
+date: 2024-10-15
 year: 2024
 summary: "Comprehensive Oracle APEX application streamlining new product development workflows from concept through launch—managing cross-functional teams across R&D, regulatory, marketing, and manufacturing departments."
 technologies:

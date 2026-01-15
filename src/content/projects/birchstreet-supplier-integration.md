@@ -1,6 +1,7 @@
 ---
 title: "Automated Supplier Master Data Integration with BirchStreet"
 status: "Active"
+date: 2025-01-15
 year: 2025
 summary: "Built real-time Oracle Fusion to BirchStreet supplier synchronization enabling automated procurement workflows and accurate AP payment processing for hospitality operations."
 technologies:

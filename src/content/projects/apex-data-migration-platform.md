@@ -1,6 +1,7 @@
 ---
 title: "Enterprise Data Migration Platform"
 status: "Active"
+date: 2024-09-15
 summary: "Delivering a comprehensive Oracle APEX-based data conversion and interface management solution for a large manufacturing client transitioning from legacy IBM systems to Oracle E-Business Suite."
 technologies:
   - "Oracle APEX"

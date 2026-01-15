@@ -1,6 +1,7 @@
 ---
 title: "Enterprise Performance Management Platform"
 status: "Active"
+date: 2024-11-01
 year: 2021
 summary: "Comprehensive Oracle APEX solution streamlining employee performance reviews, objectives tracking, and multi-level approval workflows across global operations."
 technologies:

@@ -29,11 +29,11 @@ const services = [
   },
 ];
 
-// Get featured projects from the projects collection
+// Get featured projects from the projects collection (newest first)
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
   .filter(project => project.data.featured)
-  .sort((a, b) => a.data.order - b.data.order)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
 // Map to ProjectCard format

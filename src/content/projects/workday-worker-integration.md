@@ -1,6 +1,7 @@
 ---
 title: "Enterprise HR Integration: Workday to Oracle ERP Cloud"
 status: "Completed"
+date: 2024-12-15
 year: 2025
 summary: "Automated employee data synchronization between Workday and Oracle ERP Cloud using Oracle Integration Cloud, processing 2,000+ workers daily with comprehensive scenario handling and fault-tolerant design."
 technologies:

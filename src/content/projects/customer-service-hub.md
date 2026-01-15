@@ -1,6 +1,7 @@
 ---
 title: "Customer Service Hub"
 status: "Active"
+date: 2024-09-01
 year: 2024
 summary: "Replaced expensive Salesforce SaaS subscription with a custom Oracle APEX platform—delivering superior EBS integration, Google Maps visualization, and enterprise-wide CRM capabilities at a fraction of the cost."
 technologies:

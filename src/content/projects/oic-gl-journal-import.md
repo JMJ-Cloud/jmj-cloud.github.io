@@ -1,6 +1,7 @@
 ---
 title: "Automated GL Journal Integration for Banking M&A Transition"
 status: "Active"
+date: 2024-12-01
 year: 2026
 summary: "Built Oracle Integration Cloud solution to automate GL journal imports during bank acquisition—mapping legacy chart of accounts to Oracle Fusion GL with intelligent suspense handling and real-time validation."
 technologies:

@@ -1,6 +1,7 @@
 ---
 title: "JMJ Cloud Website Development"
 status: "Active"
+date: 2024-08-15
 year: 2025
 summary: "Building our company website using modern web technologies and AI-assisted development. Showcasing technical excellence through performance, security, and developer experience."
 technologies:

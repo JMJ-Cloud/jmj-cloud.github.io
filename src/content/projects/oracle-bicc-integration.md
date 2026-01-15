@@ -1,6 +1,7 @@
 ---
 title: "Enterprise Cloud Data Integration with Oracle BICC"
 status: "Completed"
+date: 2025-01-01
 year: 2025
 summary: "Replaced unreliable BI Publisher extracts with automated BICC integration delivering near real-time data synchronization between Oracle Fusion Cloud and Autonomous Database for pharmaceutical research analytics."
 technologies:

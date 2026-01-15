@@ -1,6 +1,7 @@
 ---
 title: "Digital Galvanizing System—Enterprise Platform for Hot-Dip Galvanizing Operations"
 status: "Active"
+date: 2024-10-01
 year: 2024
 summary: "Built comprehensive digital platform integrating Oracle EBS with iOS mobile apps, customer portal, and environmental compliance tracking across 40+ galvanizing plants—eliminating paper and delivering real-time visibility."
 technologies:

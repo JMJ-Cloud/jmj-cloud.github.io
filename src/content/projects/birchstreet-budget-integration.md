@@ -1,6 +1,7 @@
 ---
 title: "Automated Procurement Budget Integration with BI Publisher"
 status: "Active"
+date: 2025-01-15
 year: 2025
 summary: "Delivered automated Oracle Fusion to BirchStreet integration using BI Publisher bursting, enabling real-time code combination validation for procurement invoice coding at a luxury hospitality resort."
 technologies:
