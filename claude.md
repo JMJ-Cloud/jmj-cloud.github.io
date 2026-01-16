@@ -6,7 +6,7 @@ This file contains instructions and context for Claude Code (or any AI assistant
 
 This is the JMJ Cloud company website - a static site built with Astro 5.16.6, deployed automatically to GitHub Pages. The site showcases Oracle ERP consulting services, project case studies, team information, and blog content.
 
-**Live Site**: https://jmj-cloud.github.io
+**Live Site**: https://jmjcloud.com
 
 ## Initial Context Loading
 
@@ -122,6 +122,13 @@ draft: boolean (default: false)
 5. **Status Values**: Projects must use "Active" or "Completed" (enforced by Zod schema).
 
 6. **Images**: Static assets go in `public/` directory (e.g., `public/images/`, `public/favicon.png`).
+
+7. **No Em Dashes**: Never use em dashes (—) in content. Replace with appropriate punctuation:
+   - `**Bold Heading** —` → `**Bold Heading:**` (colon for introductions)
+   - `word — elaboration` → `word, elaboration` (comma for mid-sentence)
+   - `concept — list` → `concept:` (colon before lists)
+   - `thought — new idea` → `thought. New idea` (period for separate thoughts)
+   - `term — definition` → `term (definition)` (parentheses for asides)
 
 ### Common Tasks
 
