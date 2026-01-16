@@ -1,0 +1,7 @@
+# robots.txt for jmjcloud.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://jmjcloud.com/sitemap-index.xml
