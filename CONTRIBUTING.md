@@ -124,7 +124,7 @@ git push origin main
 3. **Wait for deployment** (usually 1-2 minutes):
    - GitHub Actions will automatically build and deploy your site
    - Monitor progress at: https://github.com/JMJ-Cloud/jmj-cloud.github.io/actions
-   - Live site: https://jmj-cloud.github.io
+   - Live site: https://jmjcloud.com
 
 ### Deployment Details
 
@@ -139,7 +139,7 @@ git push origin main
 1. Check GitHub Actions: https://github.com/JMJ-Cloud/jmj-cloud.github.io/actions
 2. Look for the latest workflow run
 3. Green checkmark = successful deployment
-4. Visit https://jmj-cloud.github.io to see your changes live
+4. Visit https://jmjcloud.com to see your changes live
 
 ## 🔧 Project Structure
 
@@ -178,6 +178,20 @@ jmjcloud-site/
 - Keep components small and focused
 - Write semantic HTML
 - Use CSS custom properties for theming
+
+### Writing Style: Avoid Em Dashes
+
+**Do not use em dashes (—) in content.** Replace them with appropriate punctuation:
+
+| Instead of | Use | Example |
+|------------|-----|---------|
+| `**Bold** — description` | `**Bold:** description` | **REST APIs:** Synchronous calls for real-time operations |
+| `word — elaboration` | `word, elaboration` | The system processes data, including validation and transformation |
+| `concept — list follows` | `concept:` | Key features: speed, reliability, security |
+| `thought — separate idea` | `thought. Separate idea` | The build completed. Deployment followed automatically |
+| `aside — parenthetical` | `aside (parenthetical)` | Oracle ERP Cloud (formerly Fusion Applications) |
+
+**Why?** Em dashes render inconsistently across devices and can appear as garbled characters in some email clients and RSS readers. Standard punctuation ensures reliable display everywhere.
 
 ## 🐛 Troubleshooting
 
