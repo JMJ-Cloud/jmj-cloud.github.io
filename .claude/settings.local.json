@@ -13,7 +13,8 @@
       "WebFetch(domain:jmj-cloud.github.io)",
       "Bash(file:*)",
       "Bash(sips -g all:*)",
-      "Bash(sips:*)"
+      "Bash(sips:*)",
+      "Bash(curl:*)"
     ]
   }
 }
