@@ -10,7 +10,10 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(gh run:*)",
-      "WebFetch(domain:jmj-cloud.github.io)"
+      "WebFetch(domain:jmj-cloud.github.io)",
+      "Bash(file:*)",
+      "Bash(sips -g all:*)",
+      "Bash(sips:*)"
     ]
   }
 }
