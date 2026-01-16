@@ -3,7 +3,7 @@ title: "Automated GL Code Combination Creator for Third-Party Integration"
 status: "Completed"
 date: 2025-01-08
 year: 2026
-summary: "Built intelligent Oracle Integration Cloud solution that automatically creates required GL code combinations for BirchStreet integration—eliminating validation errors and enabling seamless financial data flow."
+summary: "Built intelligent Oracle Integration Cloud solution that automatically creates required GL code combinations for BirchStreet integration, eliminating validation errors and enabling seamless financial data flow."
 technologies:
   - "Oracle Integration Cloud (OIC)"
   - "Oracle Fusion General Ledger"
@@ -23,25 +23,25 @@ order: 6
 
 ## Project Overview
 
-A hospitality enterprise implementing BirchStreet's procurement and accounts payable solution faced a critical integration challenge: the system required GL code combinations to exist in Oracle Fusion before they could be used for invoice coding and financial transactions. When new cost centers or accounts were added to the chart of accounts, the corresponding code combinations had to be manually created in Oracle—creating a bottleneck that caused validation errors, delayed invoice processing, and frustrated BirchStreet users who couldn't access valid account codes.
+A hospitality enterprise implementing BirchStreet's procurement and accounts payable solution faced a critical integration challenge: the system required GL code combinations to exist in Oracle Fusion before they could be used for invoice coding and financial transactions. When new cost centers or accounts were added to the chart of accounts, the corresponding code combinations had to be manually created in Oracle, creating a bottleneck that caused validation errors, delayed invoice processing, and frustrated BirchStreet users who couldn't access valid account codes.
 
 We designed and implemented an automated Code Combination Creator integration using Oracle Integration Cloud that intelligently identifies required combinations based on business rules, pre-creates them in Oracle Fusion GL through SOAP web service calls, and provides detailed execution reporting. The solution processes combinations in batches of 1,000, handles up to 255,000 total combinations across multiple entities, and runs automatically before daily extracts to ensure BirchStreet always has access to current, valid account codes.
 
-This proactive automation transformed the client's integration architecture from reactive error handling to predictive validation—eliminating the manual overhead of code combination management while ensuring seamless data flow between Oracle Fusion and their third-party procurement system.
+This proactive automation transformed the client's integration architecture from reactive error handling to predictive validation, eliminating the manual overhead of code combination management while ensuring seamless data flow between Oracle Fusion and their third-party procurement system.
 
 ## Business Challenge
 
 The BirchStreet integration created significant operational friction due to missing GL code combinations:
 
-**Validation Errors Blocking Transactions** — When BirchStreet users attempted to code invoices or create requisitions with newly added cost centers or accounts, transactions failed with validation errors because the corresponding code combinations didn't exist in Oracle Fusion GL. These failures required manual intervention from Finance IT staff to identify the missing combinations, create them through the Oracle interface, and notify BirchStreet users to retry their transactions—disrupting workflows and delaying invoice processing.
+**Validation Errors Blocking Transactions:** When BirchStreet users attempted to code invoices or create requisitions with newly added cost centers or accounts, transactions failed with validation errors because the corresponding code combinations didn't exist in Oracle Fusion GL. These failures required manual intervention from Finance IT staff to identify the missing combinations, create them through the Oracle interface, and notify BirchStreet users to retry their transactions, disrupting workflows and delaying invoice processing.
 
-**Manual Code Combination Creation** — Finance IT teams had to manually create code combinations through Oracle's GL interface whenever new organizational structures were added. This reactive approach meant combinations were only created after users encountered errors, causing repeated interruptions and forcing staff to monitor for missing combinations constantly. The manual process was time-consuming, error-prone, and didn't scale as the organization grew and the chart of accounts expanded.
+**Manual Code Combination Creation:** Finance IT teams had to manually create code combinations through Oracle's GL interface whenever new organizational structures were added. This reactive approach meant combinations were only created after users encountered errors, causing repeated interruptions and forcing staff to monitor for missing combinations constantly. The manual process was time-consuming, error-prone, and didn't scale as the organization grew and the chart of accounts expanded.
 
-**Complex Business Rules** — The organization operated with multiple entities (pre-opening, operator, and owning company) each with different code combination requirements. Balance sheet accounts needed only the 00000 cost center, while expense accounts required combinations for all active cost centers except 00000. Pre-post opening segments differed by entity type. These conditional rules made manual creation even more complex and increased the risk of creating incorrect combinations or missing required ones.
+**Complex Business Rules:** The organization operated with multiple entities (pre-opening, operator, and owning company) each with different code combination requirements. Balance sheet accounts needed only the 00000 cost center, while expense accounts required combinations for all active cost centers except 00000. Pre-post opening segments differed by entity type. These conditional rules made manual creation even more complex and increased the risk of creating incorrect combinations or missing required ones.
 
-**Integration Timing Dependencies** — Daily extracts sent the chart of accounts and budget data to BirchStreet, but these extracts could only include code combinations that already existed in Oracle. If combinations were created manually after the extract ran, BirchStreet wouldn't have access to them until the next day's extract—creating a timing gap where valid accounts existed in Oracle but couldn't be used in BirchStreet, forcing users to wait or use workaround accounts.
+**Integration Timing Dependencies:** Daily extracts sent the chart of accounts and budget data to BirchStreet, but these extracts could only include code combinations that already existed in Oracle. If combinations were created manually after the extract ran, BirchStreet wouldn't have access to them until the next day's extract, creating a timing gap where valid accounts existed in Oracle but couldn't be used in BirchStreet, forcing users to wait or use workaround accounts.
 
-**Lack of Visibility** — Finance teams had no systematic way to identify which combinations were missing or monitor the creation process. Combinations were created reactively when users reported errors, with no proactive analysis of which combinations should exist based on the current chart of accounts structure. This reactive approach meant the organization was always behind—discovering gaps only after they caused user-facing problems.
+**Lack of Visibility:** Finance teams had no systematic way to identify which combinations were missing or monitor the creation process. Combinations were created reactively when users reported errors, with no proactive analysis of which combinations should exist based on the current chart of accounts structure. This reactive approach meant the organization was always behind, discovering gaps only after they caused user-facing problems.
 
 ## Solution Architecture
 

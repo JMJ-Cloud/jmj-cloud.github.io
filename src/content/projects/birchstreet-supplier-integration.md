@@ -26,7 +26,7 @@ order: 7
 
 A luxury hospitality organization implementing BirchStreet for procurement and accounts payable automation faced a critical integration challenge: their supplier master data resided in Oracle Fusion Cloud, while BirchStreet needed accurate, up-to-date vendor information to support eProcurement workflows and AP invoice processing. Without seamless synchronization, the organization risked incorrect vendor codes in payment vouchers, manual data reconciliation overhead, and procurement disruptions from outdated supplier status.
 
-We designed and implemented an automated supplier integration using Oracle BI Publisher that delivers comprehensive vendor information from Oracle Fusion to BirchStreet via SFTP every hour. The solution validates data completeness, enforces supplier site requirements, handles complex address formatting for international operations, and maintains supplier availability status across both systems—ensuring procurement users always work with current, accurate vendor data while enabling straight-through AP processing without manual intervention.
+We designed and implemented an automated supplier integration using Oracle BI Publisher that delivers comprehensive vendor information from Oracle Fusion to BirchStreet via SFTP every hour. The solution validates data completeness, enforces supplier site requirements, handles complex address formatting for international operations, and maintains supplier availability status across both systems, ensuring procurement users always work with current, accurate vendor data while enabling straight-through AP processing without manual intervention.
 
 The integration now processes supplier updates hourly, automatically flagging inactive vendors in BirchStreet, maintaining vendor code consistency for payment automation, and eliminating the manual data entry and reconciliation that previously consumed significant procurement team resources.
 
@@ -34,17 +34,17 @@ The integration now processes supplier updates hourly, automatically flagging in
 
 The organization's procurement transformation depended on establishing reliable supplier master data flows between their Oracle ERP and the new BirchStreet procurement platform:
 
-**AP Automation Risk** — Incorrect vendor codes flowing from BirchStreet to Oracle would cause payment processing failures, requiring manual intervention to match invoices to the correct suppliers. This risk threatened the entire value proposition of AP automation, potentially creating more work than the manual processes being replaced.
+**AP Automation Risk:** Incorrect vendor codes flowing from BirchStreet to Oracle would cause payment processing failures, requiring manual intervention to match invoices to the correct suppliers. This risk threatened the entire value proposition of AP automation, potentially creating more work than the manual processes being replaced.
 
-**Manual Reconciliation Overhead** — Without automated synchronization, procurement staff would need to manually maintain supplier records in both Oracle and BirchStreet, creating duplicate data entry workload, introducing human error, and consuming time better spent on strategic sourcing activities. As the supplier base grew, this manual approach would become increasingly unsustainable.
+**Manual Reconciliation Overhead:** Without automated synchronization, procurement staff would need to manually maintain supplier records in both Oracle and BirchStreet, creating duplicate data entry workload, introducing human error, and consuming time better spent on strategic sourcing activities. As the supplier base grew, this manual approach would become increasingly unsustainable.
 
-**Supplier Availability Confusion** — Vendors marked inactive in Oracle EBS due to end-dating, payment holds, or compliance issues would remain selectable in BirchStreet unless manually deactivated. Procurement users would submit purchase orders to unavailable suppliers, creating order fulfillment delays, exception handling overhead, and supplier relationship confusion.
+**Supplier Availability Confusion:** Vendors marked inactive in Oracle EBS due to end-dating, payment holds, or compliance issues would remain selectable in BirchStreet unless manually deactivated. Procurement users would submit purchase orders to unavailable suppliers, creating order fulfillment delays, exception handling overhead, and supplier relationship confusion.
 
-**Data Quality Inconsistency** — BirchStreet requires complete supplier contact information including phone numbers, email addresses or fax numbers, and properly formatted addresses for purchase order transmission. Incomplete or incorrectly formatted supplier records in Oracle would either fail to transfer or create downstream issues in eProcurement workflows, requiring reactive data cleanup.
+**Data Quality Inconsistency:** BirchStreet requires complete supplier contact information including phone numbers, email addresses or fax numbers, and properly formatted addresses for purchase order transmission. Incomplete or incorrectly formatted supplier records in Oracle would either fail to transfer or create downstream issues in eProcurement workflows, requiring reactive data cleanup.
 
-**Geographic Complexity** — Operating across multiple countries introduced address formatting challenges, particularly for United States and Canadian suppliers where BirchStreet requires two-character state or province codes. Oracle's flexible address structures needed transformation to meet BirchStreet's standardized format requirements without losing data fidelity.
+**Geographic Complexity:** Operating across multiple countries introduced address formatting challenges, particularly for United States and Canadian suppliers where BirchStreet requires two-character state or province codes. Oracle's flexible address structures needed transformation to meet BirchStreet's standardized format requirements without losing data fidelity.
 
-**Multi-Organization Mapping** — The hospitality organization's Oracle environment supports multiple business units that need mapping to BirchStreet's organizational structure. Suppliers assigned to different procurement business units required appropriate routing to corresponding BirchStreet "inn codes" to maintain proper organizational segregation and approval workflows.
+**Multi-Organization Mapping:** The hospitality organization's Oracle environment supports multiple business units that need mapping to BirchStreet's organizational structure. Suppliers assigned to different procurement business units required appropriate routing to corresponding BirchStreet "inn codes" to maintain proper organizational segregation and approval workflows.
 
 ## Solution Architecture
 
@@ -76,7 +76,7 @@ The deactivation flag flows to BirchStreet as a data element in the supplier fee
 
 ### Multi-Organization Mapping
 
-The solution leverages Oracle Flex Value Sets to map procurement business units to BirchStreet organization identifiers. A configuration lookup (WMI_BIRCHSTREET_ORG_MAP) defines the mapping between Oracle business unit names and corresponding BirchStreet "inn codes"—numeric identifiers that BirchStreet uses to segregate suppliers by operating entity. This externalized configuration enables the integration to support multiple business units without code changes as the organization structure evolves.
+The solution leverages Oracle Flex Value Sets to map procurement business units to BirchStreet organization identifiers. A configuration lookup (WMI_BIRCHSTREET_ORG_MAP) defines the mapping between Oracle business unit names and corresponding BirchStreet "inn codes," numeric identifiers that BirchStreet uses to segregate suppliers by operating entity. This externalized configuration enables the integration to support multiple business units without code changes as the organization structure evolves.
 
 Each supplier site record includes the appropriate inn code based on its procurement business unit assignment, ensuring BirchStreet associates suppliers with the correct organizational contexts. This mapping maintains proper approval workflows and reporting segregation in BirchStreet while leveraging Oracle's native multi-org architecture.
 

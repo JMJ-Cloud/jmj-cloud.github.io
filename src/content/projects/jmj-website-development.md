@@ -21,7 +21,7 @@ order: 2
 
 ## Project Overview
 
-At JMJ Cloud, we believe in practicing what we preach. When it was time to build our company website, we chose to showcase our technical capabilities by developing a modern, performant web application using cutting-edge technologies. This project demonstrates our ability to select appropriate technology stacks, implement best practices, and deliver enterprise-grade solutions—even for our own marketing presence.
+At JMJ Cloud, we believe in practicing what we preach. When it was time to build our company website, we chose to showcase our technical capabilities by developing a modern, performant web application using cutting-edge technologies. This project demonstrates our ability to select appropriate technology stacks, implement best practices, and deliver enterprise-grade solutions, even for our own marketing presence.
 
 Built with Claude Code assistance, this website serves as both our digital storefront and a real-world case study in AI-assisted software development.
 
@@ -174,7 +174,7 @@ Built comprehensive navigation system:
 Implemented Content Collections with Zod schemas for type-safe content management. This ensures all blog posts and project case studies follow consistent structures and catch validation errors at build time.
 
 **Debugging Assistance**
-Resolved real-world challenges like Astro's scoped CSS limitations when styling child components. The solution involved using `is:global` directive to apply styles across component boundaries—a pattern now documented for future reference.
+Resolved real-world challenges like Astro's scoped CSS limitations when styling child components. The solution involved using `is:global` directive to apply styles across component boundaries, a pattern now documented for future reference.
 
 **UI Refinements**
 Iterative improvements throughout development:

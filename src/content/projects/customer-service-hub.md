@@ -3,7 +3,7 @@ title: "Customer Service Hub"
 status: "Active"
 date: 2024-09-01
 year: 2024
-summary: "Replaced expensive Salesforce SaaS subscription with a custom Oracle APEX platform—delivering superior EBS integration, Google Maps visualization, and enterprise-wide CRM capabilities at a fraction of the cost."
+summary: "Replaced expensive Salesforce SaaS subscription with a custom Oracle APEX platform, delivering superior EBS integration, Google Maps visualization, and enterprise-wide CRM capabilities at a fraction of the cost."
 technologies:
   - "Oracle APEX"
   - "Oracle E-Business Suite"
@@ -26,19 +26,19 @@ order: 2
 
 A multi-plant manufacturing enterprise was paying significant annual licensing fees for Salesforce but struggling to get value from the platform. The SaaS CRM didn't integrate well with their Oracle E-Business Suite environment, forcing duplicate data entry and creating disconnected workflows. Sales teams found themselves toggling between systems, and critical customer data lived in silos.
 
-We built a custom Oracle APEX replacement that delivered everything Salesforce promised—plus native EBS integration, Google Maps visualization, and complete control over the platform—at a fraction of the ongoing cost.
+We built a custom Oracle APEX replacement that delivered everything Salesforce promised, plus native EBS integration, Google Maps visualization, and complete control over the platform, at a fraction of the ongoing cost.
 
 ## Business Challenge
 
 The existing Salesforce implementation created more problems than it solved:
 
-**Expensive SaaS Licensing** — Salesforce per-user licensing costs added up quickly across a distributed sales organization, with annual fees that delivered diminishing returns.
+**Expensive SaaS Licensing:** Salesforce per-user licensing costs added up quickly across a distributed sales organization, with annual fees that delivered diminishing returns.
 
-**Poor EBS Integration** — Salesforce couldn't natively access Oracle EBS customer master, AR aging, or credit data. Middleware and manual syncs created stale data and integration headaches.
+**Poor EBS Integration:** Salesforce couldn't natively access Oracle EBS customer master, AR aging, or credit data. Middleware and manual syncs created stale data and integration headaches.
 
-**Disconnected Workflows** — Sales reps toggled between Salesforce for CRM and Oracle for financials, duplicating effort and missing critical context.
+**Disconnected Workflows:** Sales reps toggled between Salesforce for CRM and Oracle for financials, duplicating effort and missing critical context.
 
-**Multi-Plant Complexity** — Sales teams needed plant-specific data while maintaining enterprise-wide customer views—a balance Salesforce's generic architecture couldn't achieve.
+**Multi-Plant Complexity:** Sales teams needed plant-specific data while maintaining enterprise-wide customer views, a balance Salesforce's generic architecture couldn't achieve.
 
 ## Solution Architecture
 
@@ -46,13 +46,13 @@ A purpose-built Oracle APEX application tightly integrated with E-Business Suite
 
 ### Unified Customer Master
 
-Real-time views of customer accounts, sites, contacts, and agreements directly from Oracle EBS—eliminating data duplication and ensuring consistency across all touchpoints.
+Real-time views of customer accounts, sites, contacts, and agreements directly from Oracle EBS, eliminating data duplication and ensuring consistency across all touchpoints.
 
 ### Sales Activity Tracking with Google Maps
 
 Complete history of every customer interaction, meeting, and communication. Sales teams capture activities in real-time, building institutional knowledge that persists beyond individual tenure.
 
-The module features an interactive Google Maps integration that displays customer locations as pins on a map, giving sales teams visual territory awareness. Reps can see their accounts geographically, plan efficient travel routes, and identify coverage gaps—functionality that required expensive add-ons in Salesforce.
+The module features an interactive Google Maps integration that displays customer locations as pins on a map, giving sales teams visual territory awareness. Reps can see their accounts geographically, plan efficient travel routes, and identify coverage gaps. This functionality required expensive add-ons in Salesforce.
 
 ### Quote Management
 
@@ -134,10 +134,10 @@ Live credit limit visibility, historical terms reporting, and AR aging analysis.
 
 Oracle APEX was the ideal choice for replacing Salesforce because it:
 
-- **Eliminates per-user licensing** — No ongoing SaaS fees; runs on existing Oracle Database infrastructure
-- **Integrates natively** with Oracle E-Business Suite and the Oracle Database—no middleware required
+- **Eliminates per-user licensing:** No ongoing SaaS fees; runs on existing Oracle Database infrastructure
+- **Integrates natively** with Oracle E-Business Suite and the Oracle Database, no middleware required
 - **Leverages existing security** through EBS user authentication and responsibility-based access
-- **Provides full control** — Own the code, customize freely, no vendor lock-in or forced upgrades
+- **Provides full control:** Own the code, customize freely, no vendor lock-in or forced upgrades
 - **Deploys rapidly** without additional infrastructure, cloud subscriptions, or integration platforms
 - **Scales effortlessly** to accommodate growing user bases without escalating license costs
 

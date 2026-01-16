@@ -24,25 +24,25 @@ order: 4
 
 ## Project Overview
 
-A multi-plant galvanizing company needed systematic customer feedback to measure satisfaction, identify service issues, and track performance across their 40+ facilities. Their existing approach relied on sporadic phone calls and informal conversations—providing no quantifiable metrics, no trending data, and no early warning system for customer dissatisfaction. Management had no visibility into customer sentiment, and service problems often went undetected until customers reduced orders or switched providers.
+A multi-plant galvanizing company needed systematic customer feedback to measure satisfaction, identify service issues, and track performance across their 40+ facilities. Their existing approach relied on sporadic phone calls and informal conversations, providing no quantifiable metrics, no trending data, and no early warning system for customer dissatisfaction. Management had no visibility into customer sentiment, and service problems often went undetected until customers reduced orders or switched providers.
 
 We built a comprehensive SurveyMonkey integration that automatically sends satisfaction surveys to customers after job completion, collects responses in real-time, calculates Net Promoter Scores, and provides detailed analytics on customer feedback trends. The solution seamlessly integrates with the Digital Galvanizing System and Oracle E-Business Suite, triggering surveys based on actual order completion events and enriching customer profiles with satisfaction data.
 
-The platform now captures structured feedback from customers across all facilities, enabling data-driven service improvements and proactive issue resolution. Operations managers track NPS scores by plant, customer segment, and time period—transforming customer feedback from anecdotal impressions into actionable business intelligence.
+The platform now captures structured feedback from customers across all facilities, enabling data-driven service improvements and proactive issue resolution. Operations managers track NPS scores by plant, customer segment, and time period, transforming customer feedback from anecdotal impressions into actionable business intelligence.
 
 ## Business Challenge
 
 Without systematic customer feedback collection, the organization operated blind to customer satisfaction levels and service quality trends:
 
-**No Quantifiable Satisfaction Metrics** — Management had no objective way to measure customer satisfaction or compare performance across different plants. Service quality discussions relied on anecdotal feedback from sales representatives or reactive responses to complaints.
+**No Quantifiable Satisfaction Metrics:** Management had no objective way to measure customer satisfaction or compare performance across different plants. Service quality discussions relied on anecdotal feedback from sales representatives or reactive responses to complaints.
 
-**Reactive Problem Detection** — Customer service problems surfaced only when customers complained directly or reduced their order volume. By that point, relationships were already damaged and recovery efforts became defensive rather than proactive.
+**Reactive Problem Detection:** Customer service problems surfaced only when customers complained directly or reduced their order volume. By that point, relationships were already damaged and recovery efforts became defensive rather than proactive.
 
-**Manual Survey Administration Overhead** — Attempting to collect feedback manually would require sales representatives to remember to send surveys, track responses, compile results, and analyze trends. This administrative burden made consistent feedback collection impractical.
+**Manual Survey Administration Overhead:** Attempting to collect feedback manually would require sales representatives to remember to send surveys, track responses, compile results, and analyze trends. This administrative burden made consistent feedback collection impractical.
 
-**No Performance Benchmarking** — Without systematic data collection, the company couldn't compare customer satisfaction across different plants, identify best practices from high-performing facilities, or hold underperforming locations accountable.
+**No Performance Benchmarking:** Without systematic data collection, the company couldn't compare customer satisfaction across different plants, identify best practices from high-performing facilities, or hold underperforming locations accountable.
 
-**Multi-Language Complexity** — Operating across the United States and Canada introduced language considerations. Canadian customers in French-speaking regions required surveys in their native language.
+**Multi-Language Complexity:** Operating across the United States and Canada introduced language considerations. Canadian customers in French-speaking regions required surveys in their native language.
 
 ## Solution Architecture
 
@@ -62,7 +62,7 @@ The automation handles SurveyMonkey's response data structure, extracting answer
 
 ### NPS Score Analytics
 
-The platform calculates Net Promoter Scores at multiple levels—enterprise-wide, by plant, by customer segment, and by time period. NPS reporting replicates SurveyMonkey's visualization format with pie charts showing the distribution of Promoters (9-10 ratings), Passives (7-8 ratings), and Detractors (0-6 ratings).
+The platform calculates Net Promoter Scores at multiple levels: enterprise-wide, by plant, by customer segment, and by time period. NPS reporting replicates SurveyMonkey's visualization format with pie charts showing the distribution of Promoters (9-10 ratings), Passives (7-8 ratings), and Detractors (0-6 ratings).
 
 Interactive reports allow managers to drill down from enterprise-level NPS to specific plants, then to individual customer responses and the jobs that generated those responses. Trend charts show NPS trajectories over months and quarters, supporting continuous improvement initiatives.
 
@@ -74,7 +74,7 @@ Survey responses feed into the Customer Service Hub, enriching customer profiles
 
 **REST API Integration Architecture:** The solution uses Oracle APEX's APEX_WEB_SERVICE package to make REST API calls to SurveyMonkey's v3 API endpoints. Authentication uses long-lived OAuth tokens stored in Oracle EBS lookup values, enabling token rotation without APEX application changes. The integration handles SurveyMonkey's response formats, parsing JSON structures for survey metadata, invitation status, and response data.
 
-**Rate Limiting and Quota Management:** SurveyMonkey imposes API rate limits—500 calls per day with allowances up to 750 calls twice within 30-day periods. The platform implements intelligent rate limiting logic that tracks daily API call consumption, queues requests when approaching limits, and prioritizes critical operations. An API limiter module monitors usage against quotas and generates alerts when consumption patterns risk exceeding available capacity.
+**Rate Limiting and Quota Management:** SurveyMonkey imposes API rate limits: 500 calls per day with allowances up to 750 calls twice within 30-day periods. The platform implements intelligent rate limiting logic that tracks daily API call consumption, queues requests when approaching limits, and prioritizes critical operations. An API limiter module monitors usage against quotas and generates alerts when consumption patterns risk exceeding available capacity.
 
 **APEX Automations for Background Processing:** Survey invitation submission and response collection execute via APEX Automations rather than Oracle Concurrent Programs. This architectural choice leverages APEX's native scheduling capabilities. Automations run on configurable schedules with error handling, logging, and retry logic for transient failures.
 
@@ -94,7 +94,7 @@ Survey responses feed into the Customer Service Hub, enriching customer profiles
 
 **Data-Driven Decisions:** Management gained quantifiable metrics for evaluating service quality improvements, comparing plant performance, and setting customer satisfaction targets. Executive dashboards showing enterprise-wide NPS trends inform strategic decisions.
 
-**Technical Architecture Success:** The REST API integration demonstrates Oracle APEX's capabilities for connecting with modern SaaS platforms. This hybrid approach leverages each platform's strengths—SurveyMonkey's survey expertise and APEX's business process orchestration.
+**Technical Architecture Success:** The REST API integration demonstrates Oracle APEX's capabilities for connecting with modern SaaS platforms. This hybrid approach leverages each platform's strengths: SurveyMonkey's survey expertise and APEX's business process orchestration.
 
 ## Deliverables
 
@@ -118,9 +118,9 @@ Survey responses feed into the Customer Service Hub, enriching customer profiles
 
 Oracle APEX was the ideal choice for this SurveyMonkey integration because it:
 
-- **Provides native REST API capabilities** through APEX_WEB_SERVICE—no middleware or integration platforms required
+- **Provides native REST API capabilities** through APEX_WEB_SERVICE, no middleware or integration platforms required
 - **Offers built-in scheduling** via APEX Automations for background processing without EBS concurrent manager dependencies
-- **Integrates seamlessly** with Oracle EBS data—customer master, order history, and plant configurations
+- **Integrates seamlessly** with Oracle EBS data: customer master, order history, and plant configurations
 - **Delivers unified user experience** by embedding survey data in the Customer Service Hub users already use daily
 - **Enables rapid development** with immediate iteration capability as survey requirements evolved
 - **Maintains data control** within the Oracle environment rather than replicating sensitive customer data to external systems
