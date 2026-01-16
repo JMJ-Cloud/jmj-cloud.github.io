@@ -5,6 +5,9 @@ import Header from '../components/Header.astro';
 import MobileNav from '../components/MobileNav.astro';
 import Footer from '../components/Footer.astro';
 import GridBackground from '../components/GridBackground.astro';
+import Clarity from '../components/Clarity.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -56,6 +59,10 @@ const siteTitle = title === 'Home' ? 'JMJ Cloud | Oracle Technology Delivered' :
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#0a0a0f" />
+
+    <!-- Analytics (only in production) -->
+    {import.meta.env.PROD && <Clarity />}
+    {import.meta.env.PROD && <GoogleAnalytics />}
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -68,6 +75,9 @@ const siteTitle = title === 'Home' ? 'JMJ Cloud | Oracle Technology Delivered' :
     </main>
 
     <Footer />
+
+    <!-- Cookie Consent (only in production) -->
+    {import.meta.env.PROD && <CookieConsent />}
   </body>
 </html>
 

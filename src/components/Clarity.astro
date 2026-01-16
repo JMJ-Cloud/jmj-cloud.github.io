@@ -1,0 +1,29 @@
+---
+// Clarity.astro
+// Microsoft Clarity analytics component
+// Only loads after user grants cookie consent
+const clarityId = import.meta.env.PUBLIC_CLARITY_ID;
+---
+
+{clarityId && (
+  <script define:vars={{ clarityId }}>
+    function loadClarity() {
+      // Prevent double-loading
+      if (window.clarity) return;
+
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", clarityId);
+    }
+
+    // Listen for consent event
+    window.addEventListener('clarity-consent-granted', loadClarity);
+
+    // Check if consent was already granted (handles page refreshes)
+    if (localStorage.getItem('clarity-consent') === 'true') {
+      loadClarity();
+    }
+  </script>
+)}

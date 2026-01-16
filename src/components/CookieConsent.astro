@@ -1,0 +1,160 @@
+---
+// CookieConsent.astro
+// GDPR-compliant cookie consent banner
+// Stores preference in localStorage and emits custom event when accepted
+---
+
+<div id="cookie-consent" class="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-description" hidden>
+  <div class="cookie-content">
+    <p id="cookie-description" class="cookie-text">
+      We use cookies to analyze site traffic and improve your experience.
+      <a href="/privacy" class="cookie-link">Learn more</a>
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-decline" class="cookie-btn cookie-btn-secondary">Decline</button>
+      <button id="cookie-accept" class="cookie-btn cookie-btn-primary">Accept</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-subtle);
+    padding: var(--space-4) var(--space-6);
+    z-index: 98;
+    transform: translateY(100%);
+    transition: transform var(--transition-base);
+  }
+
+  .cookie-banner.visible {
+    transform: translateY(0);
+  }
+
+  .cookie-content {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .cookie-content {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .cookie-text {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .cookie-link {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cookie-link:hover {
+    color: var(--accent-secondary);
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  .cookie-btn {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .cookie-btn-primary {
+    background-color: var(--accent-primary);
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+  }
+
+  .cookie-btn-primary:hover {
+    background-color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+  }
+
+  .cookie-btn-secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-subtle);
+  }
+
+  .cookie-btn-secondary:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+  }
+</style>
+
+<script>
+  const CONSENT_KEY = 'clarity-consent';
+  const banner = document.getElementById('cookie-consent');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
+
+  function showBanner() {
+    if (banner) {
+      banner.removeAttribute('hidden');
+      // Trigger reflow for animation
+      banner.offsetHeight;
+      banner.classList.add('visible');
+    }
+  }
+
+  function hideBanner() {
+    if (banner) {
+      banner.classList.remove('visible');
+      setTimeout(() => {
+        banner.setAttribute('hidden', '');
+      }, 300);
+    }
+  }
+
+  function setConsent(value: boolean) {
+    localStorage.setItem(CONSENT_KEY, String(value));
+    hideBanner();
+
+    if (value) {
+      // Dispatch custom event for Clarity to listen to
+      window.dispatchEvent(new CustomEvent('clarity-consent-granted'));
+    }
+  }
+
+  // Check for existing consent
+  const existingConsent = localStorage.getItem(CONSENT_KEY);
+
+  if (existingConsent === null) {
+    // No consent decision made yet, show banner
+    showBanner();
+  } else if (existingConsent === 'true') {
+    // User previously accepted, trigger Clarity load
+    window.dispatchEvent(new CustomEvent('clarity-consent-granted'));
+  }
+
+  acceptBtn?.addEventListener('click', () => setConsent(true));
+  declineBtn?.addEventListener('click', () => setConsent(false));
+</script>
