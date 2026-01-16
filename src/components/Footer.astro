@@ -26,7 +26,10 @@
     </div>
 
     <div class="footer-bottom">
-      <p class="copyright">&copy; {new Date().getFullYear()} JMJ Cloud Inc.</p>
+      <div class="footer-legal">
+        <p class="copyright">&copy; {new Date().getFullYear()} JMJ Cloud Inc.</p>
+        <a href="/privacy" class="legal-link">Privacy Policy</a>
+      </div>
       <a
         href="https://www.linkedin.com/company/jmjcloud"
         target="_blank"
@@ -107,9 +110,26 @@
     border-top: 1px solid var(--border-subtle);
   }
 
+  .footer-legal {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
   .copyright {
     font-size: var(--text-sm);
     color: var(--text-muted);
+  }
+
+  .legal-link {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .legal-link:hover {
+    color: var(--accent-primary);
   }
 
   .social-link {

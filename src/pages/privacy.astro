@@ -1,0 +1,241 @@
+---
+// privacy.astro
+// Privacy Policy page
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="JMJ Cloud privacy policy explaining how we collect, use, and protect your information."
+  currentPath="/privacy"
+>
+  <section class="privacy-hero">
+    <div class="container">
+      <h1 class="page-title fade-in fade-in-1">Privacy Policy</h1>
+      <p class="page-subtitle fade-in fade-in-2">
+        Last updated: January 2025
+      </p>
+    </div>
+  </section>
+
+  <section class="privacy-content">
+    <div class="container">
+      <div class="content-wrapper fade-in fade-in-3">
+
+        <h2>Overview</h2>
+        <p>
+          JMJ Cloud ("we," "our," or "us") respects your privacy and is committed to protecting your personal data.
+          This privacy policy explains how we collect, use, and safeguard information when you visit our website
+          at jmjcloud.com.
+        </p>
+
+        <h2>Information We Collect</h2>
+
+        <h3>Analytics Data</h3>
+        <p>
+          When you accept cookies on our website, we collect anonymous analytics data to understand how visitors
+          use our site. This helps us improve the user experience. We use the following services:
+        </p>
+        <ul>
+          <li>
+            <strong>Microsoft Clarity:</strong> Records anonymized session replays and heatmaps to understand
+            user behavior. Clarity automatically masks sensitive content and does not collect personal information.
+            <a href="https://clarity.microsoft.com/terms" target="_blank" rel="noopener noreferrer">View Clarity's Privacy Policy</a>
+          </li>
+          <li>
+            <strong>Google Analytics 4:</strong> Collects aggregated data about page views, traffic sources,
+            and user engagement. IP addresses are anonymized.
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">View Google's Privacy Policy</a>
+          </li>
+        </ul>
+
+        <h3>Contact Form Data</h3>
+        <p>
+          When you submit our contact form, we collect:
+        </p>
+        <ul>
+          <li>Your name</li>
+          <li>Email address</li>
+          <li>Company name (optional)</li>
+          <li>Message content</li>
+        </ul>
+        <p>
+          This information is used solely to respond to your inquiry and is not shared with third parties
+          or used for marketing purposes without your explicit consent.
+        </p>
+
+        <h2>Cookies</h2>
+        <p>
+          Our website uses cookies only after you provide consent through our cookie banner.
+          If you decline cookies, no tracking scripts are loaded and no cookies are set beyond
+          what is essential for the website to function.
+        </p>
+
+        <h3>Cookie Preferences</h3>
+        <p>
+          Your cookie preference is stored in your browser's local storage. You can change your
+          preference at any time by clearing your browser's local storage and refreshing the page,
+          which will display the cookie consent banner again.
+        </p>
+
+        <h2>How We Use Your Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Respond to your inquiries and provide customer support</li>
+          <li>Analyze website traffic and usage patterns to improve our content</li>
+          <li>Identify and fix technical issues</li>
+          <li>Understand which services and content are most valuable to visitors</li>
+        </ul>
+
+        <h2>Data Sharing</h2>
+        <p>
+          We do not sell, trade, or rent your personal information to third parties. Analytics data
+          is processed by Microsoft (Clarity) and Google (Analytics) according to their respective
+          privacy policies. We do not combine analytics data with personally identifiable information.
+        </p>
+
+        <h2>Data Retention</h2>
+        <p>
+          Contact form submissions are retained only as long as necessary to respond to your inquiry
+          and for reasonable follow-up. Analytics data is retained according to the default retention
+          periods of Microsoft Clarity and Google Analytics.
+        </p>
+
+        <h2>Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li><strong>Decline cookies:</strong> Use the cookie banner to decline analytics tracking</li>
+          <li><strong>Access your data:</strong> Request a copy of any personal data we hold about you</li>
+          <li><strong>Delete your data:</strong> Request deletion of your personal data from our systems</li>
+          <li><strong>Withdraw consent:</strong> Change your cookie preferences at any time</li>
+        </ul>
+
+        <h2>Security</h2>
+        <p>
+          Our website is served over HTTPS, ensuring all data transmitted between your browser and
+          our servers is encrypted. We do not store sensitive personal information on our servers.
+        </p>
+
+        <h2>Third-Party Links</h2>
+        <p>
+          Our website may contain links to third-party websites (such as LinkedIn profiles).
+          We are not responsible for the privacy practices of these external sites. We encourage
+          you to review the privacy policies of any third-party sites you visit.
+        </p>
+
+        <h2>Children's Privacy</h2>
+        <p>
+          Our website is not intended for children under 16 years of age. We do not knowingly
+          collect personal information from children.
+        </p>
+
+        <h2>Changes to This Policy</h2>
+        <p>
+          We may update this privacy policy from time to time. Any changes will be posted on this
+          page with an updated revision date. We encourage you to review this policy periodically.
+        </p>
+
+        <h2>Contact Us</h2>
+        <p>
+          If you have any questions about this privacy policy or our data practices, please
+          contact us at:
+        </p>
+        <p>
+          <a href="mailto:info@jmjcloud.com">info@jmjcloud.com</a>
+        </p>
+        <p>
+          Or use our <a href="/contact">contact form</a>.
+        </p>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .privacy-hero {
+    padding: var(--space-20) 0 var(--space-12);
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .page-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+  }
+
+  .privacy-content {
+    padding: var(--space-8) 0 var(--space-16);
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .content-wrapper h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .content-wrapper h2:first-of-type {
+    margin-top: 0;
+  }
+
+  .content-wrapper h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .content-wrapper p {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-4);
+  }
+
+  .content-wrapper ul {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-6);
+  }
+
+  .content-wrapper li {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-2);
+  }
+
+  .content-wrapper a {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .content-wrapper a:hover {
+    color: var(--accent-secondary);
+  }
+
+  .content-wrapper strong {
+    color: var(--text-primary);
+  }
+
+  @media (min-width: 1024px) {
+    .privacy-hero {
+      padding: var(--space-24) 0 var(--space-16);
+    }
+  }
+</style>
