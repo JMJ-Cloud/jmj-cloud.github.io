@@ -3,18 +3,21 @@
 // Service offering card with icon
 interface Props {
   title: string;
+  subtitle?: string;
   description: string;
   icon: 'cloud' | 'code' | 'database' | 'integration';
   image?: string;
+  logoSize?: 'normal' | 'large';
 }
 
-const { title, description, icon, image } = Astro.props;
+const { title, subtitle, description, icon, image, logoSize = 'large' } = Astro.props;
+const imgSize = logoSize === 'large' ? 96 : 80;
 ---
 
 <article class="service-card glow-border">
-  <div class="service-icon">
+  <div class={`service-icon ${logoSize === 'large' ? 'service-icon-large' : ''}`}>
     {image ? (
-      <img src={image} alt="" width="80" height="80" />
+      <img src={image} alt="" width={imgSize} height={imgSize} />
     ) : icon === 'cloud' ? (
       <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
@@ -41,7 +44,10 @@ const { title, description, icon, image } = Astro.props;
       </svg>
     )}
   </div>
-  <h3 class="service-title">{title}</h3>
+  <div class="service-title-wrapper">
+    {subtitle && <span class="service-subtitle">{subtitle}</span>}
+    <h3 class="service-title">{title}</h3>
+  </div>
   <p class="service-description">{description}</p>
 </article>
 
@@ -52,6 +58,9 @@ const { title, description, icon, image } = Astro.props;
     padding: var(--space-8);
     text-align: center;
     transition: transform var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .service-card:hover {
@@ -64,6 +73,11 @@ const { title, description, icon, image } = Astro.props;
     align-items: center;
     margin-bottom: var(--space-6);
     color: var(--accent-primary);
+    height: 80px;
+  }
+
+  .service-icon-large {
+    height: 96px;
   }
 
   .service-icon img {
@@ -72,16 +86,38 @@ const { title, description, icon, image } = Astro.props;
     object-fit: contain;
   }
 
+  .service-icon-large img {
+    width: 96px;
+    height: 96px;
+  }
+
+  .service-title-wrapper {
+    margin-bottom: var(--space-4);
+    min-height: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .service-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
   .service-title {
     font-family: var(--font-display);
     font-size: var(--text-xl);
     color: var(--text-primary);
-    margin-bottom: var(--space-4);
+    margin: 0;
   }
 
   .service-description {
     font-size: var(--text-sm);
     color: var(--text-secondary);
     line-height: 1.6;
+    flex-grow: 1;
   }
 </style>

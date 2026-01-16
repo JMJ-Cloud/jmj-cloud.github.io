@@ -10,26 +10,31 @@ import { getCollection } from 'astro:content';
 
 const services = [
   {
-    title: 'Oracle ERP Cloud',
+    title: 'ERP Cloud',
+    subtitle: 'Oracle',
     description: 'Fusion ERP & HCM development: security hardening, license optimisation, OIC integrations, OTBI/BIP reporting, and APEX applications for the gaps Oracle won\'t fill.',
     icon: 'cloud' as const,
     image: '/images/oracle-cloud.png',
   },
   {
     title: 'Integration Cloud',
+    subtitle: 'Oracle',
     description: 'Full OIC implementation from provisioning to production—security configuration, reusable integrations and libraries, and DR backup. Healthchecks for existing environments.',
     icon: 'integration' as const,
     image: '/images/oracle-oic.png',
   },
   {
-    title: 'Oracle APEX & ORDS',
+    title: 'APEX & ORDS',
+    subtitle: 'Oracle',
     description: 'Custom application development, REST APIs, and modernization using Oracle\'s low-code platform.',
     icon: 'code' as const,
     image: '/images/apex-rounded-corners.png',
+    logoSize: 'normal' as const,
   },
   {
     title: 'E-Business Suite',
-    description: 'EBS extensions, integrations, cloud coexistence, and migration planning.',
+    subtitle: 'Oracle',
+    description: 'EBS extensions, custom forms and reports, OIC and REST integrations, performance tuning, cloud coexistence strategies, and migration planning.',
     icon: 'database' as const,
     image: '/images/oracle-ebs.png',
   },
