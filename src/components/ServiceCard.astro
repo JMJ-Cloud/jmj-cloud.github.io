@@ -4,7 +4,7 @@
 interface Props {
   title: string;
   description: string;
-  icon: 'cloud' | 'code' | 'database';
+  icon: 'cloud' | 'code' | 'database' | 'integration';
   image?: string;
 }
 
@@ -23,6 +23,15 @@ const { title, description, icon, image } = Astro.props;
       <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="16 18 22 12 16 6"/>
         <polyline points="8 6 2 12 8 18"/>
+      </svg>
+    ) : icon === 'integration' ? (
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="5" cy="12" r="2"/>
+        <circle cx="19" cy="12" r="2"/>
+        <circle cx="12" cy="5" r="2"/>
+        <circle cx="12" cy="19" r="2"/>
+        <path d="M12 7v4m0 2v4"/>
+        <path d="M7 12h4m2 0h4"/>
       </svg>
     ) : (
       <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">

@@ -16,6 +16,11 @@ const services = [
     image: '/images/oracle-cloud.png',
   },
   {
+    title: 'Oracle Integration Cloud',
+    description: 'Provisioning, building reusable, extensible, and reliable integrations for enterprise systems.',
+    icon: 'integration' as const,
+  },
+  {
     title: 'Oracle APEX & ORDS',
     description: 'Custom application development, REST APIs, and modernization using Oracle\'s low-code platform.',
     icon: 'code' as const,
@@ -215,6 +220,7 @@ const latestProjects = featuredProjects.map(project => ({
 
   .capability-item strong {
     color: var(--text-primary);
+    font-size: var(--text-base);
   }
 
   /* Recent Projects Section */
@@ -256,6 +262,10 @@ const latestProjects = featuredProjects.map(project => ({
       padding: var(--space-24) 0 var(--space-20);
     }
 
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     .projects-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -267,7 +277,7 @@ const latestProjects = featuredProjects.map(project => ({
 
   @media (min-width: 1024px) {
     .services-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
 
     .projects-grid {

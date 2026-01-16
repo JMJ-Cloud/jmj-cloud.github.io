@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(ssh:*)",
+      "Bash(brew install:*)",
+      "Bash(gh auth:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(gh run:*)",
+      "WebFetch(domain:jmj-cloud.github.io)"
+    ]
+  }
+}
