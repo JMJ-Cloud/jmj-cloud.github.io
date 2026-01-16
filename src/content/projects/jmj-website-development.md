@@ -3,18 +3,22 @@ title: "JMJ Cloud Website Development"
 status: "Active"
 date: 2024-08-15
 year: 2025
-summary: "Building our company website using modern web technologies and AI-assisted development. Showcasing technical excellence through performance, security, and developer experience."
+summary: "Building and evolving our company website using modern web technologies and parallel AI-assisted development. Two team members simultaneously develop features using Claude Code, demonstrating collaborative AI workflows."
 technologies:
   - "Astro 5.16.6"
   - "TypeScript"
   - "Content Collections"
   - "CSS Custom Properties"
+  - "GitHub Actions"
+  - "Microsoft Clarity"
+  - "Google Analytics 4"
 industry: "Professional Services"
 metrics:
   - "Zero-JavaScript by default for fast performance"
-  - "Full contact form with bot protection"
-  - "7+ pages with dynamic content"
-  - "Type-safe content management with Zod schemas"
+  - "Custom domain with automated HTTPS"
+  - "GDPR-compliant analytics with cookie consent"
+  - "15+ portfolio case studies published"
+  - "Parallel AI-assisted development workflow"
 featured: false
 order: 2
 ---
@@ -208,6 +212,49 @@ Refined visual design with icon adjustments, hero styling, and project ordering 
 **Ongoing: Continuous Improvement**
 Regular content additions, performance monitoring, and user experience refinements based on real-world usage.
 
+### Parallel AI-Assisted Development
+
+A defining characteristic of this project is how Matt and Jamie simultaneously develop features using Claude Code. Rather than traditional pair programming or sequential development, both team members work independently with their own Claude Code sessions, each tackling different aspects of the website.
+
+**How It Works:**
+- Each developer runs Claude Code in their own terminal session
+- Work happens on separate feature branches or coordinated commits to main
+- Claude Code maintains context within each session, understanding the codebase structure and previous changes
+- Git handles merge coordination, with conflicts resolved collaboratively when they arise
+
+**Real-World Example:**
+While Jamie implemented the cookie consent banner and analytics integration (Microsoft Clarity and Google Analytics), Matt could simultaneously work on portfolio content updates or component refinements. Both developers push changes that Claude Code helped create, with co-authorship attribution in every commit.
+
+**Benefits Observed:**
+- **Doubled Development Velocity:** Two streams of AI-assisted work happening concurrently
+- **Consistent Code Quality:** Claude Code enforces the same patterns and standards regardless of which developer is working
+- **Reduced Context Switching:** Each developer maintains deep focus on their current task while their AI assistant handles implementation details
+- **Natural Knowledge Transfer:** Both developers see each other's Claude-assisted commits, learning new patterns and approaches
+
+This workflow demonstrates that AI-assisted development scales beyond individual productivity gains. Teams can multiply their effectiveness by running parallel Claude Code sessions, each maintaining full context of the evolving codebase.
+
+### Recent Enhancements (January 2025)
+
+**Custom Domain with HTTPS**
+Configured jmjcloud.com as the primary domain with automated SSL certificate provisioning through GitHub Pages. The setup required DNS A records pointing to GitHub's servers and a CNAME file in the repository for proper domain verification.
+
+**GDPR-Compliant Analytics**
+Implemented a privacy-first analytics solution with Microsoft Clarity and Google Analytics 4:
+- Created `CookieConsent.astro` component with Accept/Decline options
+- Analytics scripts only load after explicit user consent
+- Consent preference stored in localStorage and respected on subsequent visits
+- Custom events coordinate consent state across analytics providers
+- Environment variables keep tracking IDs secure and configurable per environment
+
+**Content Quality Improvements**
+Systematic cleanup of punctuation across all portfolio posts, replacing em dashes with appropriate alternatives (colons, commas, parentheses) for improved readability. This bulk operation across 14 files demonstrated Claude Code's ability to apply consistent editorial standards at scale.
+
+**UI Refinements**
+- Renamed "Latest Projects" to "Featured Projects" on the home page for clarity
+- Updated featured project selection to highlight key case studies
+- Fixed project card layout to keep content compact at the top with unused space at the bottom
+- Improved visual consistency across card components
+
 ### Deployment Workflow
 
 Our deployment process is streamlined and automated:
@@ -229,11 +276,17 @@ TypeScript and Zod schemas catch errors at build time. The Astro build process v
 ✅ **Core Website Pages Complete**
 Home, About, Resume, Expertise, Blog, Contact, and individual project detail pages are all live and functional.
 
+✅ **Custom Domain Live**
+jmjcloud.com configured with automated HTTPS through GitHub Pages.
+
+✅ **Privacy-First Analytics**
+Microsoft Clarity and Google Analytics 4 implemented with GDPR-compliant cookie consent banner.
+
 ✅ **Blog System with Content Collections**
 Type-safe blog system accepting Markdown posts with frontmatter validation and automatic routing.
 
 ✅ **Project Showcase with Case Studies**
-Portfolio section displays active and completed projects with detailed case studies, metrics, and technology stacks.
+Portfolio section displays 15+ active and completed projects with detailed case studies, metrics, and technology stacks.
 
 ✅ **Contact Form with Bot Protection**
 Secure contact form with server-side validation, honeypot field, and proper error handling.
@@ -241,11 +294,14 @@ Secure contact form with server-side validation, honeypot field, and proper erro
 ✅ **Responsive Navigation System**
 Desktop and mobile navigation with accessibility features, smooth animations, and active state highlighting.
 
+✅ **Parallel Development Workflow**
+Matt and Jamie actively developing features simultaneously using independent Claude Code sessions.
+
 🔄 **Ongoing Content Additions**
 Regularly adding new blog posts and project case studies as we complete client engagements.
 
-🔄 **Performance Monitoring**
-Continuously monitoring Core Web Vitals and optimizing for speed and user experience.
+🔄 **Analytics-Driven Optimization**
+Using Clarity session recordings and GA4 data to identify UX improvements and content opportunities.
 
 ## Why This Matters
 
@@ -334,10 +390,11 @@ Building with standard web technologies (Astro, TypeScript, static HTML/CSS) pro
 
 As we continue developing the JMJ Cloud website, we're focused on:
 
-- **Enhanced Analytics:** Implementing privacy-focused analytics to better understand visitor behavior
+- **Analytics Insights:** Leveraging Microsoft Clarity session recordings and Google Analytics data to understand visitor behavior and optimize content
 - **Additional Case Studies:** Adding more detailed project showcases as we complete client work
 - **Blog Content:** Publishing technical articles and insights from our Oracle Cloud engagements
 - **Performance Optimization:** Continuously monitoring and improving Core Web Vitals scores
 - **Feature Enhancements:** Adding interactive demos and tools relevant to our Oracle Cloud expertise
+- **Expanded AI Workflows:** Documenting and refining our parallel Claude Code development practices for broader team adoption
 
-This website serves as both our digital presence and a living demonstration of how modern web technologies and AI-assisted development can deliver enterprise-grade results efficiently.
+This website serves as both our digital presence and a living demonstration of how modern web technologies and AI-assisted development can deliver enterprise-grade results efficiently. The parallel development workflow with Claude Code proves that AI assistance scales effectively across teams, not just individual developers.
