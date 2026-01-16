@@ -14,7 +14,8 @@
       "Bash(file:*)",
       "Bash(sips -g all:*)",
       "Bash(sips:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
