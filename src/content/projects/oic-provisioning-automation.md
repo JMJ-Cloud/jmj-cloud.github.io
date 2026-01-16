@@ -1,6 +1,7 @@
 ---
 title: "Automated OIC Provisioning for Enterprise ERP Integration"
 status: "Completed"
+date: 2025-01-16
 year: 2025
 summary: "Self-service provisioning platform automating Oracle Integration Cloud setup for ERP integrations, reducing deployment time from weeks to hours."
 technologies:
