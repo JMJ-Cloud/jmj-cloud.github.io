@@ -23,7 +23,7 @@ metrics:
   - "Real-time visibility across enterprise operations"
   - "First-in-industry customer transparency system"
   - "Mobile workforce enabled with iOS applications"
-featured: true
+featured: false
 order: 3
 ---
 

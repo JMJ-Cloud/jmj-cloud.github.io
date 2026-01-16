@@ -18,7 +18,7 @@ metrics:
   - "Real-time NPS score tracking across all facilities"
   - "Zero manual survey administration overhead"
   - "40+ plants unified on single feedback platform"
-featured: true
+featured: false
 order: 4
 ---
 

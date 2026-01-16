@@ -17,7 +17,7 @@ metrics:
   - "85% reduction in provisioning time"
   - "40+ integration patterns deployed"
   - "Zero configuration drift across environments"
-featured: false
+featured: true
 order: 8
 ---
 

@@ -18,7 +18,7 @@ metrics:
   - "Real-time performance tracking across organization"
   - "Continuous feedback supporting ongoing development"
   - "Comprehensive objective and competency assessment"
-featured: true
+featured: false
 order: 5
 ---
 

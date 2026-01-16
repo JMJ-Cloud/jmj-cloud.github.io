@@ -17,7 +17,7 @@ metrics:
   - "95-99% extraction confidence scores"
   - "15-second average processing time per document"
   - "Eliminated hundreds of hours of manual data entry"
-featured: true
+featured: false
 order: 1
 ---
 

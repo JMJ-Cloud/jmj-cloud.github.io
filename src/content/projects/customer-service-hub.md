@@ -18,7 +18,7 @@ metrics:
   - "100% customer visibility across all plants"
   - "Zero data duplication with live EBS integration"
   - "Real-time sync with E-Business Suite"
-featured: true
+featured: false
 order: 2
 ---
 

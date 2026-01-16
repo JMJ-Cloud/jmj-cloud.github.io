@@ -15,7 +15,7 @@ metrics:
   - "Full contact form with bot protection"
   - "7+ pages with dynamic content"
   - "Type-safe content management with Zod schemas"
-featured: true
+featured: false
 order: 2
 ---
 

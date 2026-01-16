@@ -18,7 +18,7 @@ metrics:
   - "Real-time supplier availability management across procurement systems"
   - "100% vendor code accuracy for AP automation"
   - "Eliminated manual supplier data entry and reconciliation"
-featured: true
+featured: false
 order: 7
 ---
 

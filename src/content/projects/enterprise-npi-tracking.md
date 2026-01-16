@@ -18,7 +18,7 @@ metrics:
   - "7+ cross-functional workspace types"
   - "100+ automated action item templates"
   - "Real-time sales order impact analysis"
-featured: true
+featured: false
 order: 1
 ---
 

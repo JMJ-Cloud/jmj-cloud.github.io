@@ -19,7 +19,7 @@ metrics:
   - "Seven distinct integration scenarios supported"
   - "Comprehensive supervisor hierarchy management"
   - "Real-time error reporting and fault tolerance"
-featured: false
+featured: true
 order: 6
 ---
 

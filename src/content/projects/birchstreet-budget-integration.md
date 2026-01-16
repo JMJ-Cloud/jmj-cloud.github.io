@@ -17,7 +17,7 @@ metrics:
   - "7-segment Chart of Accounts validation"
   - "Daily automated file delivery to procurement system"
   - "Zero manual intervention required"
-featured: true
+featured: false
 order: 6
 ---
 
