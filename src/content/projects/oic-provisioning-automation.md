@@ -12,7 +12,7 @@ technologies:
   - "REST APIs"
   - "PL/SQL"
   - "Oracle APEX"
-industry: "Manufacturing"
+industry: "Financial Services"
 metrics:
   - "Production-ready in days, not weeks"
   - "Integration development started within 48 hours"
@@ -24,7 +24,7 @@ order: 8
 
 ## Project Overview
 
-A global manufacturing company needed to rapidly establish Oracle Integration Cloud capabilities to support their ERP integration requirements. Rather than spending weeks on initial setup and configuration decisions, they engaged JMJ Cloud's quick start service to provision a production-ready OIC environment implementing best practice standards.
+A financial services organisation needed to rapidly establish Oracle Integration Cloud capabilities to support their ERP integration requirements. Rather than spending weeks on initial setup and configuration decisions, they engaged JMJ Cloud's quick start service to provision a production-ready OIC environment implementing best practice standards.
 
 JMJ Cloud delivered a fully configured OIC instance with proper security hardening, backup procedures, and foundational projects for connections, lookups, and error handling. The quick start service includes comprehensive documentation covering the complete configuration, enabling the client's team to understand and maintain the environment confidently.
 
