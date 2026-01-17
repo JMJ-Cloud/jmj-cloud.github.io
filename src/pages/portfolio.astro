@@ -8,6 +8,23 @@ import { getCollection } from 'astro:content';
 // Get all projects and sort by date (newest first)
 const allProjects = await getCollection('projects');
 const sortedProjects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Helper function to check if a project is E-Business Suite related
+function isEBSProject(technologies: string[]): boolean {
+  const ebsKeywords = [
+    'Oracle E-Business Suite',
+    'Oracle EBS',
+    'EBS R12',
+    'E-Business Suite'
+  ];
+  return technologies.some(tech =>
+    ebsKeywords.some(keyword => tech.toLowerCase().includes(keyword.toLowerCase()))
+  );
+}
+
+// Separate projects into EBS and non-EBS (Cloud/Fusion)
+const ebsProjects = sortedProjects.filter(p => isEBSProject(p.data.technologies));
+const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologies));
 ---
 
 <BaseLayout
@@ -24,18 +41,40 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.getTime() - a.data
         </p>
       </header>
 
-      <!-- All Projects -->
-      <div class="projects-grid">
-        {sortedProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            summary={project.data.summary}
-            slug={project.slug}
-            technologies={project.data.technologies}
-            industry={project.data.industry}
-            metrics={project.data.metrics}
-          />
-        ))}
+      <div class="portfolio-columns">
+        <!-- E-Business Suite Projects -->
+        <div class="portfolio-column">
+          <h2 class="column-title">Oracle E-Business Suite</h2>
+          <div class="projects-list">
+            {ebsProjects.map((project) => (
+              <ProjectCard
+                title={project.data.title}
+                summary={project.data.summary}
+                slug={project.slug}
+                technologies={project.data.technologies}
+                industry={project.data.industry}
+                metrics={project.data.metrics}
+              />
+            ))}
+          </div>
+        </div>
+
+        <!-- Oracle Cloud / Fusion Projects -->
+        <div class="portfolio-column">
+          <h2 class="column-title">Oracle Cloud ERP</h2>
+          <div class="projects-list">
+            {cloudProjects.map((project) => (
+              <ProjectCard
+                title={project.data.title}
+                summary={project.data.summary}
+                slug={project.slug}
+                technologies={project.data.technologies}
+                industry={project.data.industry}
+                metrics={project.data.metrics}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
     </div>
@@ -65,15 +104,35 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.getTime() - a.data
     margin: 0 auto;
   }
 
-  .projects-grid {
+  .portfolio-columns {
     display: grid;
-    gap: var(--space-6);
-    margin-bottom: var(--space-8);
+    gap: var(--space-8);
   }
 
-  @media (min-width: 768px) {
-    .projects-grid {
+  @media (min-width: 1024px) {
+    .portfolio-columns {
       grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-12);
     }
+  }
+
+  .portfolio-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .column-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--accent);
+    color: var(--text-primary);
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
   }
 </style>
