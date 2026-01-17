@@ -18,8 +18,8 @@ metrics:
   - "100% customer visibility across all plants"
   - "Zero data duplication with live EBS integration"
   - "Real-time sync with E-Business Suite"
-featured: false
-order: 2
+featured: true
+order: 1
 ---
 
 ## Project Overview

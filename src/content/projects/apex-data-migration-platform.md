@@ -13,7 +13,7 @@ metrics:
   - "Multiple conversion modules in UAT"
   - "Automated validation & error detection"
   - "Real-time conversion progress tracking"
-featured: true
+featured: false
 order: 1
 ---
 
