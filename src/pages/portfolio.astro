@@ -23,8 +23,15 @@ function isEBSProject(technologies: string[]): boolean {
 }
 
 // Separate projects into EBS and non-EBS (Cloud/Fusion)
-const ebsProjects = sortedProjects.filter(p => isEBSProject(p.data.technologies));
+let ebsProjects = sortedProjects.filter(p => isEBSProject(p.data.technologies));
 const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologies));
+
+// Move Tax Certificate project to first position in EBS column
+const taxCertIndex = ebsProjects.findIndex(p => p.slug === 'azure-tax-certificate-extraction');
+if (taxCertIndex > 0) {
+  const [taxCertProject] = ebsProjects.splice(taxCertIndex, 1);
+  ebsProjects.unshift(taxCertProject);
+}
 
 // Create paired rows for aligned grid layout
 const maxRows = Math.max(ebsProjects.length, cloudProjects.length);
