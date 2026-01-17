@@ -1,5 +1,5 @@
 ---
-title: "Customer Service Hub"
+title: "Customer Service Hub - Breaking Free from Salesforce Licensing"
 status: "Active"
 date: 2024-09-01
 year: 2024
