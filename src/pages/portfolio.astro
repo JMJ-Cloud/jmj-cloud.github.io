@@ -44,7 +44,6 @@ const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologi
       <div class="portfolio-columns">
         <!-- E-Business Suite Projects -->
         <div class="portfolio-column">
-          <h2 class="column-title">Oracle E-Business Suite</h2>
           <div class="projects-list">
             {ebsProjects.map((project) => (
               <ProjectCard
@@ -61,7 +60,6 @@ const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologi
 
         <!-- Oracle Cloud / Fusion Projects -->
         <div class="portfolio-column">
-          <h2 class="column-title">Oracle Cloud ERP</h2>
           <div class="projects-list">
             {cloudProjects.map((project) => (
               <ProjectCard
@@ -119,15 +117,6 @@ const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologi
   .portfolio-column {
     display: flex;
     flex-direction: column;
-  }
-
-  .column-title {
-    font-size: var(--text-xl);
-    font-weight: 600;
-    margin-bottom: var(--space-6);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid var(--accent);
-    color: var(--text-primary);
   }
 
   .projects-list {
