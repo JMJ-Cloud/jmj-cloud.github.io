@@ -25,6 +25,13 @@ function isEBSProject(technologies: string[]): boolean {
 // Separate projects into EBS and non-EBS (Cloud/Fusion)
 const ebsProjects = sortedProjects.filter(p => isEBSProject(p.data.technologies));
 const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologies));
+
+// Create paired rows for aligned grid layout
+const maxRows = Math.max(ebsProjects.length, cloudProjects.length);
+const rows = Array.from({ length: maxRows }, (_, i) => ({
+  ebs: ebsProjects[i] || null,
+  cloud: cloudProjects[i] || null,
+}));
 ---
 
 <BaseLayout
@@ -41,38 +48,35 @@ const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologi
         </p>
       </header>
 
-      <div class="portfolio-columns">
-        <!-- E-Business Suite Projects -->
-        <div class="portfolio-column">
-          <div class="projects-list">
-            {ebsProjects.map((project) => (
+      <div class="projects-grid">
+        {rows.map((row) => (
+          <>
+            {row.ebs ? (
               <ProjectCard
-                title={project.data.title}
-                summary={project.data.summary}
-                slug={project.slug}
-                technologies={project.data.technologies}
-                industry={project.data.industry}
-                metrics={project.data.metrics}
+                title={row.ebs.data.title}
+                summary={row.ebs.data.summary}
+                slug={row.ebs.slug}
+                technologies={row.ebs.data.technologies}
+                industry={row.ebs.data.industry}
+                metrics={row.ebs.data.metrics}
               />
-            ))}
-          </div>
-        </div>
-
-        <!-- Oracle Cloud / Fusion Projects -->
-        <div class="portfolio-column">
-          <div class="projects-list">
-            {cloudProjects.map((project) => (
+            ) : (
+              <div class="empty-cell" />
+            )}
+            {row.cloud ? (
               <ProjectCard
-                title={project.data.title}
-                summary={project.data.summary}
-                slug={project.slug}
-                technologies={project.data.technologies}
-                industry={project.data.industry}
-                metrics={project.data.metrics}
+                title={row.cloud.data.title}
+                summary={row.cloud.data.summary}
+                slug={row.cloud.slug}
+                technologies={row.cloud.data.technologies}
+                industry={row.cloud.data.industry}
+                metrics={row.cloud.data.metrics}
               />
-            ))}
-          </div>
-        </div>
+            ) : (
+              <div class="empty-cell" />
+            )}
+          </>
+        ))}
       </div>
 
     </div>
@@ -102,26 +106,25 @@ const cloudProjects = sortedProjects.filter(p => !isEBSProject(p.data.technologi
     margin: 0 auto;
   }
 
-  .portfolio-columns {
+  .projects-grid {
     display: grid;
-    gap: var(--space-8);
+    gap: var(--space-6);
   }
 
   @media (min-width: 1024px) {
-    .portfolio-columns {
+    .projects-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-12);
+      gap: var(--space-6) var(--space-8);
     }
   }
 
-  .portfolio-column {
-    display: flex;
-    flex-direction: column;
+  .empty-cell {
+    display: none;
   }
 
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
+  @media (min-width: 1024px) {
+    .empty-cell {
+      display: block;
+    }
   }
 </style>
