@@ -14,9 +14,10 @@ technologies:
   - "Oracle APEX"
 industry: "Manufacturing"
 metrics:
-  - "85% reduction in provisioning time"
-  - "40+ integration patterns deployed"
-  - "Zero configuration drift across environments"
+  - "Production-ready in days, not weeks"
+  - "Integration development started within 48 hours"
+  - "Best practice common projects pre-built for connections and notifications"
+  - "Developer standards guide delivered"
 featured: true
 order: 8
 ---
