@@ -14,15 +14,11 @@
       "Bash(file:*)",
       "Bash(sips -g all:*)",
       "Bash(sips:*)",
-<<<<<<< Updated upstream
-      "Bash(curl:*)"
-=======
       "Bash(curl:*)",
       "Bash(git merge:*)",
       "Bash(git checkout:*)",
       "Bash(git stash:*)",
       "Bash(git stash pop:*)"
->>>>>>> Stashed changes
     ]
   }
 }
