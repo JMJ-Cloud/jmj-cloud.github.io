@@ -1,5 +1,5 @@
 ---
-title: "Why Building Enterprise Software In-House Beats Buying Off-the-Shelf in the Age of AI"
+title: "Build vs. Buy in the Age of AI"
 date: 2026-02-08
 author: "JMJ Cloud"
 summary: "AI-assisted development has collapsed the cost and timeline of custom software. For enterprise IT leaders, the build vs. buy equation has fundamentally shifted, and the case for owning your technology stack grows stronger every quarter."
@@ -17,9 +17,11 @@ draft: false
 
 ---
 
-For decades, the calculus was simple: buy commercial off-the-shelf (COTS) software whenever possible, build only when absolutely necessary. The reasoning was sound. Building enterprise software required large teams, long timelines, and specialized expertise that most organizations did not have. Buying from established vendors like SAP, Oracle, and Salesforce offered faster time to market, proven reliability, and ongoing vendor support.
+Nine years ago, I founded JMJ Cloud with [Matt Paine](https://www.linkedin.com/in/matt-paine-a12ab17/) and [Jon Dixon](https://www.linkedin.com/in/dixonjd/) based on a straightforward thesis: enterprises should get more out of the ERP they already own, not keep buying more software. Between the three of us, we bring over 60 years of Oracle experience, including Jon's 18 years at Oracle Consulting and Matt's two decades implementing Oracle ERP across global organizations. I had seen firsthand how companies were drowning in SaaS subscriptions and bolt-on products that never quite fit their business. I believed there was a better way: build targeted extensions on top of the platform you already have.
 
-But that equation was forged in an era when writing software was expensive, slow, and risky. Today, artificial intelligence has fundamentally altered every variable in the build vs. buy formula. The cost of building has plummeted. The speed of development has accelerated dramatically. And the hidden costs of buying, from escalating license fees to vendor lock-in, have never been more visible.
+The pushback was immediate and predictable. "Building custom software takes too long and costs too much. Why wouldn't I just buy something off the shelf?" And for a long time, that was a fair objection. Custom development required large teams, long timelines, and specialized expertise that most organizations struggled to maintain. The economics genuinely favored buying.
+
+That objection no longer holds. Artificial intelligence has fundamentally altered every variable in the build vs. buy formula. The cost of building has plummeted. The speed of development has accelerated dramatically. And the hidden costs of buying, from escalating license fees to vendor lock-in, have never been more visible. The thesis I founded JMJ Cloud on nine years ago is no longer contrarian. It is becoming the consensus.
 
 It is time for CTOs and CIOs to revisit their assumptions.
 
