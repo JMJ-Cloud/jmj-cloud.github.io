@@ -17,7 +17,7 @@ export async function GET(context: APIContext) {
     title: project.data.title,
     pubDate: project.data.date,
     description: project.data.summary,
-    link: `/portfolio/${project.slug}/`,
+    link: `/projects/${project.slug}/`,
   }));
 
   const items = [...blogItems, ...projectItems].sort(
