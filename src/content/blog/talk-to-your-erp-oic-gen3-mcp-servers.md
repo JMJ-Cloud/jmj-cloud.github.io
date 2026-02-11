@@ -1,5 +1,5 @@
 ---
-title: "Talk to Your ERP: How OIC Gen 3 MCP Servers Could Streamline Oracle ERP Administration"
+title: "From Screens to Conversations: OIC Gen 3 MCP Servers for Oracle ERP"
 date: 2026-02-10
 author: "Matt Paine"
 tags: ["Oracle", "OIC", "AI", "MCP", "ERP", "Integration", "OCI", "Fusion", "Automation"]
@@ -122,6 +122,3 @@ The blocker for most organizations isn't technical. It's getting Information Sec
 
 The question isn't whether this will happen. It's whether you want to be building toward it now, or catching up later.
 
----
-
-Matt Paine, Owner JMJ Cloud
