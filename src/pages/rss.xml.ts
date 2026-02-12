@@ -43,6 +43,8 @@ export async function GET(context: APIContext) {
     description:
       'Blog posts from JMJ Cloud, covering Oracle APEX, ORDS, EBS, and Cloud ERP.',
     site: context.site!,
+    xmlns: { atom: 'http://www.w3.org/2005/Atom' },
+    customData: `<atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>`,
     items,
   });
 }
