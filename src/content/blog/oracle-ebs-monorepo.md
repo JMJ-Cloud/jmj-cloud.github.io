@@ -22,7 +22,42 @@ This is the story of how we solved both problems at once by building a monorepo 
 
 ---
 
-## The Central Idea: Structure for Humans AND AI
+## What Changes When You Get This Right
+
+### For Your Development Team
+
+**Faster onboarding.** A new developer clones the repo, reads the `DEVELOPER_GUIDE.md`, and has everything in one place. With Claude Code, they can ask questions about the codebase and get accurate, grounded answers.
+
+**Consistent code quality.** Every custom procedure has logging. Every exception is handled. Every SQL statement uses bind variables. Not because developers memorize the rules, but because Claude Code applies them automatically.
+
+**Concrete numbers from our experience:**
+- New table creation (4 files): ~2 minutes with Claude Code vs. ~20 minutes manually
+- New conversion package (spec + body + logging + error handling): ~5 minutes vs. ~2 hours
+- Code review turnaround: reduced by roughly 40% (fewer standards violations to catch)
+
+### For IT Management
+
+**Audit compliance.** Every custom database object is in Git with full version history. When auditors ask "show me the change history for this extension package," you run `git log` instead of scrambling through email threads.
+
+**Knowledge retention.** When a developer leaves, their knowledge of your custom extensions doesn't leave with them. It's encoded in the `CLAUDE.md` files, the package specs, and the commit history. Claude Code can answer questions about their code as effectively as they could.
+
+**Faster issue resolution.** When a production issue comes in involving custom extensions, the traditional approach is painful: manually tracing through custom package bodies, cross-referencing table definitions, and hunting across files to understand what the code is supposed to do. With a structured monorepo, you can describe the error to Claude Code and it already understands the full context: which custom packages are involved, how the data flows through your extensions, what the table structures look like, and what the expected behavior should be. Instead of spending an hour reading code across a dozen files, Claude Code can pinpoint the likely cause in minutes. Support goes from an archaeology exercise to a conversation.
+
+### For the Business
+
+**Faster feature delivery.** Claude Code generates the extension boilerplate, the deployment scripts, and the test scaffolding. The team spends more time on business logic and less time on infrastructure.
+
+**Reduced risk from staff turnover.** A well-structured monorepo of your custom extensions with embedded AI context is an asset that appreciates over time. Every new extension project adds to the repository's value. Every `CLAUDE.md` makes Claude Code more effective across the entire codebase.
+
+**A new role for your Oracle developers.** The developers who know your EBS environment best shouldn't be spending their days writing boilerplate PL/SQL. They should be transitioning into Oracle Prompters: specialists who use their deep domain knowledge to guide AI and multiply their output. With a structured monorepo and Claude Code, your most experienced developers go from writing one package at a time to directing the creation of entire projects. That's not incremental improvement. That's 10X productivity.
+
+---
+
+## How We Built It
+
+Here's how the architecture works, from the central idea down to the deployment pipeline.
+
+### The Central Idea: Structure for Humans AND AI
 
 **If you structure your custom Oracle EBS extensions so that an AI assistant can read a few files and instantly understand your entire architecture, naming conventions, coding standards, and deployment process, then that same structure will also make your human developers dramatically more productive.**
 
@@ -38,7 +73,7 @@ This isn't a documentation exercise. It's an architectural decision. The `CLAUDE
 
 ---
 
-## The Four-Schema Architecture
+### The Four-Schema Architecture
 
 Oracle EBS R12.2 ships with a sprawling APPS schema. When you build custom extensions and integrations on top of EBS, you need a clean separation between your custom data, your business logic, your UI, and your APIs. We use four schemas:
 
@@ -67,7 +102,7 @@ For Claude Code, this architecture is gold. When it sees a custom table referenc
 
 ---
 
-## One Repo, 144 Projects, Zero Ambiguity
+### One Repo, 144 Projects, Zero Ambiguity
 
 All of our custom extensions and integrations live in a single Git repository. 144 projects. Every data conversion, every third-party integration, every custom APEX application, all in one place. To be clear: this is not Oracle EBS source code. This is the custom code our team has written to extend EBS functionality and integrate it with other systems.
 
@@ -114,7 +149,7 @@ The real power is compound learning. Claude Code learns the pattern once from th
 
 ---
 
-## Zero-Downtime Table Deployment in Four Steps
+### Zero-Downtime Table Deployment in Four Steps
 
 Creating a custom table in Oracle EBS R12.2 isn't just a `CREATE TABLE` statement. Because of Edition-Based Redefinition, you need four coordinated scripts across two schemas, executed in a specific order. Get the order wrong and you break the edition view chain.
 
@@ -134,7 +169,7 @@ One request. Four files. Zero errors.
 
 ---
 
-## Standards That Enforce Themselves
+### Standards That Enforce Themselves
 
 Most Oracle EBS extension teams have coding standards. They live in a wiki or a PDF that nobody reads after onboarding week. We put our standards in `CLAUDE.md`. Because Claude Code reads it on every interaction, the standards are enforced at write time, not review time.
 
@@ -150,7 +185,7 @@ The key insight: **standards in a `CLAUDE.md` file are consumed by AI on every i
 
 ---
 
-## No Database Required
+### No Database Required
 
 **Claude Code never connects to the database.** It has no credentials. It can't query `DBA_OBJECTS` or `ALL_TAB_COLUMNS`. And yet it produces correct, standards-compliant custom extension code, because the repository gives it everything it needs.
 
@@ -171,7 +206,7 @@ This has a profound implication: **any Oracle EBS team can adopt this approach f
 
 ---
 
-## Keeping Git in Sync with the Database
+### Keeping Git in Sync with the Database
 
 The monorepo only works if it reflects reality. We use a two-step extraction pipeline:
 
@@ -185,44 +220,13 @@ Files that already exist in the repo are never overwritten. The extraction only 
 
 ---
 
-## From Developer Branch to Production
+### From Developer Branch to Production
 
 ![Branch and Deployment Strategy](/images/blog/oracle-ebs-monorepo/06-branch-deployment.svg)
 
 The deployment order matters. Tables must exist before edition views can be created. Grants must be applied before synonyms work. Package specs must compile before bodies. Views depend on tables and packages. APEX applications depend on everything above them.
 
 This order is documented in both the `DEVELOPER_GUIDE.md` and the root `CLAUDE.md`. When Claude Code generates deployment scripts for a new feature, it numbers them correctly and places them in the right `PATCHES/TICKET/V1/` directory. The versioned patch directory provides a clear audit trail. If a deployment needs a second attempt, you create `V2/` with the corrected scripts rather than modifying `V1/`.
-
----
-
-## The Results
-
-### For Your Development Team
-
-**Faster onboarding.** A new developer clones the repo, reads the `DEVELOPER_GUIDE.md`, and has everything in one place. With Claude Code, they can ask questions about the codebase and get accurate, grounded answers.
-
-**Consistent code quality.** Every custom procedure has logging. Every exception is handled. Every SQL statement uses bind variables. Not because developers memorize the rules, but because Claude Code applies them automatically.
-
-**Concrete numbers from our experience:**
-- New table creation (4 files): ~2 minutes with Claude Code vs. ~20 minutes manually
-- New conversion package (spec + body + logging + error handling): ~5 minutes vs. ~2 hours
-- Code review turnaround: reduced by roughly 40% (fewer standards violations to catch)
-
-### For IT Management
-
-**Audit compliance.** Every custom database object is in Git with full version history. When auditors ask "show me the change history for this extension package," you run `git log` instead of scrambling through email threads.
-
-**Knowledge retention.** When a developer leaves, their knowledge of your custom extensions doesn't leave with them. It's encoded in the `CLAUDE.md` files, the package specs, and the commit history. Claude Code can answer questions about their code as effectively as they could.
-
-**Faster issue resolution.** When a production issue comes in involving custom extensions, the traditional approach is painful: manually tracing through custom package bodies, cross-referencing table definitions, and hunting across files to understand what the code is supposed to do. With a structured monorepo, you can describe the error to Claude Code and it already understands the full context: which custom packages are involved, how the data flows through your extensions, what the table structures look like, and what the expected behavior should be. Instead of spending an hour reading code across a dozen files, Claude Code can pinpoint the likely cause in minutes. Support goes from an archaeology exercise to a conversation.
-
-### For the Business
-
-**Faster feature delivery.** Claude Code generates the extension boilerplate, the deployment scripts, and the test scaffolding. The team spends more time on business logic and less time on infrastructure.
-
-**Reduced risk from staff turnover.** A well-structured monorepo of your custom extensions with embedded AI context is an asset that appreciates over time. Every new extension project adds to the repository's value. Every `CLAUDE.md` makes Claude Code more effective across the entire codebase.
-
-**A new role for your Oracle developers.** The developers who know your EBS environment best shouldn't be spending their days writing boilerplate PL/SQL. They should be transitioning into Oracle Prompters: specialists who use their deep domain knowledge to guide AI and multiply their output. With a structured monorepo and Claude Code, your most experienced developers go from writing one package at a time to directing the creation of entire projects. That's not incremental improvement. That's 10X productivity.
 
 ---
 
