@@ -1,0 +1,1007 @@
+---
+// software-factory.astro
+// Marketing page for the JMJ Software Factory delivery model
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const stations = [
+  {
+    num: '01',
+    title: 'Requirements',
+    text: 'A senior Oracle architect turns the ask into a precise, testable specification.',
+  },
+  {
+    num: '02',
+    title: 'Agents build',
+    text: 'Claude Code and Codex work the spec in parallel, wired to live dev environments via MCP.',
+  },
+  {
+    num: '03',
+    title: 'Cross-review',
+    text: 'A second agent adversarially reviews every line the first one wrote.',
+  },
+  {
+    num: '04',
+    title: 'Verify & test',
+    text: 'Mandatory tests run against real schemas and ERP APIs, not assumptions.',
+  },
+  {
+    num: '05',
+    title: 'Ship',
+    text: 'CI/CD deployment with documentation generated alongside the code.',
+  },
+];
+
+const qualityPoints = [
+  {
+    title: 'Standards enforced by construction',
+    text: 'Our Oracle delivery standards are encoded as agent skills. The five-hundredth package looks like the first.',
+  },
+  {
+    title: 'Everything is reviewed twice',
+    text: 'An adversarial agent review plus a senior engineer review on every deliverable. Nothing ships on trust.',
+  },
+  {
+    title: 'Tests always exist',
+    text: 'No one skips the test suite to protect a deadline, because writing it no longer threatens the deadline.',
+  },
+  {
+    title: 'Documentation is a by-product',
+    text: 'Generated with the code, in the repository, where the next person can actually find it.',
+  },
+];
+---
+
+<BaseLayout
+  title="The Software Factory"
+  description="The JMJ Software Factory: senior Oracle engineers directing AI coding agents to deliver EBS and Fusion ERP work ten times faster than hourly teams, billed in 30-minute increments with no minimum commitment."
+  currentPath="/software-factory"
+>
+  <script is:inline>
+    // Enable scroll-reveal styling only when JS is running,
+    // so content is never hidden for crawlers or no-JS visitors.
+    document.documentElement.classList.add('sf-js');
+  </script>
+
+  <!-- Hero -->
+  <section class="sf-hero">
+    <div class="container">
+      <div class="sf-hero-content fade-in fade-in-1">
+        <p class="sf-eyebrow">The JMJ Software Factory</p>
+        <h1 class="sf-hero-title">
+          <span class="line-1">Stop renting hours.</span>
+          <span class="line-2">Start shipping software.</span>
+        </h1>
+        <p class="sf-hero-description">
+          Senior Oracle engineers directing AI coding agents, on a factory line built
+          for E-Business Suite and Fusion Cloud ERP. Ten times faster than the
+          40-hours-a-week model, and we bill in 30-minute increments with no
+          minimum commitment.
+        </p>
+        <div class="sf-hero-actions">
+          <a href="/contact" class="btn btn-primary">Benchmark Us</a>
+          <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The problem -->
+  <section class="sf-problem">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">The hourly model</p>
+        <h2 class="sf-title">What does 40 hours a week actually buy?</h2>
+        <p class="sf-lede">
+          If you run Oracle EBS or Fusion ERP, you may be paying a contract team that
+          bills 40 hours per person, every week, all year. The invoice arrives like a
+          heartbeat. The backlog does not shrink like one.
+        </p>
+      </div>
+      <div class="sf-problem-grid">
+        <div class="sf-problem-item" data-reveal>
+          <h3>Nobody is rewarded for being fast</h3>
+          <p>
+            Finish in 10 hours what was estimated at 40, and the arrangement loses
+            revenue. You will rarely see that happen twice.
+          </p>
+        </div>
+        <div class="sf-problem-item" data-reveal>
+          <h3>Rotation resets the clock</h3>
+          <p>
+            Contract teams churn. Every new developer spends billable weeks relearning
+            your instance, your customizations, and your naming conventions.
+          </p>
+        </div>
+        <div class="sf-problem-item" data-reveal>
+          <h3>Process is billable</h3>
+          <p>
+            Status calls, standups, weekly reports, re-estimation meetings. All of it
+            lands on the same invoice as engineering.
+          </p>
+        </div>
+      </div>
+      <p class="sf-problem-verdict" data-reveal>
+        The problem is not the people. It is the model. An hourly arrangement sells
+        time, so time is what gets produced.
+      </p>
+    </div>
+  </section>
+
+  <!-- What changed -->
+  <section class="sf-changed">
+    <div class="container sf-changed-inner">
+      <div class="sf-changed-copy" data-reveal>
+        <p class="sf-eyebrow">What changed</p>
+        <h2 class="sf-title-left">The engine is new.<br />The factory is ours.</h2>
+        <p>
+          AI coding agents like Claude Code and Codex are not autocomplete. They read
+          an entire codebase, plan a change, write the code, run the tests, and
+          document what they did. One senior engineer can direct several of them in
+          parallel.
+        </p>
+        <p>
+          But a raw agent pointed at an Oracle ERP environment produces generic code
+          that ignores your standards and your instance realities. The agent is an
+          engine. The value is the factory built around it, and we have spent two
+          years building ours.
+        </p>
+      </div>
+      <div class="sf-terminal" data-reveal aria-hidden="true">
+        <div class="sf-terminal-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="sf-terminal-title">factory-floor</span>
+        </div>
+        <div class="sf-terminal-body">
+          <p><span class="prompt">$</span> claude "build AP invoice interface per spec 042"</p>
+          <p class="out">14 files changed &#183; tests passing</p>
+          <p><span class="prompt">$</span> codex review --adversarial</p>
+          <p class="out">2 findings raised &#183; resolved &#183; re-verified</p>
+          <p><span class="prompt">$</span> git push</p>
+          <p class="out">CI green &#183; deployed to DEV &#183; docs updated</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two foundations -->
+  <section class="sf-foundations">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">Before any code</p>
+        <h2 class="sf-title">Two foundations carry everything</h2>
+      </div>
+      <div class="sf-foundations-grid">
+        <article class="sf-foundation-card glow-border" data-reveal>
+          <p class="sf-card-num">Foundation 1</p>
+          <h3>Requirements, done by people who know Oracle</h3>
+          <p>
+            When building becomes ten times faster, building the wrong thing becomes
+            the dominant risk. Agents amplify whatever you feed them: feed them
+            ambiguity and they produce the wrong thing at remarkable speed.
+          </p>
+          <p>
+            So our most senior hours go at the front. An architect with decades of
+            EBS and Fusion experience interrogates the requirement, which module it
+            really lives in, what happens at period close, what the exception path
+            looks like, and writes the specification the agents execute against.
+          </p>
+        </article>
+        <article class="sf-foundation-card glow-border" data-reveal>
+          <p class="sf-card-num">Foundation 2</p>
+          <h3>A GitHub repository you own</h3>
+          <p>
+            An enormous amount of EBS custom code still lives on the server it runs
+            on, with no history and no review trail. You cannot run a factory on that
+            floor.
+          </p>
+          <p>
+            We put your CEMLI objects, PL/SQL, APEX apps, and OIC integrations under
+            version control, add context files that teach agents your instance, encode
+            25+ years of Oracle standards as agent skills, and wire up CI/CD with
+            review gates. If we disappeared tomorrow, you keep all of it.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- The assembly line -->
+  <section class="sf-line" id="how-it-works">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">How it works</p>
+        <h2 class="sf-title">One work item, five stations</h2>
+      </div>
+
+      <div class="sf-assembly" data-reveal>
+        <div class="sf-oversight">
+          <span class="sf-oversight-dot" aria-hidden="true"></span>
+          <p>
+            <strong>Senior Oracle engineers</strong> direct every station, review every
+            deliverable, and give final approval. Nothing ships without human judgment.
+          </p>
+        </div>
+
+        <div class="sf-rail" aria-hidden="true">
+          <span class="sf-node" style="left: 10%"></span>
+          <span class="sf-node" style="left: 30%"></span>
+          <span class="sf-node" style="left: 50%"></span>
+          <span class="sf-node" style="left: 70%"></span>
+          <span class="sf-node" style="left: 90%"></span>
+          <span class="sf-work-item"></span>
+        </div>
+
+        <ol class="sf-stations">
+          {stations.map((s) => (
+            <li class="sf-station">
+              <p class="sf-station-num">{s.num}</p>
+              <h3>{s.title}</h3>
+              <p class="sf-station-text">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div class="sf-floor">
+          <p class="sf-floor-title">The factory floor: a GitHub repository you own</p>
+          <p class="sf-floor-text">
+            Version control &#183; encoded Oracle standards &amp; skills &#183; agent
+            context files &#183; MCP connections &#183; CI/CD pipelines
+          </p>
+        </div>
+      </div>
+
+      <p class="sf-line-caption" data-reveal>
+        Every hour billed is an engineering hour applied to your deliverable.
+      </p>
+    </div>
+  </section>
+
+  <!-- The math -->
+  <section class="sf-math">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">The math</p>
+        <h2 class="sf-title">The same work item, two ways</h2>
+        <p class="sf-lede">
+          An illustrative scenario: a mid-size Fusion ERP integration or EBS extension
+          with a couple of forms and a workflow.
+        </p>
+      </div>
+
+      <div class="sf-chart" data-reveal>
+        <div class="sf-chart-row">
+          <div class="sf-chart-label">
+            <p>Hourly offshore team</p>
+            <p class="sf-chart-sub">2-3 developers &#183; 40 hrs/week</p>
+          </div>
+          <div class="sf-chart-track">
+            <div class="sf-bar sf-bar-gray" style="--bar-w: 100%"></div>
+            <span class="sf-bar-value">&#8776; 26 weeks &#183; 1,500+ billed hours</span>
+          </div>
+        </div>
+        <div class="sf-chart-row">
+          <div class="sf-chart-label">
+            <p>JMJ Software Factory</p>
+            <p class="sf-chart-sub">senior-led &#183; agents in parallel</p>
+          </div>
+          <div class="sf-chart-track">
+            <div class="sf-bar sf-bar-accent" style="--bar-w: 11.5%"></div>
+            <span class="sf-bar-value">&#8776; 3 weeks &#183; 10&#215; faster</span>
+          </div>
+        </div>
+        <p class="sf-chart-note">
+          Illustrative timeline for a representative work item. Actual durations vary
+          with scope and environment access.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality -->
+  <section class="sf-quality">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">Quality</p>
+        <h2 class="sf-title">Faster and better, not faster or better</h2>
+      </div>
+      <div class="sf-quality-grid">
+        {qualityPoints.map((q) => (
+          <div class="sf-quality-item" data-reveal>
+            <h3>{q.title}</h3>
+            <p>{q.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contract proof -->
+  <section class="sf-contract">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">The proof</p>
+        <h2 class="sf-title">Our contract makes the argument</h2>
+        <p class="sf-lede">
+          We can only afford to bill this way because the factory works. If we were
+          slow, these terms would put us out of business in a quarter.
+        </p>
+      </div>
+      <div class="sf-stats" data-reveal>
+        <div class="sf-stat">
+          <p class="sf-stat-value">0 hrs</p>
+          <p class="sf-stat-label">minimum commitment</p>
+        </div>
+        <div class="sf-stat">
+          <p class="sf-stat-value">30 min</p>
+          <p class="sf-stat-label">billing increments</p>
+        </div>
+        <div class="sf-stat">
+          <p class="sf-stat-value sf-stat-accent">10&#215;</p>
+          <p class="sf-stat-label">faster delivery</p>
+        </div>
+        <div class="sf-stat">
+          <p class="sf-stat-value">$0</p>
+          <p class="sf-stat-label">when nothing is in flight</p>
+        </div>
+      </div>
+      <p class="sf-contract-note" data-reveal>
+        When you evaluate any development partner, look at their billing model before
+        their slide deck. It tells you what they are optimizing for.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sf-cta">
+    <div class="container">
+      <div class="sf-cta-inner glow-border" data-reveal>
+        <h2>Benchmark us with one backlog item</h2>
+        <p>
+          Pick one real item from your backlog: a report, an interface, an extension
+          that has been "in progress" for a while. Give it to us with no commitment
+          beyond that item, and compare the outcome, the timeline, and the invoice
+          against your current arrangement.
+        </p>
+        <div class="sf-cta-actions">
+          <a href="/contact" class="btn btn-primary">Get in Touch</a>
+          <a href="/blog/jmj-cloud-software-factory" class="btn btn-secondary">Read the Full Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Shared ---------- */
+  .sf-eyebrow {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .sf-title,
+  .sf-title-left {
+    font-size: clamp(1.5rem, 5.5vw, var(--text-3xl));
+    margin-bottom: var(--space-4);
+  }
+
+  .sf-section-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto var(--space-12);
+  }
+
+  .sf-title-left {
+    text-align: left;
+  }
+
+  .sf-lede {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  :global(html.sf-js) [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  :global(html.sf-js) [data-reveal].in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Hero ---------- */
+  .sf-hero {
+    padding: var(--space-20) 0 var(--space-16);
+    text-align: center;
+  }
+
+  .sf-hero-content {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .sf-hero-title {
+    font-size: clamp(1.75rem, 6.5vw, var(--text-4xl));
+    line-height: 1.15;
+    margin-bottom: var(--space-6);
+  }
+
+  .sf-hero-title span {
+    display: block;
+  }
+
+  .sf-hero-title .line-2 {
+    color: var(--accent-primary);
+  }
+
+  .sf-hero-description {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto var(--space-8);
+    line-height: 1.7;
+  }
+
+  .sf-hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ---------- Problem ---------- */
+  .sf-problem {
+    padding: var(--space-16) 0;
+    background-color: var(--bg-secondary);
+  }
+
+  .sf-problem-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+  }
+
+  .sf-problem-item {
+    border-left: 2px solid var(--border-subtle);
+    padding-left: var(--space-5);
+  }
+
+  .sf-problem-item h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .sf-problem-item p {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .sf-problem-verdict {
+    font-family: var(--font-display);
+    text-align: center;
+    color: var(--text-primary);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ---------- What changed ---------- */
+  .sf-changed {
+    padding: var(--space-16) 0;
+  }
+
+  .sf-changed-inner {
+    display: grid;
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .sf-changed-copy p:not(.sf-eyebrow) {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .sf-terminal {
+    background-color: var(--bg-code);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .sf-terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .sf-terminal-bar .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--border-subtle);
+  }
+
+  .sf-terminal-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-left: var(--space-2);
+  }
+
+  .sf-terminal-body {
+    padding: var(--space-5);
+    font-family: var(--font-code);
+    font-size: var(--text-sm);
+  }
+
+  .sf-terminal-body p {
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+
+  .sf-terminal-body .prompt {
+    color: var(--accent-primary);
+    margin-right: var(--space-2);
+  }
+
+  .sf-terminal-body .out {
+    color: var(--text-muted);
+    padding-left: var(--space-5);
+  }
+
+  /* ---------- Foundations ---------- */
+  .sf-foundations {
+    padding: var(--space-16) 0;
+    background-color: var(--bg-secondary);
+  }
+
+  .sf-foundations-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .sf-foundation-card {
+    background-color: var(--bg-elevated);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+
+  .sf-card-num {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .sf-foundation-card h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .sf-foundation-card p:not(.sf-card-num) {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-3);
+  }
+
+  /* ---------- Assembly line ---------- */
+  .sf-line {
+    padding: var(--space-16) 0;
+  }
+
+  .sf-oversight {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .sf-oversight-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-primary);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .sf-oversight p {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .sf-oversight strong {
+    color: var(--text-primary);
+  }
+
+  .sf-rail {
+    position: relative;
+    height: 2px;
+    background-color: var(--border-subtle);
+    margin: 0 var(--space-4) var(--space-6);
+    display: none;
+  }
+
+  .sf-node {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--accent-secondary);
+  }
+
+  .sf-work-item {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-primary);
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+    animation: convey 14s ease-in-out infinite;
+  }
+
+  @keyframes convey {
+    0%, 8%   { left: 10%; opacity: 1; }
+    18%, 28% { left: 30%; opacity: 1; }
+    38%, 48% { left: 50%; opacity: 1; }
+    58%, 68% { left: 70%; opacity: 1; }
+    78%, 90% { left: 90%; opacity: 1; }
+    95%      { left: 90%; opacity: 0; }
+    96%      { left: 10%; opacity: 0; }
+    100%     { left: 10%; opacity: 1; }
+  }
+
+  .sf-stations {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .sf-station {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .sf-station-num {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .sf-station h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .sf-station-text {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .sf-floor {
+    background-color: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .sf-floor-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .sf-floor-text {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .sf-line-caption {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: var(--space-8);
+  }
+
+  /* ---------- Math ---------- */
+  .sf-math {
+    padding: var(--space-16) 0;
+    background-color: var(--bg-secondary);
+  }
+
+  .sf-chart {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .sf-chart-row {
+    display: grid;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+  }
+
+  .sf-chart-label p {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+  }
+
+  .sf-chart-sub {
+    font-size: var(--text-xs) !important;
+    color: var(--text-muted) !important;
+  }
+
+  .sf-chart-track {
+    position: relative;
+  }
+
+  .sf-bar {
+    height: 22px;
+    width: 0;
+    border-radius: 0 4px 4px 0;
+    transition: width 1.2s ease-out 0.2s;
+  }
+
+  .in-view .sf-bar,
+  :global(html:not(.sf-js)) .sf-bar {
+    width: var(--bar-w);
+  }
+
+  .sf-bar-gray {
+    background-color: var(--text-secondary);
+  }
+
+  .sf-bar-accent {
+    background-color: var(--accent-primary);
+    box-shadow: 0 0 16px rgba(0, 212, 255, 0.35);
+  }
+
+  .sf-bar-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    margin-top: var(--space-2);
+  }
+
+  .sf-chart-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  /* ---------- Quality ---------- */
+  .sf-quality {
+    padding: var(--space-16) 0;
+  }
+
+  .sf-quality-grid {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .sf-quality-item {
+    border-left: 2px solid var(--accent-secondary);
+    padding-left: var(--space-5);
+  }
+
+  .sf-quality-item h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .sf-quality-item p {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ---------- Contract ---------- */
+  .sf-contract {
+    padding: var(--space-16) 0;
+    background-color: var(--bg-secondary);
+  }
+
+  .sf-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    max-width: 820px;
+    margin: 0 auto var(--space-10);
+  }
+
+  .sf-stat {
+    text-align: center;
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .sf-stat-value {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .sf-stat-accent {
+    color: var(--accent-primary);
+  }
+
+  .sf-stat-label {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+
+  .sf-contract-note {
+    text-align: center;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ---------- CTA ---------- */
+  .sf-cta {
+    padding: var(--space-16) 0 var(--space-20);
+  }
+
+  .sf-cta-inner {
+    text-align: center;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-12) var(--space-6);
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .sf-cta-inner h2 {
+    font-size: var(--text-2xl, 1.5rem);
+    margin-bottom: var(--space-4);
+  }
+
+  .sf-cta-inner p {
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto var(--space-8);
+    line-height: 1.7;
+  }
+
+  .sf-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ---------- Motion preferences ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .sf-work-item {
+      animation: none;
+    }
+
+    .sf-bar {
+      transition: none;
+      width: var(--bar-w);
+    }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (min-width: 480px) {
+    .sf-hero-actions,
+    .sf-cta-actions {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .sf-hero {
+      padding: var(--space-24) 0 var(--space-20);
+    }
+
+    .sf-problem-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sf-foundations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sf-quality-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sf-stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .sf-chart-row {
+      grid-template-columns: 240px 1fr;
+      align-items: center;
+      gap: var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sf-changed-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .sf-rail {
+      display: block;
+    }
+
+    .sf-stations {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+
+  if (reduced || !('IntersectionObserver' in window)) {
+    revealEls.forEach((el) => el.classList.add('in-view'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    revealEls.forEach((el) => io.observe(el));
+  }
+</script>
