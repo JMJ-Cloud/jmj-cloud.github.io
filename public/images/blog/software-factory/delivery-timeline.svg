@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Illustrative delivery timeline: hourly offshore team about 26 weeks versus JMJ Software Factory about 3 weeks for a representative ERP work item">
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; }
+    .sans { font-family: 'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  </style>
+  <rect x="0.5" y="0.5" width="1199" height="419" rx="14" fill="#12121a" stroke="#2a2a3a"/>
+
+  <!-- Header -->
+  <text class="mono" x="60" y="48" font-size="11" letter-spacing="2.5" fill="#00d4ff">ILLUSTRATIVE COMPARISON</text>
+  <text class="sans" x="60" y="82" font-size="23" font-weight="600" fill="#e8e8ed">Elapsed delivery time: a representative ERP work item</text>
+  <text class="sans" x="60" y="106" font-size="13" fill="#9898a8">A mid-size Fusion ERP integration or EBS extension. Illustrative scenario, not a specific engagement.</text>
+
+  <!-- Gridlines (weeks 4..28) -->
+  <line x1="383" y1="140" x2="383" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+  <line x1="506" y1="140" x2="506" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+  <line x1="628" y1="140" x2="628" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+  <line x1="751" y1="140" x2="751" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+  <line x1="874" y1="140" x2="874" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+  <line x1="997" y1="140" x2="997" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+  <line x1="1120" y1="140" x2="1120" y2="310" stroke="#1e1e2a" stroke-width="1"/>
+
+  <!-- Baseline -->
+  <line x1="260" y1="140" x2="260" y2="310" stroke="#2a2a3a" stroke-width="1"/>
+
+  <!-- Tick labels -->
+  <text class="mono" x="260" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">0</text>
+  <text class="mono" x="383" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">4</text>
+  <text class="mono" x="506" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">8</text>
+  <text class="mono" x="628" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">12</text>
+  <text class="mono" x="751" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">16</text>
+  <text class="mono" x="874" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">20</text>
+  <text class="mono" x="997" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">24</text>
+  <text class="mono" x="1120" y="332" font-size="11" fill="#5a5a6e" text-anchor="middle">28 wks</text>
+
+  <!-- Row 1: offshore -->
+  <text class="sans" x="240" y="169" font-size="14" fill="#e8e8ed" text-anchor="end">Hourly offshore team</text>
+  <text class="sans" x="240" y="188" font-size="11" fill="#5a5a6e" text-anchor="end">2-3 developers &#183; 40 hrs/week</text>
+  <path d="M260,160 H1054 A4,4 0 0 1 1058,164 V178 A4,4 0 0 1 1054,182 H260 Z" fill="#9898a8"/>
+  <text class="mono" x="1070" y="176" font-size="13" fill="#e8e8ed">&#8776; 26 weeks</text>
+
+  <!-- Row 2: factory -->
+  <text class="sans" x="240" y="259" font-size="14" fill="#e8e8ed" text-anchor="end">JMJ Software Factory</text>
+  <text class="sans" x="240" y="278" font-size="11" fill="#5a5a6e" text-anchor="end">senior-led &#183; agents in parallel</text>
+  <path d="M260,250 H348 A4,4 0 0 1 352,254 V268 A4,4 0 0 1 348,272 H260 Z" fill="#00d4ff"/>
+  <text class="mono" x="364" y="266" font-size="13" fill="#e8e8ed">&#8776; 3 weeks</text>
+  <text class="sans" x="466" y="266" font-size="12" fill="#9898a8">(&#8776; 10&#215; faster)</text>
+
+  <!-- Footnote -->
+  <text class="sans" x="60" y="384" font-size="12" fill="#5a5a6e">Illustrative timeline for a representative mid-size work item. Actual durations vary with scope and environment access.</text>
+</svg>

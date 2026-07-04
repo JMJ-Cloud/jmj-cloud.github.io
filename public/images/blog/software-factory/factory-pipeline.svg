@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-label="The JMJ Cloud Software Factory pipeline: requirements, build, cross-review, verify, ship, directed by senior Oracle engineers on a GitHub repository foundation">
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; }
+    .sans { font-family: 'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  </style>
+  <rect x="0.5" y="0.5" width="1199" height="559" rx="14" fill="#12121a" stroke="#2a2a3a"/>
+
+  <!-- Header -->
+  <text class="mono" x="60" y="48" font-size="11" letter-spacing="2.5" fill="#00d4ff">JMJ CLOUD SOFTWARE FACTORY</text>
+  <text class="sans" x="60" y="82" font-size="23" font-weight="600" fill="#e8e8ed">How a work item becomes production code</text>
+
+  <!-- Oversight band -->
+  <rect x="60" y="118" width="1080" height="54" rx="10" fill="#1a1a24" stroke="#2a2a3a"/>
+  <circle cx="86" cy="145" r="4" fill="#00d4ff"/>
+  <text class="mono" x="102" y="141" font-size="12" letter-spacing="1.5" fill="#e8e8ed">SENIOR ORACLE ENGINEERS</text>
+  <text class="sans" x="102" y="161" font-size="12" fill="#9898a8">Direct every station, review every deliverable, give final approval. Nothing ships without human judgment.</text>
+
+  <!-- Connectors: oversight to stations -->
+  <line x1="154" y1="172" x2="154" y2="230" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="377" y1="172" x2="377" y2="230" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="600" y1="172" x2="600" y2="230" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="823" y1="172" x2="823" y2="230" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="1046" y1="172" x2="1046" y2="230" stroke="#2a2a3a" stroke-width="1"/>
+
+  <!-- Station 1 -->
+  <rect x="60" y="230" width="188" height="140" rx="10" fill="#1a1a24" stroke="#2a2a3a"/>
+  <text class="mono" x="76" y="256" font-size="11" letter-spacing="1.5" fill="#00d4ff">01</text>
+  <text class="sans" x="76" y="280" font-size="16" font-weight="600" fill="#e8e8ed">Requirements</text>
+  <text class="sans" x="76" y="303" font-size="12" fill="#9898a8">Senior architect turns</text>
+  <text class="sans" x="76" y="320" font-size="12" fill="#9898a8">the ask into a precise,</text>
+  <text class="sans" x="76" y="337" font-size="12" fill="#9898a8">testable specification</text>
+
+  <!-- Arrow 1 -->
+  <line x1="252" y1="300" x2="274" y2="300" stroke="#00d4ff" stroke-width="1.5"/>
+  <path d="M273,294 L281,300 L273,306" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+
+  <!-- Station 2 -->
+  <rect x="283" y="230" width="188" height="140" rx="10" fill="#1a1a24" stroke="#2a2a3a"/>
+  <text class="mono" x="299" y="256" font-size="11" letter-spacing="1.5" fill="#00d4ff">02</text>
+  <text class="sans" x="299" y="280" font-size="16" font-weight="600" fill="#e8e8ed">Agents build</text>
+  <text class="sans" x="299" y="303" font-size="12" fill="#9898a8">Claude Code + Codex</text>
+  <text class="sans" x="299" y="320" font-size="12" fill="#9898a8">work the spec in parallel,</text>
+  <text class="sans" x="299" y="337" font-size="12" fill="#9898a8">wired to live dev via MCP</text>
+
+  <!-- Arrow 2 -->
+  <line x1="475" y1="300" x2="497" y2="300" stroke="#00d4ff" stroke-width="1.5"/>
+  <path d="M496,294 L504,300 L496,306" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+
+  <!-- Station 3 -->
+  <rect x="506" y="230" width="188" height="140" rx="10" fill="#1a1a24" stroke="#2a2a3a"/>
+  <text class="mono" x="522" y="256" font-size="11" letter-spacing="1.5" fill="#00d4ff">03</text>
+  <text class="sans" x="522" y="280" font-size="16" font-weight="600" fill="#e8e8ed">Cross-review</text>
+  <text class="sans" x="522" y="303" font-size="12" fill="#9898a8">A second agent</text>
+  <text class="sans" x="522" y="320" font-size="12" fill="#9898a8">adversarially reviews</text>
+  <text class="sans" x="522" y="337" font-size="12" fill="#9898a8">every line of code</text>
+
+  <!-- Arrow 3 -->
+  <line x1="698" y1="300" x2="720" y2="300" stroke="#00d4ff" stroke-width="1.5"/>
+  <path d="M719,294 L727,300 L719,306" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+
+  <!-- Station 4 -->
+  <rect x="729" y="230" width="188" height="140" rx="10" fill="#1a1a24" stroke="#2a2a3a"/>
+  <text class="mono" x="745" y="256" font-size="11" letter-spacing="1.5" fill="#00d4ff">04</text>
+  <text class="sans" x="745" y="280" font-size="16" font-weight="600" fill="#e8e8ed">Verify &amp; test</text>
+  <text class="sans" x="745" y="303" font-size="12" fill="#9898a8">Mandatory tests run</text>
+  <text class="sans" x="745" y="320" font-size="12" fill="#9898a8">against real schemas</text>
+  <text class="sans" x="745" y="337" font-size="12" fill="#9898a8">and ERP APIs</text>
+
+  <!-- Arrow 4 -->
+  <line x1="921" y1="300" x2="943" y2="300" stroke="#00d4ff" stroke-width="1.5"/>
+  <path d="M942,294 L950,300 L942,306" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+
+  <!-- Station 5 -->
+  <rect x="952" y="230" width="188" height="140" rx="10" fill="#1a1a24" stroke="#2a2a3a"/>
+  <text class="mono" x="968" y="256" font-size="11" letter-spacing="1.5" fill="#00d4ff">05</text>
+  <text class="sans" x="968" y="280" font-size="16" font-weight="600" fill="#e8e8ed">Ship</text>
+  <text class="sans" x="968" y="303" font-size="12" fill="#9898a8">CI/CD deployment with</text>
+  <text class="sans" x="968" y="320" font-size="12" fill="#9898a8">documentation generated</text>
+  <text class="sans" x="968" y="337" font-size="12" fill="#9898a8">alongside the code</text>
+
+  <!-- Connectors: stations to foundation -->
+  <line x1="154" y1="370" x2="154" y2="420" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="377" y1="370" x2="377" y2="420" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="600" y1="370" x2="600" y2="420" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="823" y1="370" x2="823" y2="420" stroke="#2a2a3a" stroke-width="1"/>
+  <line x1="1046" y1="370" x2="1046" y2="420" stroke="#2a2a3a" stroke-width="1"/>
+
+  <!-- Foundation band -->
+  <rect x="60" y="420" width="1080" height="64" rx="10" fill="#0e1b22" stroke="#00d4ff" stroke-opacity="0.28"/>
+  <text class="mono" x="86" y="446" font-size="12" letter-spacing="1.5" fill="#00d4ff">THE FACTORY FLOOR: A GITHUB REPOSITORY YOU OWN</text>
+  <text class="sans" x="86" y="468" font-size="12" fill="#9898a8">Version control for all custom code &#183; encoded Oracle standards &amp; skills &#183; agent context files &#183; MCP connections &#183; CI/CD pipelines</text>
+
+  <!-- Caption -->
+  <text class="mono" x="600" y="528" font-size="12" fill="#5a5a6e" text-anchor="middle">Every hour billed is an engineering hour applied to your deliverable.</text>
+</svg>

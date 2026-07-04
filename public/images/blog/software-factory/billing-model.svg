@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Billing model comparison: fixed 40-hour weekly retainer blocks billed every week versus small 30-minute increments billed only when work is in flight">
+  <style>
+    .mono { font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace; }
+    .sans { font-family: 'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  </style>
+  <rect x="0.5" y="0.5" width="1199" height="419" rx="14" fill="#12121a" stroke="#2a2a3a"/>
+
+  <!-- Header -->
+  <text class="mono" x="60" y="48" font-size="11" letter-spacing="2.5" fill="#00d4ff">BILLING MODELS COMPARED</text>
+  <text class="sans" x="60" y="82" font-size="23" font-weight="600" fill="#e8e8ed">What are you actually paying for?</text>
+
+  <!-- Divider -->
+  <line x1="600" y1="104" x2="600" y2="380" stroke="#1e1e2a" stroke-width="1"/>
+
+  <!-- LEFT: retainer -->
+  <text class="mono" x="60" y="120" font-size="12" letter-spacing="1.5" fill="#9898a8">THE 40-HOURS-A-WEEK RETAINER</text>
+
+  <!-- 12-week grid, 4 x 3 -->
+  <g>
+    <rect x="60" y="136" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="112" y="164" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="176" y="136" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="228" y="164" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="292" y="136" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="344" y="164" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="408" y="136" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="460" y="164" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+
+    <rect x="60" y="194" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="112" y="222" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="176" y="194" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="228" y="222" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="292" y="194" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="344" y="222" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="408" y="194" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="460" y="222" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+
+    <rect x="60" y="252" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="112" y="280" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="176" y="252" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="228" y="280" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="292" y="252" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="344" y="280" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+    <rect x="408" y="252" width="104" height="46" rx="6" fill="#1e1e28"/>
+    <text class="mono" x="460" y="280" font-size="12" fill="#9898a8" text-anchor="middle">40 hrs</text>
+  </g>
+
+  <text class="sans" x="60" y="344" font-size="14" font-weight="600" fill="#e8e8ed">&#8776; 480 hours billed per developer, per quarter</text>
+  <text class="sans" x="60" y="366" font-size="12" fill="#9898a8">Invoiced every week, shipped or not &#183; minimum commitment</text>
+
+  <!-- RIGHT: factory -->
+  <text class="mono" x="640" y="120" font-size="12" letter-spacing="1.5" fill="#00d4ff">THE FACTORY MODEL</text>
+
+  <!-- 13 weekly columns of 30-min increment cells, baseline y=302 -->
+  <g fill="#00d4ff">
+    <!-- W1: 6 -->
+    <rect x="640" y="244" width="18" height="8" rx="2"/><rect x="640" y="254" width="18" height="8" rx="2"/><rect x="640" y="264" width="18" height="8" rx="2"/><rect x="640" y="274" width="18" height="8" rx="2"/><rect x="640" y="284" width="18" height="8" rx="2"/><rect x="640" y="294" width="18" height="8" rx="2"/>
+    <!-- W2: 3 -->
+    <rect x="676" y="274" width="18" height="8" rx="2"/><rect x="676" y="284" width="18" height="8" rx="2"/><rect x="676" y="294" width="18" height="8" rx="2"/>
+    <!-- W3: 0 -->
+    <!-- W4: 9 -->
+    <rect x="748" y="214" width="18" height="8" rx="2"/><rect x="748" y="224" width="18" height="8" rx="2"/><rect x="748" y="234" width="18" height="8" rx="2"/><rect x="748" y="244" width="18" height="8" rx="2"/><rect x="748" y="254" width="18" height="8" rx="2"/><rect x="748" y="264" width="18" height="8" rx="2"/><rect x="748" y="274" width="18" height="8" rx="2"/><rect x="748" y="284" width="18" height="8" rx="2"/><rect x="748" y="294" width="18" height="8" rx="2"/>
+    <!-- W5: 4 -->
+    <rect x="784" y="264" width="18" height="8" rx="2"/><rect x="784" y="274" width="18" height="8" rx="2"/><rect x="784" y="284" width="18" height="8" rx="2"/><rect x="784" y="294" width="18" height="8" rx="2"/>
+    <!-- W6: 0, W7: 0 -->
+    <!-- W8: 7 -->
+    <rect x="892" y="234" width="18" height="8" rx="2"/><rect x="892" y="244" width="18" height="8" rx="2"/><rect x="892" y="254" width="18" height="8" rx="2"/><rect x="892" y="264" width="18" height="8" rx="2"/><rect x="892" y="274" width="18" height="8" rx="2"/><rect x="892" y="284" width="18" height="8" rx="2"/><rect x="892" y="294" width="18" height="8" rx="2"/>
+    <!-- W9: 2 -->
+    <rect x="928" y="284" width="18" height="8" rx="2"/><rect x="928" y="294" width="18" height="8" rx="2"/>
+    <!-- W10: 0 -->
+    <!-- W11: 5 -->
+    <rect x="1000" y="254" width="18" height="8" rx="2"/><rect x="1000" y="264" width="18" height="8" rx="2"/><rect x="1000" y="274" width="18" height="8" rx="2"/><rect x="1000" y="284" width="18" height="8" rx="2"/><rect x="1000" y="294" width="18" height="8" rx="2"/>
+    <!-- W12: 0 -->
+    <!-- W13: 3 -->
+    <rect x="1072" y="274" width="18" height="8" rx="2"/><rect x="1072" y="284" width="18" height="8" rx="2"/><rect x="1072" y="294" width="18" height="8" rx="2"/>
+  </g>
+
+  <!-- Baseline -->
+  <line x1="632" y1="304" x2="1098" y2="304" stroke="#2a2a3a" stroke-width="1"/>
+  <text class="mono" x="865" y="324" font-size="11" fill="#5a5a6e" text-anchor="middle">one quarter, week by week &#183; empty weeks cost nothing</text>
+
+  <text class="sans" x="640" y="344" font-size="14" font-weight="600" fill="#e8e8ed">Billed only when work is in flight</text>
+  <text class="sans" x="640" y="366" font-size="12" fill="#9898a8">30-minute increments &#183; no minimum commitment</text>
+</svg>
