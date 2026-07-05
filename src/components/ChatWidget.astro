@@ -1,0 +1,281 @@
+---
+// ChatWidget.astro
+// The whole /assistant chat state machine: email -> code -> chat -> done, plus an
+// offline state driven by GET /chat/status. All LLM/visitor content is rendered
+// via textContent (never innerHTML): the chat log is not an HTML injection surface.
+interface Props { endpoint: string }
+const { endpoint } = Astro.props;
+---
+
+<div class="chat-card" id="aw-root" data-endpoint={endpoint}>
+  <!-- 1: email -->
+  <form id="aw-email" novalidate>
+    <h2 class="aw-step-title">Start with your email</h2>
+    <p class="aw-step-sub">We send a 6-digit code to verify it's you. No password, no account.</p>
+    <div class="aw-row">
+      <input id="aw-email-input" data-testid="aw-email-input" type="email" required
+             maxlength="320" autocomplete="email" placeholder="you@company.com" aria-label="Work email" />
+      <button type="submit" class="btn btn-primary" data-testid="aw-email-submit">Send code</button>
+    </div>
+    <!-- Honeypot: humans never see or fill this; bots do. -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="aw-website">Website</label>
+      <input id="aw-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <p class="aw-status" id="aw-email-status" data-testid="aw-email-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <!-- 2: code -->
+  <form id="aw-code" hidden novalidate>
+    <h2 class="aw-step-title">Check your inbox</h2>
+    <p class="aw-step-sub">Enter the 6-digit code we just emailed you. It expires in 10 minutes.</p>
+    <div class="aw-row">
+      <input id="aw-code-input" data-testid="aw-code-input" type="text" inputmode="numeric"
+             pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="123456" aria-label="Verification code" />
+      <button type="submit" class="btn btn-primary" data-testid="aw-code-submit">Start chat</button>
+    </div>
+    <p class="aw-step-sub"><a href="#" id="aw-resend">Send a new code</a></p>
+    <p class="aw-status" id="aw-code-status" data-testid="aw-code-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <!-- 3: chat -->
+  <div id="aw-chat" hidden>
+    <div class="aw-log" id="aw-log" data-testid="aw-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+    <p class="aw-typing" id="aw-typing" hidden>Assistant is typing…</p>
+    <form id="aw-form" novalidate>
+      <textarea id="aw-input" data-testid="aw-input" rows="2" maxlength="2000"
+                placeholder="Type your reply…" aria-label="Your message"></textarea>
+      <div class="aw-actions">
+        <button type="submit" class="btn btn-primary" id="aw-send" data-testid="aw-send">Send</button>
+        <button type="button" class="btn" id="aw-wrapup" data-testid="aw-wrapup" hidden>Send summary</button>
+        <span class="aw-remaining" id="aw-remaining" data-testid="aw-remaining"></span>
+      </div>
+    </form>
+    <p class="aw-status" id="aw-chat-status" data-testid="aw-chat-status" role="status" aria-live="polite"></p>
+  </div>
+
+  <!-- 4: done -->
+  <div id="aw-done" data-testid="aw-done" hidden tabindex="-1">
+    <h2 class="aw-step-title">Summary sent. Thank you!</h2>
+    <p id="aw-done-summary" class="aw-step-sub"></p>
+    <p class="aw-step-sub">A senior engineer (not a queue) will follow up within one business day.
+       A copy of this summary is on its way to your inbox.</p>
+  </div>
+
+  <!-- offline -->
+  <div id="aw-offline" data-testid="aw-offline" hidden>
+    <h2 class="aw-step-title">The assistant is offline right now</h2>
+    <p class="aw-step-sub">Please use the <a href="/contact">contact form</a> instead. We reply within one business day.</p>
+  </div>
+</div>
+
+<style>
+  .chat-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+  .aw-step-title { font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .aw-step-sub { color: var(--text-secondary); margin-bottom: var(--space-4); }
+  .aw-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  .aw-row input {
+    flex: 1 1 220px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+  }
+  .aw-row input:focus { outline: none; border-color: var(--accent-primary); }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .aw-status { font-family: var(--font-display); font-size: var(--text-sm); color: var(--warning, #ffaa00); margin-top: var(--space-3); }
+  .aw-log {
+    display: flex; flex-direction: column; gap: var(--space-3);
+    max-height: 420px; overflow-y: auto; margin-bottom: var(--space-4);
+    padding: var(--space-2);
+  }
+  .aw-msg { max-width: 85%; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); white-space: pre-wrap; }
+  .aw-msg.assistant { background-color: var(--bg-primary); border: 1px solid var(--border-subtle); align-self: flex-start; }
+  .aw-msg.user { background-color: var(--accent-primary); color: var(--bg-primary); align-self: flex-end; }
+  .aw-typing { font-family: var(--font-display); font-size: var(--text-sm); color: var(--text-muted); margin-bottom: var(--space-3); }
+  #aw-form textarea {
+    width: 100%;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+    resize: vertical;
+  }
+  #aw-form textarea:focus { outline: none; border-color: var(--accent-primary); }
+  .aw-actions { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-3); flex-wrap: wrap; }
+  .aw-remaining { font-family: var(--font-display); font-size: var(--text-sm); color: var(--text-muted); margin-left: auto; }
+  #aw-wrapup.aw-suggested { border-color: var(--accent-primary); color: var(--accent-primary); }
+  button[disabled] { opacity: 0.6; cursor: wait; }
+</style>
+
+<script>
+  type Detail = string | undefined;
+  const root = document.getElementById('aw-root') as HTMLElement;
+  const api = root.dataset.endpoint as string;
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const panels = ['aw-email', 'aw-code', 'aw-chat', 'aw-done', 'aw-offline'] as const;
+
+  const MESSAGES: Record<string, string> = {
+    invalid_email: 'Please enter a valid email address.',
+    invalid_code: 'That code is not right. Check the email and try again.',
+    code_expired: 'That code has expired. Request a new one below.',
+    too_many_attempts: 'Too many attempts. Request a new code below.',
+    invalid_message: 'Please type a message first.',
+    message_too_long: 'That message is too long (2000 characters max).',
+    message_cap: 'This chat has reached its length limit. Click Send summary to finish.',
+    empty_session: 'Say something first, then send the summary.',
+    rate_limited: 'The assistant is very popular today. Please try again tomorrow, or use the contact form.',
+    session_expired: 'This chat session has ended. Refresh the page to start again.',
+    chat_disabled: 'The assistant is offline right now. Please use the contact form.',
+    at_capacity: 'The assistant is at capacity today. Please use the contact form.',
+    llm_error: 'The assistant is having trouble right now. Please try that again.',
+    default: 'Something went wrong. Please try again.',
+  };
+  const msg = (d: Detail) => MESSAGES[d ?? ''] ?? MESSAGES.default;
+
+  const STORE = 'jmj-assistant';
+  interface Saved { token: string; email: string; remaining: number; log: { role: string; text: string }[] }
+  const load = (): Saved | null => { try { return JSON.parse(sessionStorage.getItem(STORE) ?? ''); } catch { return null; } };
+  const save = (s: Saved) => sessionStorage.setItem(STORE, JSON.stringify(s));
+
+  let state: Saved = { token: '', email: '', remaining: 0, log: [] };
+
+  function show(panel: (typeof panels)[number]) {
+    for (const p of panels) $(p).hidden = p !== panel;
+  }
+  function addBubble(role: string, text: string) {
+    const div = document.createElement('div');
+    div.className = 'aw-msg ' + role;
+    div.textContent = text;   // textContent only: never render LLM output as HTML
+    $('aw-log').appendChild(div);
+    $('aw-log').scrollTop = $('aw-log').scrollHeight;
+  }
+  function renderChat() {
+    $('aw-log').replaceChildren();
+    state.log.forEach((m) => addBubble(m.role, m.text));
+    $('aw-remaining').textContent = state.remaining <= 5 ? `${state.remaining} messages left` : '';
+    if (state.log.length > 1) $('aw-wrapup').hidden = false;
+  }
+  async function post(path: string, body: object): Promise<{ ok: boolean; body: any }> {
+    const res = await fetch(`${api}/${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return { ok: res.ok, body: await res.json().catch(() => ({})) };
+  }
+  function busy(id: string, on: boolean) { ($(id) as HTMLButtonElement).disabled = on; }
+
+  // boot: offline check, then session restore
+  (async () => {
+    try {
+      const res = await fetch(`${api}/status`);
+      const body = await res.json();
+      if (body.enabled !== 'Y') { show('aw-offline'); return; }
+    } catch { show('aw-offline'); return; }
+    const saved = load();
+    if (saved?.token) { state = saved; renderChat(); show('aw-chat'); }
+  })();
+
+  // 1: email -> otp
+  $('aw-email').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = ($('aw-email-input') as HTMLInputElement).value.trim();
+    $('aw-email-status').textContent = '';
+    if (!email) { $('aw-email-status').textContent = msg('invalid_email'); return; }
+    busy('aw-email-submit', true);
+    try {
+      const { ok, body } = await post('otp', {
+        email, website: ($('aw-website') as HTMLInputElement).value ?? '',
+      });
+      if (ok && body.status === 'ok') { state.email = email; show('aw-code'); $('aw-code-input').focus(); }
+      else $('aw-email-status').textContent = msg(body.detail);
+    } catch { $('aw-email-status').textContent = MESSAGES.default; }
+    busy('aw-email-submit', false);
+  });
+
+  let resendBusy = false;
+  $('aw-resend').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (resendBusy) return;   // double-click = double OTP request
+    resendBusy = true;
+    $('aw-code-status').textContent = 'Sending a new code…';
+    try {
+      const { ok, body } = await post('otp', { email: state.email, website: '' });
+      $('aw-code-status').textContent = ok && body.status === 'ok' ? 'New code sent.' : msg(body.detail);
+    } catch {
+      $('aw-code-status').textContent = MESSAGES.default;
+    }
+    resendBusy = false;
+  });
+
+  // 2: code -> session
+  $('aw-code').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = ($('aw-code-input') as HTMLInputElement).value.trim();
+    $('aw-code-status').textContent = '';
+    busy('aw-code-submit', true);
+    try {
+      const { ok, body } = await post('sessions', { email: state.email, code });
+      if (ok && body.status === 'ok') {
+        state = { token: body.token, email: state.email, remaining: body.remaining,
+                  log: [{ role: 'assistant', text: body.greeting }] };
+        save(state); renderChat(); show('aw-chat'); $('aw-input').focus();
+      } else $('aw-code-status').textContent = msg(body.detail);
+    } catch { $('aw-code-status').textContent = MESSAGES.default; }
+    busy('aw-code-submit', false);
+  });
+
+  // 3: chat turns
+  $('aw-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = $('aw-input') as HTMLTextAreaElement;
+    const text = input.value.trim();
+    if (!text) return;
+    $('aw-chat-status').textContent = '';
+    busy('aw-send', true); $('aw-typing').hidden = false;
+    try {
+      const { ok, body } = await post('messages', { token: state.token, message: text });
+      if (ok && body.status === 'ok') {
+        state.log.push({ role: 'user', text }, { role: 'assistant', text: body.reply });
+        state.remaining = body.remaining; save(state);
+        input.value = ''; renderChat();
+        if (/send summary/i.test(body.reply)) $('aw-wrapup').classList.add('aw-suggested');
+        if (body.remaining === 0) $('aw-chat-status').textContent = MESSAGES.message_cap;
+      } else if (body.detail === 'session_expired') {
+        sessionStorage.removeItem(STORE);
+        $('aw-chat-status').textContent = msg(body.detail);
+      } else $('aw-chat-status').textContent = msg(body.detail);
+    } catch { $('aw-chat-status').textContent = MESSAGES.default; }
+    busy('aw-send', false); $('aw-typing').hidden = true;
+    input.focus();
+  });
+
+  // 4: wrap up
+  $('aw-wrapup').addEventListener('click', async () => {
+    $('aw-chat-status').textContent = '';
+    busy('aw-wrapup', true); busy('aw-send', true); $('aw-typing').hidden = false;
+    try {
+      const { ok, body } = await post('complete', { token: state.token });
+      if (ok && body.status === 'ok') {
+        sessionStorage.removeItem(STORE);
+        let summary = '';
+        try { summary = JSON.parse(body.brief)?.summary_text ?? ''; } catch { /* fallback brief */ }
+        $('aw-done-summary').textContent = summary;
+        show('aw-done'); $('aw-done').focus();
+      } else $('aw-chat-status').textContent = msg(body.detail);
+    } catch { $('aw-chat-status').textContent = MESSAGES.default; }
+    busy('aw-wrapup', false); busy('aw-send', false); $('aw-typing').hidden = true;
+  });
+</script>

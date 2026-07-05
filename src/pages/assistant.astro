@@ -1,0 +1,98 @@
+---
+// assistant.astro
+// The JMJ Project Assistant: an email-verified intake chatbot, and a public
+// showcase of what JMJ builds on Oracle (ADB + ORDS + PL/SQL behind this page).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ChatWidget from '../components/ChatWidget.astro';
+
+// Override for local testing: PUBLIC_CHAT_API=<dev ORDS URL> npm run dev
+const CHAT_API =
+  import.meta.env.PUBLIC_CHAT_API ??
+  'https://portal.jmjcloud.com/ords/jmjweb/chat';
+---
+
+<BaseLayout
+  title="Project Assistant"
+  description="Tell our AI assistant about your Oracle project. Built by JMJ on Oracle Cloud."
+  currentPath="/assistant"
+>
+  <section class="assistant-hero">
+    <div class="container">
+      <h1 class="page-title fade-in fade-in-1">JMJ Project Assistant</h1>
+      <p class="page-subtitle fade-in fade-in-2">
+        Tell our assistant what you're trying to build or fix. It asks the questions a
+        senior engineer would, then sends us both a summary. Built by JMJ on Oracle Cloud.
+      </p>
+    </div>
+  </section>
+
+  <section class="assistant-section">
+    <div class="container">
+      <div class="assistant-content fade-in fade-in-3">
+        <ChatWidget endpoint={CHAT_API} />
+      </div>
+
+      <div class="how-strip fade-in fade-in-4">
+        <h2 class="how-title">How this works</h2>
+        <p class="how-sub">
+          This assistant is a JMJ build, running on the same stack we deliver to clients.
+        </p>
+        <div class="how-steps">
+          <div class="how-step">
+            <h3>Astro on GitHub Pages</h3>
+            <p>This page is static. No servers to patch, nothing to scale.</p>
+          </div>
+          <div class="how-step">
+            <h3>ORDS REST APIs</h3>
+            <p>The chat talks JSON to Oracle REST Data Services endpoints, the same way we integrate EBS and APEX systems.</p>
+          </div>
+          <div class="how-step">
+            <h3>Autonomous Database</h3>
+            <p>PL/SQL handles verification, rate limits, and conversation state inside Oracle Autonomous Database.</p>
+          </div>
+          <div class="how-step">
+            <h3>Claude API</h3>
+            <p>Anthropic's Claude does the talking, called straight from the database. Your details never leave the intake flow.</p>
+          </div>
+        </div>
+        <p class="how-sub">
+          Want something like this in your own systems? That's exactly the kind of thing to
+          tell the assistant about.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .assistant-hero { padding: var(--space-20) 0 var(--space-12); text-align: center; }
+  .page-title { font-size: var(--text-4xl); margin-bottom: var(--space-4); }
+  .page-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .assistant-section { padding: var(--space-12) 0 var(--space-16); }
+  .assistant-content { max-width: 720px; margin: 0 auto var(--space-16); }
+  .how-strip { max-width: 900px; margin: 0 auto; text-align: center; }
+  .how-title { font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .how-sub { color: var(--text-secondary); margin-bottom: var(--space-8); }
+  .how-steps { display: grid; gap: var(--space-6); margin-bottom: var(--space-8); text-align: left; }
+  .how-step {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+  .how-step h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-2);
+  }
+  .how-step p { color: var(--text-secondary); font-size: var(--text-sm); }
+  @media (min-width: 768px) { .how-steps { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 1024px) { .assistant-hero { padding: var(--space-24) 0 var(--space-16); } }
+</style>
