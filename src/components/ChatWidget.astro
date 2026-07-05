@@ -262,6 +262,17 @@ const { endpoint } = Astro.props;
     input.focus();
   });
 
+  // Enter sends, Shift+Enter makes a newline (chat-app convention). The button
+  // stays: mobile keyboards have no Enter-to-send semantics in a textarea.
+  $('aw-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!($('aw-send') as HTMLButtonElement).disabled) {
+        ($('aw-form') as HTMLFormElement).requestSubmit();
+      }
+    }
+  });
+
   // 4: wrap up
   $('aw-wrapup').addEventListener('click', async () => {
     $('aw-chat-status').textContent = '';

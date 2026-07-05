@@ -87,6 +87,16 @@ test('at capacity shows contact-form guidance', async ({ page }) => {
   await expect(page.getByTestId('aw-chat-status')).toContainText('at capacity');
 });
 
+test('Enter sends, Shift+Enter does not', async ({ page }) => {
+  await mockHappyBackend(page);
+  await reachChat(page);
+  await page.getByTestId('aw-input').fill('Line one');
+  await page.getByTestId('aw-input').press('Shift+Enter');
+  await expect(page.getByTestId('aw-log').locator('.aw-msg')).toHaveCount(1); // greeting only, nothing sent
+  await page.getByTestId('aw-input').press('Enter');
+  await expect(page.getByTestId('aw-log')).toContainText('What company are you with?');
+});
+
 test('session restore after reload', async ({ page }) => {
   await mockHappyBackend(page);
   await reachChat(page);
