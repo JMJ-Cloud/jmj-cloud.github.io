@@ -72,6 +72,14 @@ const CONTACT_API =
         </div>
 
         <div class="contact-info fade-in fade-in-4">
+          <div class="assistant-callout">
+            <h2 class="info-title">Prefer a conversation?</h2>
+            <p class="callout-text">
+              Try our <a href="/assistant">Project Assistant</a>: an AI intake chat we built
+              on Oracle Cloud. Verify your email, talk through your project, and we both get
+              a written summary.
+            </p>
+          </div>
           <h2 class="info-title">Other ways to reach us</h2>
           <div class="info-items">
             <div class="info-item">
@@ -221,6 +229,20 @@ const CONTACT_API =
   .info-title {
     font-size: var(--text-xl);
     margin-bottom: var(--space-6);
+  }
+
+  .assistant-callout {
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
+  .callout-text {
+    color: var(--text-secondary);
+  }
+
+  .callout-text a {
+    color: var(--accent-primary);
   }
 
   .info-items {
