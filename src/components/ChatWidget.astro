@@ -15,7 +15,7 @@ const { endpoint } = Astro.props;
     <div class="aw-row">
       <input id="aw-email-input" data-testid="aw-email-input" type="email" required
              maxlength="320" autocomplete="email" placeholder="you@company.com" aria-label="Work email" />
-      <button type="submit" class="btn btn-primary" data-testid="aw-email-submit">Send code</button>
+      <button type="submit" class="btn btn-primary" id="aw-email-submit" data-testid="aw-email-submit">Send code</button>
     </div>
     <!-- Honeypot: humans never see or fill this; bots do. -->
     <div class="hp-field" aria-hidden="true">
@@ -32,7 +32,7 @@ const { endpoint } = Astro.props;
     <div class="aw-row">
       <input id="aw-code-input" data-testid="aw-code-input" type="text" inputmode="numeric"
              pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="123456" aria-label="Verification code" />
-      <button type="submit" class="btn btn-primary" data-testid="aw-code-submit">Start chat</button>
+      <button type="submit" class="btn btn-primary" id="aw-code-submit" data-testid="aw-code-submit">Start chat</button>
     </div>
     <p class="aw-step-sub"><a href="#" id="aw-resend">Send a new code</a></p>
     <p class="aw-status" id="aw-code-status" data-testid="aw-code-status" role="status" aria-live="polite"></p>
