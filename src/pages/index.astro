@@ -66,12 +66,15 @@ const latestProjects = featuredProjects.map(project => ({
         <TerminalText text="JMJ Cloud" tag="h1" class="hero-title" showCursor={false} />
         <TypingText text="Enterprise Oracle. Modern Speed." tag="p" class="hero-tagline" typingSpeed={80} startDelay={400} />
         <p class="hero-description">
-          We transform Oracle ERP Cloud and E-Business Suite into powerful, production-ready systems using APEX, OIC integrations, mobile experiences, and AI automations that are shipped in agile sprints, not years.
+          We transform Oracle ERP Cloud and E-Business Suite into powerful, production-ready systems using APEX, OIC integrations, mobile experiences, and AI automations. Delivered by our Software Factory: ten times faster than the hourly model, billed in 30-minute increments, with no commitments.
         </p>
         <div class="hero-actions">
-          <a href="/portfolio" class="btn btn-primary">View Our Work</a>
-          <a href="/contact" class="btn btn-secondary">Get in Touch</a>
+          <a href="/software-factory" class="btn btn-primary">The Software Factory</a>
+          <a href="/contact" class="btn btn-secondary">Benchmark Us</a>
         </div>
+        <p class="hero-work-link">
+          or <a href="/portfolio">view our work</a>
+        </p>
       </div>
     </div>
   </section>
@@ -174,6 +177,23 @@ const latestProjects = featuredProjects.map(project => ({
     gap: var(--space-4);
     justify-content: center;
     align-items: center;
+  }
+
+  .hero-work-link {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-5);
+  }
+
+  .hero-work-link a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .hero-work-link a:hover {
+    color: var(--accent-primary);
   }
 
   /* Services Section */
