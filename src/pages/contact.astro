@@ -1,7 +1,14 @@
 ---
 // contact.astro
-// Contact page with mailto button
+// Contact page with a form posting to the JMJWEB ORDS intake endpoint.
+// No plaintext email on this page (scraper bait); leads land in JMJWEB.WEB_INQUIRIES
+// and trigger a notification email out-of-band.
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Override for local testing: PUBLIC_CONTACT_API=<dev ORDS URL> npm run dev
+const CONTACT_API =
+  import.meta.env.PUBLIC_CONTACT_API ??
+  'https://portal.jmjcloud.com/ords/jmjweb/contact/inquiries';
 ---
 
 <BaseLayout
@@ -13,7 +20,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <h1 class="page-title fade-in fade-in-1">Get in Touch</h1>
       <p class="page-subtitle fade-in fade-in-2">
-        Have a question about our Oracle solutions? We'd love to hear from you.
+        Tell us about your project. We reply within one business day.
       </p>
     </div>
   </section>
@@ -21,34 +28,52 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="contact-section">
     <div class="container">
       <div class="contact-content">
-        <div class="cta-card fade-in fade-in-3">
-          <h2 class="cta-title">Ready to discuss your project?</h2>
-          <p class="cta-description">
-            Send us an email and we'll get back to you within one business day.
-          </p>
-          <a href="mailto:info@jmjcloud.com?subject=Website Inquiry" class="cta-button">
-            <svg class="cta-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            Email Us
-          </a>
+        <div class="form-card fade-in fade-in-3">
+          <form id="contact-form" data-endpoint={CONTACT_API} novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="cf-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input id="cf-name" name="name" type="text" required maxlength="200" autocomplete="name" />
+              </div>
+              <div class="form-field">
+                <label for="cf-email">Work email <span class="req" aria-hidden="true">*</span></label>
+                <input id="cf-email" name="email" type="email" required maxlength="320" autocomplete="email" />
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="cf-company">Company</label>
+              <input id="cf-company" name="company" type="text" maxlength="200" autocomplete="organization" />
+            </div>
+            <div class="form-field">
+              <label for="cf-message">How can we help? <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="cf-message" name="message" rows="6" required maxlength="4000"
+                placeholder="A backlog item, an integration, a system you want assessed..."></textarea>
+            </div>
+
+            <!-- Honeypot: humans never see or fill this; bots do. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="cf-website">Website</label>
+              <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="cf-submit">Send Message</button>
+              <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+
+          <div class="form-success" id="cf-success" hidden>
+            <h2>Thank you.</h2>
+            <p>
+              Your message is in. A senior engineer (not a queue) will get back to you
+              within one business day.
+            </p>
+          </div>
         </div>
 
         <div class="contact-info fade-in fade-in-4">
-          <h2 class="info-title">Contact Information</h2>
+          <h2 class="info-title">Other ways to reach us</h2>
           <div class="info-items">
-            <div class="info-item">
-              <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              <div class="info-content">
-                <h3 class="info-label">Email</h3>
-                <a href="mailto:info@jmjcloud.com" class="info-value">info@jmjcloud.com</a>
-              </div>
-            </div>
-
             <div class="info-item">
               <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -97,54 +122,93 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin: 0 auto;
   }
 
-  .cta-card {
+  .form-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: var(--space-10);
-    text-align: center;
+    padding: var(--space-8);
   }
 
-  .cta-title {
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-4);
+  .form-row {
+    display: grid;
+    gap: var(--space-4);
   }
 
-  .cta-description {
-    font-size: var(--text-lg);
-    color: var(--text-secondary);
-    margin-bottom: var(--space-8);
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+  .form-field {
+    margin-bottom: var(--space-5);
   }
 
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-8);
+  .form-field label {
+    display: block;
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 500;
-    color: var(--bg-primary);
-    background-color: var(--accent-primary);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-2);
+  }
+
+  .req {
+    color: var(--accent-primary);
+  }
+
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+    transition: border-color var(--transition-fast);
   }
 
-  .cta-button:hover {
-    background-color: var(--accent-secondary);
-    transform: translateY(-2px);
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
   }
 
-  .cta-button:active {
-    transform: translateY(0);
+  .form-field textarea {
+    resize: vertical;
+    min-height: 140px;
   }
 
-  .cta-icon {
-    flex-shrink: 0;
+  /* Honeypot: visually removed, still in the DOM for bots */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  #cf-submit[disabled] {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .form-status {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--warning, #ffaa00);
+  }
+
+  .form-success h2 {
+    font-size: var(--text-2xl, 1.5rem);
+    margin-bottom: var(--space-3);
+  }
+
+  .form-success p {
+    color: var(--text-secondary);
+    max-width: 480px;
   }
 
   .contact-info {
@@ -198,10 +262,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent-primary);
   }
 
-  @media (min-width: 768px) {
-    .info-items {
-      flex-direction: row;
-      gap: var(--space-12);
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -209,9 +272,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .contact-hero {
       padding: var(--space-24) 0 var(--space-16);
     }
-
-    .cta-card {
-      padding: var(--space-12);
-    }
   }
 </style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const statusEl = document.getElementById('cf-status');
+  const successEl = document.getElementById('cf-success');
+  const submitBtn = document.getElementById('cf-submit') as HTMLButtonElement | null;
+
+  const MESSAGES: Record<string, string> = {
+    invalid_name: 'Please enter your name.',
+    invalid_email: 'Please enter a valid email address.',
+    invalid_message: 'Please enter a message.',
+    rate_limited: 'We are receiving a lot of messages right now. Please try again in a little while.',
+    default: 'Something went wrong sending your message. Please try again, or reach us on LinkedIn.',
+  };
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    if (statusEl) statusEl.textContent = '';
+    if (submitBtn) submitBtn.disabled = true;
+
+    const data = new FormData(form);
+    let sourcePage = '/contact';
+    try {
+      if (document.referrer && new URL(document.referrer).origin === window.location.origin) {
+        sourcePage = new URL(document.referrer).pathname;
+      }
+    } catch { /* keep default */ }
+
+    try {
+      const res = await fetch(form.dataset.endpoint as string, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          company: data.get('company'),
+          message: data.get('message'),
+          source_page: sourcePage,
+          website: data.get('website') ?? '',
+        }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (res.ok && body.status === 'ok') {
+        form.hidden = true;
+        if (successEl) {
+          successEl.hidden = false;
+          successEl.setAttribute('tabindex', '-1');
+          (successEl as HTMLElement).focus();
+        }
+      } else {
+        if (statusEl) statusEl.textContent = MESSAGES[body.detail] ?? MESSAGES.default;
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    } catch {
+      if (statusEl) statusEl.textContent = MESSAGES.default;
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+</script>
