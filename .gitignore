@@ -28,3 +28,6 @@ pnpm-debug.log*
 # Playwright
 /test-results/
 /playwright-report/
+
+# Internal build docs live in jmj-oci-portal (this repo is public)
+/docs/superpowers/
