@@ -115,7 +115,11 @@ const { endpoint } = Astro.props;
   #aw-form textarea:focus { outline: none; border-color: var(--accent-primary); }
   .aw-actions { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-3); flex-wrap: wrap; }
   .aw-remaining { font-family: var(--font-display); font-size: var(--text-sm); color: var(--text-muted); margin-left: auto; }
-  #aw-wrapup.aw-suggested { border-color: var(--accent-primary); color: var(--accent-primary); }
+  #aw-wrapup.aw-suggested {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--bg-primary);
+  }
   button[disabled] { opacity: 0.6; cursor: wait; }
 </style>
 
