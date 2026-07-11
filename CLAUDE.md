@@ -8,6 +8,29 @@ This is the JMJ Cloud company website - a static site built with Astro 5.16.6, d
 
 **Live Site**: https://jmjcloud.com
 
+## Design System
+
+This site has a companion design system in **Claude Design** ("JMJ Cloud Design System"),
+extracted directly from `src/styles/global.css` and the component library. It is the
+documented, visual source of truth for the brand: colors, type, spacing, and the core
+components (buttons, tags, forms, cards, header, footer, chat, hero).
+
+**When building or restyling any UI in this repo:**
+
+1. Invoke the `/jmj-cloud-design` skill first. It loads the brand tokens and the
+   non-negotiable rules (dark theme, single electric-cyan accent `#00d4ff`, JetBrains
+   Mono for headings/UI labels, IBM Plex Sans for body, the `.glow-border` hover, honeypot
+   fields on intake forms, and no em dashes). The skill is account-global, so it is
+   available from any session.
+2. Reference the design tokens (`var(--accent-primary)`, `var(--space-4)`, etc.) defined
+   in `src/styles/global.css`. Never hardcode hex values or font stacks.
+
+**Keeping it in sync:** the design system's `tokens.css` mirrors `src/styles/global.css`.
+If you change a token here (a color, a font, a spacing value), the design system is now
+stale. Flag it, and re-sync `tokens.css` to the Claude Design project via the DesignSync
+tool so the two do not drift. The design system is a reference/prototyping surface, not a
+live library the site imports from.
+
 ## Initial Context Loading
 
 When starting work on this project:
