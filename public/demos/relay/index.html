@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JMJ Relay - Product Demo</title>
+</head><body>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0e0e15;
+    --panel: #13131c;
+    --panel2: #191922;
+    --line: #23232f;
+    --line-soft: #1b1b24;
+    --text: #e9e9f2;
+    --muted: #8b8b9c;
+    --dim: #5b5b6b;
+    --cyan: #00d4ff;
+    --cyan-dim: #0a5a6b;
+    /* Relay app identity (used inside the mock window) */
+    --r1: #fb923c;
+    --r2: #ea580c;
+    --r3: #9a3412;
+    --ok: #22c55e;
+    --warn: #d9a441;
+    --bad: #ef4444;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(1200px 700px at 78% -10%, rgba(0, 212, 255, 0.06), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(234, 88, 12, 0.05), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 28px 20px 40px;
+  }
+  .wrap { width: 100%; max-width: 1000px; }
+
+  /* ---- top bar ---- */
+  .topbar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .mark {
+    width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto;
+    background: linear-gradient(140deg, var(--r1), var(--r2) 55%, var(--r3));
+    position: relative; box-shadow: 0 3px 10px rgba(234, 88, 12, 0.35);
+  }
+  .mark::after {
+    content: "R"; position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: var(--mono); font-weight: 800; font-size: 18px; color: #fff;
+  }
+  .wordmark { font-family: var(--mono); font-weight: 700; letter-spacing: 0.02em; font-size: 15px; }
+  .wordmark b { color: var(--text); }
+  .wordmark span { color: var(--muted); font-weight: 500; }
+  .byjmj {
+    margin-left: auto; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+    color: var(--cyan); text-transform: uppercase; opacity: 0.85;
+  }
+
+  /* ---- stage: mock app window ---- */
+  .stage {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, var(--bg2), var(--bg));
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+  .titlebar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; background: #101018; border-bottom: 1px solid var(--line-soft);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+  .titlebar .tt {
+    font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 8px;
+  }
+  .titlebar .live {
+    margin-left: auto; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    color: var(--dim); text-transform: uppercase;
+  }
+
+  /* app header row */
+  .apphead {
+    display: flex; align-items: center; gap: 14px;
+    padding: 9px 14px; border-bottom: 1px solid var(--line-soft); background: var(--panel);
+    font-size: 12.5px;
+  }
+  .apphead .brand { display: inline-flex; align-items: center; gap: 8px; }
+  .apphead .brand .m {
+    width: 18px; height: 18px; border-radius: 5px;
+    background: linear-gradient(140deg, var(--r1), var(--r2) 60%, var(--r3)); position: relative;
+  }
+  .apphead .brand .m::after { content: "R"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-weight: 800; font-size: 11px; color: #fff; }
+  .apphead .brand b { font-weight: 600; }
+  .tabs { display: flex; gap: 6px; }
+  .tab {
+    padding: 4px 11px; border-radius: 7px; border: 1px solid transparent; color: var(--muted);
+    font-size: 12px; white-space: nowrap;
+  }
+  .tab.on { border-color: var(--r2); color: var(--r1); }
+  .apphead .spacer { flex: 1; }
+  .pill {
+    font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--muted);
+  }
+  .pill.test { color: #7fd0ff; border-color: #235; }
+  .pod { font-family: var(--mono); font-size: 12px; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+
+  /* app body - a fixed height canvas that scenes paint into */
+  .canvas { position: relative; height: 372px; background: var(--bg); }
+  .screen {
+    position: absolute; inset: 0; padding: 16px; opacity: 0; transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none;
+  }
+  .screen.show { opacity: 1; transform: none; }
+
+  /* generic pieces */
+  .mono { font-family: var(--mono); }
+  .rowline { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 8px; font-size: 12.5px; }
+  .chip {
+    font-family: var(--mono); font-size: 10.5px; padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .chip.new { color: var(--cyan); border-color: var(--cyan-dim); }
+  .chip.changed { color: var(--warn); border-color: #5a481f; }
+  .chip.identical { color: var(--dim); border-color: var(--line); }
+  .chip.created { color: var(--ok); border-color: #1f5a34; }
+  .chip.over { color: var(--warn); border-color: #5a481f; }
+  .chip.restored { color: var(--cyan); border-color: var(--cyan-dim); }
+  .chip.sec { color: #d08bff; border-color: #43265a; }
+  .chip.verify { color: var(--ok); border-color: #1f5a34; }
+  .path { font-family: var(--mono); font-size: 12px; color: var(--text); }
+  .type { font-family: var(--mono); font-size: 10.5px; color: var(--muted); width: 26px; }
+
+  /* SCENE 1 - intro */
+  #s0 { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+  #s0 .bigmark {
+    width: 78px; height: 78px; border-radius: 20px; margin-bottom: 20px;
+    background: linear-gradient(140deg, var(--r1), var(--r2) 55%, var(--r3)); position: relative;
+    box-shadow: 0 16px 40px -12px rgba(234, 88, 12, 0.55);
+  }
+  #s0 .bigmark::after { content: "R"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-weight: 800; font-size: 46px; color: #fff; }
+  #s0 h1 { font-family: var(--mono); font-size: 30px; margin: 0 0 10px; letter-spacing: 0.01em; }
+  #s0 p { color: var(--muted); font-size: 15px; max-width: 480px; margin: 0; line-height: 1.5; }
+  #s0 .kv { margin-top: 22px; display: flex; gap: 26px; }
+  #s0 .kv div { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.06em; }
+  #s0 .kv b { display: block; color: var(--cyan); font-size: 18px; margin-bottom: 3px; letter-spacing: 0; }
+
+  /* SCENE 2 - sign on */
+  #s1 { display: flex; align-items: center; justify-content: center; }
+  .browser { width: 460px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #0d1420; }
+  .browser .bh { display: flex; align-items: center; gap: 7px; padding: 8px 10px; background: #0a0f18; border-bottom: 1px solid #15202f; }
+  .browser .url { flex: 1; font-family: var(--mono); font-size: 11px; color: #6ea6c7; background: #0d1622; border: 1px solid #16202e; border-radius: 5px; padding: 3px 8px; }
+  .browser .bb { padding: 26px 24px 30px; }
+  .browser .oralogo { font-family: var(--mono); font-weight: 700; color: #f80000; font-size: 15px; letter-spacing: 0.04em; margin-bottom: 16px; }
+  .browser label { display: block; font-size: 11px; color: #7f95a8; margin: 12px 0 5px; }
+  .browser .fld { height: 30px; border-radius: 6px; background: #0d1622; border: 1px solid #1b2838; }
+  .browser .fld.f2 { position: relative; }
+  .browser .fld.f2::after { content: "\2022\2022\2022\2022\2022\2022\2022\2022\2022\2022"; position: absolute; left: 9px; top: 6px; color: #45596b; letter-spacing: 2px; font-size: 13px; }
+  .browser .signin { margin-top: 16px; height: 32px; border-radius: 6px; background: linear-gradient(#c00, #a00); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 600; }
+
+  /* SCENE 3 - browse (tree + detail) */
+  .two { display: grid; grid-template-columns: 250px 1fr; gap: 12px; height: 100%; }
+  .pane { border: 1px solid var(--line-soft); border-radius: 10px; background: var(--panel); overflow: hidden; }
+  .pane .ph { padding: 7px 11px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--line-soft); }
+  .tree { padding: 8px 0; font-size: 11.5px; line-height: 1.05; overflow: hidden; }
+  .tnode { display: flex; align-items: center; gap: 6px; padding: 4px 12px; color: var(--text); white-space: nowrap; }
+  .tnode .tw { width: 9px; flex: 0 0 auto; color: var(--dim); font-size: 9px; }
+  .tnode .ic { width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; }
+  .tnode.fold .ic { background: rgba(217, 164, 65, 0.22); border: 1px solid #d9a441; }
+  .tnode.dm .ic { background: rgba(0, 212, 255, 0.22); border: 1px solid var(--cyan); border-radius: 50%; }
+  .tnode.rep .ic { background: rgba(251, 146, 60, 0.22); border: 1px solid var(--r2); }
+  .tnode.dsh .ic { background: rgba(240, 184, 102, 0.20); border: 1px solid #f0b866; }
+  .tnode.an .ic { background: rgba(110, 231, 168, 0.18); border: 1px solid #6ee7a8; border-radius: 50%; }
+  .tnode.sel { background: rgba(234, 88, 12, 0.16); border-radius: 6px; color: #fff; }
+  .tnode .tag { color: var(--dim); font-family: var(--mono); font-size: 10px; }
+  .tnode .hid { margin-left: 6px; font-family: var(--mono); font-size: 8px; letter-spacing: 0.06em; text-transform: uppercase; color: #d9a441; border: 1px solid rgba(217, 164, 65, 0.4); border-radius: 4px; padding: 1px 5px; }
+  .indent { padding-left: 22px; } .indent2 { padding-left: 38px; } .indent3 { padding-left: 54px; }
+  .detail { padding: 12px 14px; }
+  .detail h3 { margin: 0 0 3px; font-family: var(--mono); font-size: 14px; }
+  .detail .sub { color: var(--muted); font-size: 11.5px; margin-bottom: 12px; }
+  .drow { display: flex; gap: 10px; padding: 4px 0; border-top: 1px solid var(--line-soft); font-size: 12px; align-items: flex-start; }
+  .drow .k { color: var(--muted); width: 96px; flex: 0 0 auto; padding-top: 1px; }
+  .drow .v { color: var(--text); font-family: var(--mono); font-size: 11.5px; flex: 1 1 auto; min-width: 0; }
+  .drow .v.col { display: block; }
+  .detail .qn { font-family: var(--mono); font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+  .detail code.sql { display: block; font-family: var(--mono); font-size: 10px; line-height: 1.45; color: #abb2bf; background: var(--bg); border: 1px solid var(--line-soft); border-radius: 6px; padding: 6px 9px; white-space: pre; overflow-x: auto; }
+  .detail code.sql .kw { color: #c78bff; } .detail code.sql .al { color: #8fd694; } .detail code.sql .bd { color: #e6c07b; }
+  .detail .prm { display: grid; grid-template-columns: 92px 52px 1fr; gap: 6px; font-size: 10px; padding: 1px 0; align-items: baseline; min-width: 0; }
+  .detail .prm .pn { color: #e6c07b; } .detail .prm .pt { color: var(--muted); } .detail .prm .pl { color: #6fd0d6; }
+  .detail .lov { display: grid; grid-template-columns: 88px 1fr; gap: 8px; align-items: baseline; padding: 1.5px 0; min-width: 0; }
+  .detail .lov .nm { color: #c78bff; }
+  .detail .lov .lsql { font-size: 9px; color: #8fd694; background: var(--bg); border: 1px solid var(--line-soft); border-radius: 4px; padding: 2px 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; min-width: 0; }
+
+  /* SCENE 4/5/6/7 - lists */
+  .toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .btn { font-size: 12px; padding: 5px 12px; border-radius: 7px; border: 1px solid var(--line); color: var(--text); background: var(--panel2); }
+  .btn.pri { background: linear-gradient(#2563eb, #1d4ed8); border-color: transparent; color: #fff; }
+  .btn.org { background: linear-gradient(var(--r2), var(--r3)); border-color: transparent; color: #fff; }
+  .btn.danger { background: linear-gradient(#dc2626, #b91c1c); border-color: transparent; color: #fff; }
+  .btn.ghost { color: var(--muted); }
+  .toolbar .spacer { flex: 1; }
+  .listwrap { border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; }
+  .listrow { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-top: 1px solid var(--line-soft); font-size: 12.5px; }
+  .listrow:first-child { border-top: none; }
+  .listrow .num { font-family: var(--mono); color: var(--dim); width: 14px; font-size: 11px; }
+  .listrow .grow { flex: 1; min-width: 0; }
+  .banner {
+    display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 9px; margin-bottom: 12px;
+    border: 1px solid #5a3a12; background: rgba(217, 164, 65, 0.1); font-size: 12.5px;
+  }
+  .banner.roll { border-color: #5a2020; background: rgba(239, 68, 68, 0.12); }
+  .banner .spacer { flex: 1; }
+  .summary { display: flex; gap: 18px; margin-bottom: 12px; font-family: var(--mono); font-size: 12px; }
+  .summary b { color: var(--cyan); }
+  .fade-cap { color: var(--muted); font-size: 12px; margin-top: 10px; font-family: var(--mono); }
+
+  /* row stagger reveal */
+  .stagger .listrow, .stagger .rowline, .stagger .drow { opacity: 0; transform: translateY(6px); }
+  .screen.show.stagger .listrow, .screen.show.stagger .rowline, .screen.show.stagger .drow {
+    animation: rise 0.45s ease forwards;
+  }
+  .screen.show.stagger .listrow:nth-child(1) { animation-delay: 0.15s; }
+  .screen.show.stagger .listrow:nth-child(2) { animation-delay: 0.4s; }
+  .screen.show.stagger .listrow:nth-child(3) { animation-delay: 0.65s; }
+  .screen.show.stagger .listrow:nth-child(4) { animation-delay: 0.9s; }
+  .screen.show.stagger .listrow:nth-child(5) { animation-delay: 1.15s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* the deploy "light up" - chips that pop in per row after the rows settle */
+  .lit { opacity: 0; animation: pop 0.35s ease forwards; }
+  .screen.show .lit.d1 { animation-delay: 1.5s; }
+  .screen.show .lit.d2 { animation-delay: 2.1s; }
+  .screen.show .lit.d3 { animation-delay: 2.7s; }
+  .screen.show .lit.d4 { animation-delay: 3.3s; }
+  @keyframes pop { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: none; } }
+
+  /* ---- narration + controls ---- */
+  .narr {
+    margin-top: 18px; display: flex; align-items: flex-start; gap: 14px; min-height: 58px;
+  }
+  .narr .idx {
+    font-family: var(--mono); font-size: 12px; color: var(--cyan); border: 1px solid var(--cyan-dim);
+    border-radius: 7px; padding: 4px 9px; flex: 0 0 auto; letter-spacing: 0.04em;
+  }
+  .narr .txt { flex: 1; }
+  .narr .txt h2 { margin: 0 0 4px; font-family: var(--mono); font-size: 15px; font-weight: 600; }
+  .narr .txt p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.45; max-width: 68ch; }
+
+  .controls { margin-top: 16px; display: flex; align-items: center; gap: 12px; }
+  .rail { flex: 1; display: flex; gap: 6px; }
+  .seg { flex: 1; height: 4px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .seg > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan), #6ee7ff); }
+  .seg.done > i { width: 100%; }
+  .seg.active > i { animation: fillseg linear forwards; }
+  @keyframes fillseg { from { width: 0; } to { width: 100%; } }
+  .cbtn {
+    font-family: var(--mono); font-size: 12px; color: var(--text); background: var(--panel2);
+    border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer;
+  }
+  .cbtn:hover { border-color: var(--cyan-dim); color: var(--cyan); }
+  .cbtn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+  .foot { margin-top: 14px; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.04em; }
+  .foot a { color: var(--cyan); text-decoration: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .screen, .stagger .listrow, .lit, .seg > i { transition: none !important; animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+  @media (max-width: 720px) {
+    .canvas { height: auto; min-height: 420px; }
+    .two { grid-template-columns: 1fr; }
+    #s0 h1 { font-size: 24px; }
+  }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="mark"></div>
+    <div class="wordmark"><b>JMJ Relay</b> &nbsp;<span>product demo</span></div>
+    <div class="byjmj">JMJ Cloud</div>
+  </div>
+
+  <div class="stage">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt" id="winTitle">JMJ Relay</span>
+      <span class="live">auto-playing demo</span>
+    </div>
+
+    <!-- persistent app header (hidden on intro/signon) -->
+    <div class="apphead" id="apphead" style="display:none">
+      <span class="brand"><span class="m"></span><b>JMJ Relay</b></span>
+      <div class="tabs">
+        <span class="tab" data-tab="catalog">Browse Catalog</span>
+        <span class="tab" data-tab="create">Design Codepack</span>
+        <span class="tab" data-tab="deploy">Import Codepack</span>
+      </div>
+      <span class="spacer"></span>
+      <span class="pill test">TEST</span>
+      <span class="pod">Vision TEST &#9662;</span>
+    </div>
+
+    <div class="canvas">
+      <!-- 0 intro -->
+      <section class="screen" id="s0">
+        <div class="bigmark"></div>
+        <h1>JMJ Relay</h1>
+        <p>Move Oracle Fusion BI content between environments - safely, and on the record.</p>
+        <div class="kv">
+          <div><b>Compare</b>before you deploy</div>
+          <div><b>Backup</b>before every write</div>
+          <div><b>Rollback</b>in one click</div>
+        </div>
+      </section>
+
+      <!-- 1 sign on -->
+      <section class="screen" id="s1">
+        <div class="browser">
+          <div class="bh"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">vision-test.fa.ocs.oraclecloud.com/&hellip;/oam</span></div>
+          <div class="bb">
+            <div class="oralogo">ORACLE</div>
+            <label>User ID</label><div class="fld"></div>
+            <label>Password</label><div class="fld f2"></div>
+            <div class="signin">Sign In</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 browse -->
+      <section class="screen stagger" id="s2">
+        <div class="two">
+          <div class="pane">
+            <div class="ph">Catalog</div>
+            <div class="tree">
+              <div class="tnode fold"><span class="tw">&#9662;</span><span class="ic"></span>Custom</div>
+              <div class="tnode indent fold"><span class="tw">&#9662;</span><span class="ic"></span>Financials</div>
+              <div class="tnode indent2 fold"><span class="tw">&#9662;</span><span class="ic"></span>General Ledger</div>
+              <div class="tnode indent3 dm"><span class="tw"></span><span class="ic"></span>VIS GL Reconciliation DM<span class="tag">.xdm</span></div>
+              <div class="tnode indent3 rep sel"><span class="tw"></span><span class="ic"></span>VIS GL Reconciliation<span class="tag">.xdo</span></div>
+              <div class="tnode indent3 rep"><span class="tw"></span><span class="ic"></span>VIS Trial Balance<span class="tag">.xdo</span></div>
+              <div class="tnode indent2 fold"><span class="tw">&#9662;</span><span class="ic"></span>Payables</div>
+              <div class="tnode indent3 rep"><span class="tw"></span><span class="ic"></span>VIS AP Concur Extract<span class="tag">.xdo</span></div>
+              <div class="tnode indent3 rep"><span class="tw"></span><span class="ic"></span>VIS Supplier Spend<span class="tag">.xdo</span></div>
+              <div class="tnode indent fold"><span class="tw">&#9656;</span><span class="ic"></span>Procurement</div>
+              <div class="tnode indent fold"><span class="tw">&#9662;</span><span class="ic"></span>Executive Dashboards</div>
+              <div class="tnode indent2 dsh"><span class="tw"></span><span class="ic"></span>VIS Cash Position</div>
+              <div class="tnode indent2 an"><span class="tw"></span><span class="ic"></span>VIS Spend by Category</div>
+              <div class="tnode indent fold"><span class="tw">&#9656;</span><span class="ic"></span>Shared Data Models <span class="hid">hidden</span></div>
+            </div>
+          </div>
+          <div class="pane">
+            <div class="ph">Detail</div>
+            <div class="detail">
+              <h3>VIS GL Reconciliation</h3>
+              <div class="sub">Report &middot; /Custom/Financials/General Ledger/VIS GL Reconciliation.xdo</div>
+              <div class="drow"><span class="k">Data set</span><span class="v col"><span class="qn">Q_Balances &middot; Oracle SQL</span><code class="sql"><span class="kw">SELECT</span>  gl.name               <span class="al">ledger</span>
+,       gb.period_net_dr      <span class="al">net_debits</span>
+<span class="kw">FROM</span>    gl_balances           gb
+,       gl_ledgers            gl
+<span class="kw">WHERE</span>   gb.ledger_id    = gl.ledger_id
+<span class="kw">AND</span>     gb.period_name  = <span class="bd">:P_PERIOD</span></code></span></div>
+              <div class="drow"><span class="k">Parameters</span><span class="v col">
+                <span class="prm"><span class="pn">P_LEDGER</span><span class="pt">Integer</span><span class="pl">&rarr; LOV_LEDGER</span></span>
+                <span class="prm"><span class="pn">P_PERIOD</span><span class="pt">String</span><span class="pl">&rarr; LOV_PERIOD</span></span>
+              </span></div>
+              <div class="drow"><span class="k">List of values</span><span class="v col">
+                <span class="lov"><span class="nm">LOV_LEDGER</span><span class="lsql">SELECT name, ledger_id FROM gl_ledgers ORDER BY name</span></span>
+                <span class="lov"><span class="nm">LOV_PERIOD</span><span class="lsql">SELECT period_name FROM gl_period_statuses WHERE application_id = 200</span></span>
+              </span></div>
+              <div class="drow"><span class="k">Security</span><span class="v">BI Consumer, GL Manager</span></div>
+              <div class="drow"><span class="k">Checksum</span><span class="v">a3f1&hellip;9c02</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 design codepack -->
+      <section class="screen stagger" id="s3">
+        <div class="toolbar">
+          <span class="btn">Open codepack</span>
+          <span class="btn ghost">Close</span>
+          <span class="spacer"></span>
+          <span class="btn">+ Add from Catalog</span>
+          <span class="btn org">Export Codepack</span>
+        </div>
+        <div class="summary"><span>July GL release</span><span>Source <b>Vision TEST</b></span><span>Ticket <b>JIRA-4821</b></span></div>
+        <div class="listwrap">
+          <div class="listrow"><span class="num">1</span><span class="type">DM</span><span class="path grow">/Custom/Financials/General Ledger/VIS GL Reconciliation DM.xdm</span></div>
+          <div class="listrow"><span class="num">2</span><span class="type">Rpt</span><span class="path grow">/Custom/Financials/General Ledger/VIS GL Reconciliation.xdo</span></div>
+          <div class="listrow"><span class="num">3</span><span class="type">Rpt</span><span class="path grow">/Custom/Financials/Payables/VIS AP Concur Extract.xdo</span></div>
+          <div class="listrow"><span class="num">4</span><span class="type mono" style="color:var(--muted)">step</span><span class="path grow" style="color:var(--muted)">Run ESS job &lsquo;GL Load&rsquo;</span></div>
+        </div>
+      </section>
+
+      <!-- 4 compare -->
+      <section class="screen stagger" id="s4">
+        <div class="toolbar">
+          <span class="btn">Open codepack</span>
+          <span class="spacer"></span>
+          <span class="btn org">Compare to Vision PROD</span>
+          <span class="btn ghost">Import to Vision PROD</span>
+        </div>
+        <div class="fade-cap">Comparing <b style="color:var(--text)">July GL release</b> against Vision PROD - nothing is written.</div>
+        <div class="listwrap" style="margin-top:10px">
+          <div class="listrow"><span class="num">1</span><span class="type">DM</span><span class="path grow">VIS GL Reconciliation DM.xdm</span><span class="chip new">new</span></div>
+          <div class="listrow"><span class="num">2</span><span class="type">Rpt</span><span class="path grow">VIS GL Reconciliation.xdo</span><span class="chip changed">changed</span></div>
+          <div class="listrow"><span class="num">3</span><span class="type">Rpt</span><span class="path grow">VIS AP Concur Extract.xdo</span><span class="chip sec">permissions differ</span><span class="chip identical">content same</span></div>
+        </div>
+      </section>
+
+      <!-- 5 deploy -->
+      <section class="screen stagger" id="s5">
+        <div class="summary"><span>Importing to <b style="color:#fca5a5">Vision PROD</b></span><span>Started <b>14:02:07</b></span></div>
+        <div class="listwrap">
+          <div class="listrow"><span class="num">1</span><span class="type">DM</span><span class="path grow">VIS GL Reconciliation DM.xdm</span><span class="chip created lit d1">created</span><span class="chip verify lit d1">&#10003; verified</span></div>
+          <div class="listrow"><span class="num">2</span><span class="type">Rpt</span><span class="path grow">VIS GL Reconciliation.xdo</span><span class="chip over lit d2">overwritten</span><span class="chip identical lit d2">backed up</span><span class="chip verify lit d2">&#10003; verified</span></div>
+          <div class="listrow"><span class="num">3</span><span class="type">Rpt</span><span class="path grow">VIS AP Concur Extract.xdo</span><span class="chip over lit d3">overwritten</span><span class="chip identical lit d3">backed up</span><span class="chip verify lit d3">&#10003; verified</span></div>
+        </div>
+      </section>
+
+      <!-- 6 rollback -->
+      <section class="screen" id="s6">
+        <div class="banner roll">
+          <span>Import cancelled - changes were made to <b>Vision PROD</b>. Roll back to restore the pod to its prior state.</span>
+          <span class="spacer"></span>
+          <span class="btn danger">Roll back changes</span>
+        </div>
+        <div class="listwrap">
+          <div class="listrow"><span class="num">1</span><span class="type">DM</span><span class="path grow">VIS GL Reconciliation DM.xdm</span><span class="chip identical">created &rarr; removed by hand</span></div>
+          <div class="listrow"><span class="num">2</span><span class="type">Rpt</span><span class="path grow">VIS GL Reconciliation.xdo</span><span class="chip restored">restored from backup</span></div>
+          <div class="listrow"><span class="num">3</span><span class="type">Rpt</span><span class="path grow">VIS AP Concur Extract.xdo</span><span class="chip restored">restored from backup</span></div>
+        </div>
+        <div class="fade-cap">Backups carry the original permissions and timestamps - the pod is exactly as it was.</div>
+      </section>
+
+      <!-- 7 close -->
+      <section class="screen" id="s7">
+        <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px">
+          <div class="mark" style="width:44px;height:44px;border-radius:12px;margin-bottom:16px"></div>
+          <h1 style="font-family:var(--mono);font-size:24px;margin:0 0 10px">One window. No surprises.</h1>
+          <p style="color:var(--muted);font-size:14px;max-width:440px;margin:0 0 18px;line-height:1.5">Browse, design, compare, deploy and roll back - all against your own Fusion pods, with your own sign-on.</p>
+          <div class="pod" style="font-size:12px">Contact us for licence details</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="narr">
+    <div class="idx" id="narrIdx">01 / 08</div>
+    <div class="txt">
+      <h2 id="narrTitle">JMJ Relay</h2>
+      <p id="narrText">A self-contained desktop app for moving BI Publisher content between Oracle Fusion environments. Signed for macOS and Windows.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="cbtn" id="playBtn" aria-label="Pause or play">&#10073;&#10073; Pause</button>
+    <button class="cbtn" id="prevBtn" aria-label="Previous scene">&#8249; Prev</button>
+    <button class="cbtn" id="nextBtn" aria-label="Next scene">Next &#8250;</button>
+    <div class="rail" id="rail"></div>
+  </div>
+
+  <div class="foot">JMJ Cloud &middot; jmjcloud.com &middot; download at <a href="https://github.com/JMJ-Cloud/jmj-cloud-releases-v1">github.com/JMJ-Cloud/jmj-cloud-releases-v1</a></div>
+</div>
+
+<script>
+  (function () {
+    var scenes = [
+      { id: 's0', head: false, tab: null, title: 'JMJ Relay',
+        text: 'A self-contained desktop app for moving BI Publisher content between Oracle Fusion environments. Signed for macOS and Windows.', win: 'JMJ Relay', dur: 5200 },
+      { id: 's1', head: false, tab: null, title: 'Your Fusion sign-on',
+        text: 'You sign in on Fusion’s own page - SSO and MFA included. The app never sees your password and never logs the token.', win: 'Connect to Fusion', dur: 5200 },
+      { id: 's2', head: true, tab: 'catalog', title: 'See what an object is really made of',
+        text: 'Browse the catalog and inspect any report or data model: its linked DM, layouts, SQL, parameters, security grants and a content checksum.', win: 'JMJ Relay · Browse Catalog', dur: 6400 },
+      { id: 's3', head: true, tab: 'create', title: 'Design a codepack',
+        text: 'Bundle the reports, data models, folders and manual steps you want to promote into one ordered, portable file - with a ticket reference.', win: 'JMJ Relay · Design Codepack', dur: 6200 },
+      { id: 's4', head: true, tab: 'deploy', title: 'Know exactly what will change',
+        text: 'Compare the codepack against the target pod before you touch it - new, changed or identical per element, including permission and ESS changes a content diff alone would miss.', win: 'JMJ Relay · Compare', dur: 7200 },
+      { id: 's5', head: true, tab: 'deploy', title: 'Backed up, deployed, verified',
+        text: 'Every object is backed up before it is overwritten, then read back and verified after it is written. Each step lights up live as the deploy runs.', win: 'JMJ Relay · Importing to Vision PROD', dur: 7400 },
+      { id: 's6', head: true, tab: 'deploy', title: 'Change your mind? Roll it back',
+        text: 'Cancel part-way and restore the pod to exactly how it was - backups go back with their original permissions and timestamps; anything the run created is flagged for removal.', win: 'JMJ Relay · Rollback', dur: 7600 },
+      { id: 's7', head: false, tab: null, title: 'One window, no surprises',
+        text: 'Browse, design, compare, deploy and roll back - all against your own Fusion pods. Contact us through jmjcloud.com/contact for licence and availability details.', win: 'JMJ Relay', dur: 6400 }
+    ];
+
+    var i = 0, playing = true, timer = null;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var apphead = document.getElementById('apphead');
+    var rail = document.getElementById('rail');
+    var segs = scenes.map(function () {
+      var s = document.createElement('div'); s.className = 'seg';
+      var i2 = document.createElement('i'); s.appendChild(i2); rail.appendChild(s); return s;
+    });
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function render() {
+      scenes.forEach(function (sc, n) {
+        document.getElementById(sc.id).classList.toggle('show', n === i);
+      });
+      var sc = scenes[i];
+      apphead.style.display = sc.head ? 'flex' : 'none';
+      document.querySelectorAll('.tab').forEach(function (t) {
+        t.classList.toggle('on', sc.tab && t.getAttribute('data-tab') === sc.tab);
+      });
+      document.getElementById('winTitle').textContent = sc.win;
+      document.getElementById('narrIdx').textContent = pad(i + 1) + ' / ' + pad(scenes.length);
+      document.getElementById('narrTitle').textContent = sc.title;
+      document.getElementById('narrText').textContent = sc.text;
+      segs.forEach(function (s, n) {
+        s.classList.remove('active', 'done');
+        var bar = s.firstChild;
+        bar.style.animation = 'none';
+        if (n < i) s.classList.add('done');
+        if (n === i && playing && !reduce) {
+          void bar.offsetWidth;
+          bar.style.animation = 'fillseg ' + sc.dur + 'ms linear forwards';
+          s.classList.add('active');
+        }
+        if (n === i && (reduce || !playing)) { bar.style.width = '100%'; }
+      });
+    }
+
+    function schedule() {
+      clearTimeout(timer);
+      if (!playing) return;
+      timer = setTimeout(next, scenes[i].dur);
+    }
+    function go(n) { i = (n + scenes.length) % scenes.length; render(); schedule(); }
+    function next() { go(i + 1); }
+    function prev() { go(i - 1); }
+
+    document.getElementById('nextBtn').onclick = function () { next(); };
+    document.getElementById('prevBtn').onclick = function () { prev(); };
+    document.getElementById('playBtn').onclick = function () {
+      playing = !playing;
+      this.innerHTML = playing ? '&#10073;&#10073; Pause' : '&#9654; Play';
+      if (playing) { render(); schedule(); } else { clearTimeout(timer); render(); }
+    };
+
+    if (reduce) { playing = false; document.getElementById('playBtn').innerHTML = '&#9654; Play'; }
+    render();
+    if (playing) schedule();
+  })();
+</script>
+</body></html>
