@@ -1,0 +1,285 @@
+---
+// products/index.astro
+// Products hub: flagship products + solutions & accelerators
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const solutions = (await getCollection('solutions')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const products = [
+  {
+    name: 'JMJ Qyrena',
+    tagline: 'A desktop SQL workshop for Oracle Fusion.',
+    text: 'Run SQL straight against the Fusion database: a full editor with a results grid, one-click exports, a query library, and optional AI that turns plain English into validated SQL.',
+    badges: ['Windows + macOS', 'Your own Fusion sign-on', 'Read-only by default'],
+    href: '/products/qyrena',
+  },
+  {
+    name: 'JMJ Relay',
+    tagline: 'Move BI Publisher content between Fusion pods with confidence.',
+    text: 'Navigate the BI Publisher catalog, pack reports and data models into portable codepacks, compare against the target pod, and deploy with a backup and a full log.',
+    badges: ['Windows + macOS', 'Compare before deploy', 'Backup before overwrite'],
+    href: '/products/relay',
+  },
+];
+---
+
+<BaseLayout
+  title="Products"
+  description="Desktop tools and delivery accelerators from JMJ Cloud: JMJ Qyrena, JMJ Relay, and proven Oracle Integration solutions implemented in your tenancy."
+  currentPath="/products"
+>
+  <section class="products-listing">
+    <div class="container">
+      <header class="products-header">
+        <h1 class="products-title">Products built from the work</h1>
+        <p class="products-description">
+          Tools we built for our own Oracle Fusion delivery, hardened on real
+          engagements and now available to clients.
+        </p>
+      </header>
+
+      <div class="flagship-grid">
+        {products.map((product) => (
+          <article class="flagship-card glow-border">
+            <h2 class="flagship-name">
+              <a href={product.href}>{product.name}</a>
+            </h2>
+            <p class="flagship-tagline">{product.tagline}</p>
+            <p class="flagship-text">{product.text}</p>
+            <div class="flagship-badges">
+              {product.badges.map((badge) => (
+                <span class="tag tech">{badge}</span>
+              ))}
+            </div>
+            <a href={product.href} class="flagship-link">
+              Explore {product.name} <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div class="solutions-section">
+        <h2 class="section-title">Solutions &amp; Accelerators</h2>
+        <p class="solutions-intro">
+          Proven patterns we implement in your tenancy, documented and handed over.
+        </p>
+        <div class="solutions-grid">
+          {solutions.map((solution) => (
+            <article class="solution-card glow-border">
+              <p class="solution-category">{solution.data.category}</p>
+              <h3 class="solution-title">
+                <a href={`/products/${solution.slug}`}>{solution.data.title}</a>
+              </h3>
+              <p class="solution-summary">{solution.data.summary}</p>
+              <a href={`/products/${solution.slug}`} class="solution-link">
+                Read more <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <section class="products-cta glow-border">
+        <h2>Want any of these in your environment?</h2>
+        <p>
+          Every product and pattern here came out of real Oracle delivery. Talk to
+          us about licensing, a walkthrough, or an implementation.
+        </p>
+        <a href="/contact" class="btn btn-primary">Talk to Us</a>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .products-listing {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .products-header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+
+  .products-title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .products-description {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .flagship-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-bottom: var(--space-20);
+  }
+
+  .flagship-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+
+  .flagship-name {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .flagship-name a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .flagship-name a:hover {
+    color: var(--accent-primary);
+  }
+
+  .flagship-tagline {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .flagship-text {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .flagship-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .tag {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .tag.tech {
+    color: var(--accent-primary);
+    background-color: var(--accent-glow);
+  }
+
+  .flagship-link,
+  .solution-link {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    margin-top: auto;
+  }
+
+  .flagship-link:hover,
+  .solution-link:hover {
+    color: var(--accent-secondary);
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .solutions-intro {
+    text-align: center;
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+  }
+
+  .solutions-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-bottom: var(--space-20);
+  }
+
+  .solution-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .solution-category {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warning);
+    margin-bottom: var(--space-2);
+  }
+
+  .solution-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .solution-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .solution-title a:hover {
+    color: var(--accent-primary);
+  }
+
+  .solution-summary {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .products-cta {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .products-cta h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .products-cta p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .flagship-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .solutions-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

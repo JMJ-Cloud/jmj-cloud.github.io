@@ -24,3 +24,13 @@ test('relay page renders with embedded demo', async ({ page }) => {
   await expect(page.locator('iframe[src="/demos/relay/index.html"]')).toBeAttached();
   await expect(page.getByRole('link', { name: 'Talk to Us' })).toBeVisible();
 });
+
+test('products hub lists both tiers', async ({ page }) => {
+  await page.goto('/products');
+  await expect(page.getByRole('heading', { name: 'JMJ Qyrena' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'JMJ Relay' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Solutions & Accelerators' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /APEX Integration Monitoring/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /OIC Backup to OCI Storage/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /OIC OAuth Service Account/ })).toBeVisible();
+});
