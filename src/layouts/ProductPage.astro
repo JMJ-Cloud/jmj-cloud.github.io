@@ -1,0 +1,338 @@
+---
+// ProductPage.astro
+// Shared layout for flagship product pages (JMJ Qyrena, JMJ Relay)
+import BaseLayout from './BaseLayout.astro';
+
+interface SectionItem {
+  title: string;
+  text: string;
+}
+
+interface Feature {
+  label: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  name: string;
+  tagline: string;
+  description: string;
+  badges: string[];
+  problemTitle: string;
+  problems: SectionItem[];
+  demoSrc: string;
+  demoTitle: string;
+  features: Feature[];
+  trust: SectionItem[];
+  betaHref?: string;
+  betaLabel?: string;
+}
+
+const {
+  name,
+  tagline,
+  description,
+  badges,
+  problemTitle,
+  problems,
+  demoSrc,
+  demoTitle,
+  features,
+  trust,
+  betaHref,
+  betaLabel,
+} = Astro.props;
+---
+
+<BaseLayout title={name} description={description} currentPath="/products">
+  <article class="product-page">
+    <div class="container">
+      <header class="product-hero">
+        <a href="/products" class="back-link">
+          <span aria-hidden="true">←</span> Back to Products
+        </a>
+        <h1 class="product-name">{name}</h1>
+        <p class="product-tagline">{tagline}</p>
+        <div class="product-badges">
+          {badges.map((badge) => (
+            <span class="tag tech">{badge}</span>
+          ))}
+        </div>
+      </header>
+
+      <section class="product-section">
+        <h2 class="product-section-title">{problemTitle}</h2>
+        <div class="item-grid">
+          {problems.map((p) => (
+            <div class="item-card glow-border">
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="product-section">
+        <h2 class="product-section-title">See it in action</h2>
+        <div class="demo-embed">
+          <iframe src={demoSrc} title={demoTitle} loading="lazy"></iframe>
+        </div>
+        <p class="demo-link">
+          <a href={demoSrc} target="_blank" rel="noopener">
+            Open the demo full screen <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      </section>
+
+      <section class="product-section">
+        <h2 class="product-section-title">Everything in one window</h2>
+        <div class="item-grid">
+          {features.map((f) => (
+            <div class="item-card glow-border">
+              <p class="feature-label">{f.label}</p>
+              <h3>{f.title}</h3>
+              <p>{f.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="product-section">
+        <h2 class="product-section-title">Safe by default</h2>
+        <ul class="trust-list">
+          {trust.map((t) => (
+            <li>
+              <strong>{t.title}.</strong> {t.text}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="product-cta glow-border">
+        <h2>Want {name} in your team's hands?</h2>
+        <p>Talk to us about licensing, a walkthrough, or how it fits your Oracle Fusion estate.</p>
+        <div class="cta-actions">
+          <a href="/contact" class="btn btn-primary">Talk to Us</a>
+          {betaHref && (
+            <a href={betaHref} class="btn btn-secondary" target="_blank" rel="noopener">
+              {betaLabel}
+            </a>
+          )}
+        </div>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .product-page {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .product-hero {
+    max-width: 800px;
+    margin: 0 auto var(--space-16);
+    text-align: center;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: var(--space-6);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .product-name {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .product-tagline {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-6);
+  }
+
+  .product-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  .tag {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .tag.tech {
+    color: var(--accent-primary);
+    background-color: var(--accent-glow);
+  }
+
+  .product-section {
+    max-width: 1040px;
+    margin: 0 auto var(--space-16);
+  }
+
+  .product-section-title {
+    font-size: var(--text-2xl);
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .item-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .item-card {
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .item-card h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .item-card p {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .feature-label {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .demo-embed {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .demo-embed iframe {
+    width: 100%;
+    height: 820px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-primary);
+  }
+
+  .demo-link {
+    text-align: center;
+    margin-top: var(--space-4);
+  }
+
+  .demo-link a {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .demo-link a:hover {
+    color: var(--accent-secondary);
+  }
+
+  .trust-list {
+    list-style: none;
+    padding: 0;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .trust-list li {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding-left: var(--space-6);
+    position: relative;
+  }
+
+  .trust-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+  }
+
+  .trust-list strong {
+    color: var(--text-primary);
+  }
+
+  .product-cta {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .product-cta h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .product-cta p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (min-width: 480px) {
+    .cta-actions {
+      flex-direction: row;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .demo-embed iframe {
+      height: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .item-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .item-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
