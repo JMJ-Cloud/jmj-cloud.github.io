@@ -18,6 +18,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </p>
       </header>
 
+      <div class="credibility-band glow-border">
+        <div class="cred-stats">
+          <div class="cred-stat">
+            <p class="cred-value">25+</p>
+            <p class="cred-label">years extending E-Business Suite</p>
+          </div>
+          <div class="cred-stat">
+            <p class="cred-value">15+</p>
+            <p class="cred-label">Fusion implementations delivered</p>
+          </div>
+          <div class="cred-stat">
+            <p class="cred-value">2</p>
+            <p class="cred-label">practice leads: EBS and Fusion</p>
+          </div>
+          <div class="cred-stat">
+            <p class="cred-value">100%</p>
+            <p class="cred-label">US-based delivery</p>
+          </div>
+        </div>
+        <p class="cred-note">
+          A large library of reusable, proven components across E-Business Suite,
+          Fusion ERP Cloud, and Oracle APEX means we start ahead on your work, with
+          dedicated OIC resources to connect it all.
+        </p>
+      </div>
+
       <div class="expertise-grid">
         <article class="expertise-card glow-border">
           <h3 class="card-title">Oracle Cloud Applications</h3>
@@ -143,6 +169,50 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (min-width: 1024px) {
     .expertise-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .credibility-band {
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-12);
+  }
+
+  .cred-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .cred-stat {
+    text-align: center;
+  }
+
+  .cred-value {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .cred-label {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .cred-note {
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .cred-stats {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 </style>
