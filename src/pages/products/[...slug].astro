@@ -1,0 +1,28 @@
+---
+// products/[...slug].astro
+// Individual solution detail pages
+import { getCollection } from 'astro:content';
+import SolutionPost from '../../layouts/SolutionPost.astro';
+
+export async function getStaticPaths() {
+  const solutions = await getCollection('solutions');
+  return solutions.map((solution) => ({
+    params: { slug: solution.slug },
+    props: { solution },
+  }));
+}
+
+const { solution } = Astro.props;
+const { Content } = await solution.render();
+---
+
+<SolutionPost
+  title={solution.data.title}
+  tagline={solution.data.tagline}
+  category={solution.data.category}
+  technologies={solution.data.technologies}
+  benefits={solution.data.benefits}
+  summary={solution.data.summary}
+>
+  <Content />
+</SolutionPost>
