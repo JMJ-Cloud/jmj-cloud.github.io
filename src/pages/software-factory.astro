@@ -49,6 +49,25 @@ const qualityPoints = [
     text: 'Generated with the code, in the repository, where the next person can actually find it.',
   },
 ];
+
+const engagementPrinciples = [
+  {
+    title: 'Pay only for what you need',
+    text: 'No set hours and no long-term commitment. One hour a week or eighty, and our AI tokens are never on your bill.',
+  },
+  {
+    title: 'MVP first',
+    text: 'We put working software in front of users early. You do not need full requirements to begin.',
+  },
+  {
+    title: 'Advisors and developers',
+    text: 'Use us to build, to guide and train your own team, or both.',
+  },
+  {
+    title: 'You own everything',
+    text: 'Clear specs, Jira tracking, and documentation so your team can support it long after we step back.',
+  },
+];
 ---
 
 <BaseLayout
@@ -309,6 +328,24 @@ const qualityPoints = [
           <div class="sf-quality-item" data-reveal>
             <h3>{q.title}</h3>
             <p>{q.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Engagement principles -->
+  <section class="sf-engage">
+    <div class="container">
+      <div class="sf-section-header" data-reveal>
+        <p class="sf-eyebrow">The engagement</p>
+        <h2 class="sf-title">A low-risk way to work with us</h2>
+      </div>
+      <div class="sf-quality-grid">
+        {engagementPrinciples.map((p) => (
+          <div class="sf-quality-item" data-reveal>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
           </div>
         ))}
       </div>
@@ -832,6 +869,12 @@ const qualityPoints = [
     font-size: var(--text-sm);
     color: var(--text-secondary);
     line-height: 1.7;
+  }
+
+  /* ---------- Engagement ---------- */
+  .sf-engage {
+    padding: var(--space-16) 0;
+    background-color: var(--bg-secondary);
   }
 
   /* ---------- Contract ---------- */
