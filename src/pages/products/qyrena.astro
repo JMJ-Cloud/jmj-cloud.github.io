@@ -1,0 +1,91 @@
+---
+// products/qyrena.astro
+// JMJ Qyrena flagship product page
+import ProductPage from '../../layouts/ProductPage.astro';
+
+const problems = [
+  {
+    title: 'BI Publisher is heavy for ad-hoc SQL',
+    text: 'Create a data model, a report, run it, download. All of that just to see a handful of rows.',
+  },
+  {
+    title: 'Its SQL box is not built for SQL',
+    text: 'A plain text area with no keyword highlighting or formatting. Painful for anything past a one-liner.',
+  },
+  {
+    title: 'No quick way to explore',
+    text: 'Iterating on a query means repeating the whole BI Publisher cycle every time.',
+  },
+  {
+    title: 'Exports are awkward',
+    text: 'Getting clean CSV, Excel, or PDF out for analysis or SOX evidence takes extra steps.',
+  },
+];
+
+const features = [
+  {
+    label: 'SIGN-ON',
+    title: 'Your Fusion sign-on',
+    text: 'You authenticate on Fusion’s own page, SSO and MFA included, so the app inherits your existing security and never touches your password. Sessions reconnect in one click.',
+  },
+  {
+    label: 'EDITOR',
+    title: 'SQL editor + results grid',
+    text: 'Syntax highlighting, row caps, friendly column names, sorting, and record detail. Results in seconds, straight from the Fusion database.',
+  },
+  {
+    label: 'EXPORT',
+    title: 'CSV, Excel, PDF, XML',
+    text: 'One-click exports with clean, named files (report, timestamp, pod). Tidy evidence for analysis or SOX.',
+  },
+  {
+    label: 'AI BOOST',
+    title: 'English to SQL',
+    text: 'Describe the query in plain English. Bring your own Anthropic or OpenAI key; the SQL is validated against your pod before it is shown. Optional and off by default.',
+  },
+  {
+    label: 'LIBRARY',
+    title: 'Query Library',
+    text: 'Curated starters for GL, AP, and cross-module setup, plus your own saved queries with categories and import and export to share with the team.',
+  },
+  {
+    label: 'DEPLOY',
+    title: 'To BI Publisher',
+    text: 'Take a query that works and deploy it as a BI Publisher data model and report, landing in the catalogue ready to schedule or burst.',
+  },
+];
+
+const trust = [
+  {
+    title: 'Never sees your password',
+    text: 'Sign-on happens on Fusion’s own page; the app only reads the returned token.',
+  },
+  {
+    title: 'Read-only by default',
+    text: 'Nothing is written back to Fusion unless you explicitly choose to deploy.',
+  },
+  {
+    title: 'AI is sandboxed to query-writing',
+    text: 'It never connects to Fusion and never receives your data or results. Only your prompt and the SQL text, via your own key.',
+  },
+  {
+    title: 'Signed and notarised',
+    text: 'The macOS build is notarised by Apple. Portable install on Windows and macOS, no admin rights required.',
+  },
+];
+---
+
+<ProductPage
+  name="JMJ Qyrena"
+  tagline="A desktop SQL workshop for Oracle Fusion."
+  description="JMJ Qyrena is a desktop SQL workshop for Oracle Fusion: sign in with your own Fusion credentials, run SQL with a full editor and results grid, export to Excel, and deploy queries to BI Publisher."
+  badges={['Windows + macOS', 'Your own Fusion sign-on', 'Read-only by default', 'Bring-your-own AI']}
+  problemTitle="Getting ad-hoc data out of Fusion is slow"
+  problems={problems}
+  demoSrc="/demos/qyrena/index.html"
+  demoTitle="JMJ Qyrena product demo"
+  features={features}
+  trust={trust}
+  betaHref="https://github.com/JMJ-Cloud/jmj-cloud-releases-v1/releases"
+  betaLabel="Join the Beta"
+/>
