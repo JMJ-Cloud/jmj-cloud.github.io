@@ -34,3 +34,10 @@ test('products hub lists both tiers', async ({ page }) => {
   await expect(page.getByRole('link', { name: /OIC Backup to OCI Storage/ })).toBeVisible();
   await expect(page.getByRole('link', { name: /OIC OAuth Service Account/ })).toBeVisible();
 });
+
+test('desktop nav includes Products link', async ({ page }) => {
+  await page.goto('/');
+  await expect(
+    page.locator('.nav-desktop').getByRole('link', { name: 'Products' })
+  ).toBeVisible();
+});
