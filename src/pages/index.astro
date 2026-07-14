@@ -122,6 +122,45 @@ const latestProjects = featuredProjects.map(project => ({
     </div>
   </section>
 
+  <!-- Products Section -->
+  <section class="home-products">
+    <div class="container">
+      <h2 class="section-title">Our Products</h2>
+      <p class="home-products-intro">
+        Desktop tools we built for our own Oracle Fusion delivery, now available to clients.
+      </p>
+      <div class="home-products-grid">
+        <article class="home-product-card glow-border">
+          <h3><a href="/products/qyrena">JMJ Qyrena</a></h3>
+          <p class="home-product-tagline">A desktop SQL workshop for Oracle Fusion.</p>
+          <p class="home-product-text">
+            Run SQL straight against the Fusion database with a full editor, results
+            grid, one-click exports, and optional English-to-SQL AI.
+          </p>
+          <a href="/products/qyrena" class="home-product-link">
+            Explore Qyrena <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="home-product-card glow-border">
+          <h3><a href="/products/relay">JMJ Relay</a></h3>
+          <p class="home-product-tagline">BI Publisher deployment between Fusion pods.</p>
+          <p class="home-product-text">
+            Browse the catalog, design codepacks, compare against the target, and
+            deploy with a backup, verification, and a full log.
+          </p>
+          <a href="/products/relay" class="home-product-link">
+            Explore Relay <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </div>
+      <div class="posts-footer">
+        <a href="/products" class="view-all-link">
+          View All Products <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Featured Projects Section -->
   <section class="recent-posts">
     <div class="container">
@@ -275,6 +314,75 @@ const latestProjects = featuredProjects.map(project => ({
     color: var(--accent-secondary);
   }
 
+  /* Products Section */
+  .home-products {
+    padding: var(--space-16) 0 0;
+  }
+
+  .home-products-intro {
+    text-align: center;
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+  }
+
+  .home-products-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .home-product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .home-product-card h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .home-product-card h3 a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .home-product-card h3 a:hover {
+    color: var(--accent-primary);
+  }
+
+  .home-product-tagline {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .home-product-text {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .home-product-link {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    margin-top: auto;
+  }
+
+  .home-product-link:hover {
+    color: var(--accent-secondary);
+  }
+
   /* Responsive */
   @media (min-width: 480px) {
     .hero-actions {
@@ -296,6 +404,10 @@ const latestProjects = featuredProjects.map(project => ({
     }
 
     .capabilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-products-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }

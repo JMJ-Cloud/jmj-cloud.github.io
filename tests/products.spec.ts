@@ -41,3 +41,9 @@ test('desktop nav includes Products link', async ({ page }) => {
     page.locator('.nav-desktop').getByRole('link', { name: 'Products' })
   ).toBeVisible();
 });
+
+test('home page shows the products strip', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Our Products' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'View All Products' })).toBeVisible();
+});
