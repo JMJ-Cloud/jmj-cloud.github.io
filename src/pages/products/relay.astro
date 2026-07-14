@@ -1,0 +1,89 @@
+---
+// products/relay.astro
+// JMJ Relay flagship product page
+import ProductPage from '../../layouts/ProductPage.astro';
+
+const problems = [
+  {
+    title: 'Archive and unarchive is fiddly',
+    text: 'Export a report and its data model, recreate the folder tree on the target, and import in the right order. All by hand.',
+  },
+  {
+    title: 'No way to see what will change',
+    text: 'You overwrite and hope. There is no diff between what you are pushing and what already sits on the target.',
+  },
+  {
+    title: 'No backup, no rollback',
+    text: 'If a deploy goes wrong, the previous version is already gone. Nothing was kept before the overwrite.',
+  },
+  {
+    title: 'No audit trail',
+    text: 'Nothing records what moved, when, by whom, or from which environment. Awkward for change control.',
+  },
+];
+
+const features = [
+  {
+    label: 'SIGN-ON',
+    title: 'Your Fusion sign-on',
+    text: 'You authenticate on Fusion’s own page, SSO and MFA included, so the app inherits your security and never touches your password. Reconnect in one click and switch pods freely.',
+  },
+  {
+    label: 'CATALOG',
+    title: 'Browse and inspect',
+    text: 'A lazy tree of the Custom folder: reports, data models, and OTBI dashboards and analyses, with SQL, layouts, parameters, LOVs, checksums, and security in one pane.',
+  },
+  {
+    label: 'GIT',
+    title: 'Export to Git',
+    text: 'Extract the SQL, LOVs, layouts, and the .catalog archive as clean, named files. One object becomes a reviewable set of files under source control.',
+  },
+  {
+    label: 'CODEPACK',
+    title: 'Design codepacks',
+    text: 'Author a portable manifest of reports, data models, folders, and manual steps that pause for sign-off, then export one ordered, deployable unit.',
+  },
+  {
+    label: 'COMPARE',
+    title: 'Diff before deploy',
+    text: 'An environment-independent checksum shows new, changed, or identical per element, including security-grant and ESS-wiring changes a content diff alone would miss.',
+  },
+  {
+    label: 'DEPLOY',
+    title: 'Verified, reversible import',
+    text: 'A backup before every overwrite, read-back verification after every write, one-click rollback, and a full results log written for the record.',
+  },
+];
+
+const trust = [
+  {
+    title: 'Your Fusion sign-on',
+    text: 'You sign in on Fusion’s own page, SSO and MFA included. The app never sees your password and never logs the token.',
+  },
+  {
+    title: 'Read-only until you deploy',
+    text: 'Browsing, exporting, and comparing never change anything on a pod. Mutation only happens on an explicit import.',
+  },
+  {
+    title: 'Backup, verify, and rollback',
+    text: 'Every object is backed up before it is touched and read back after it is written. Cancel a deploy and restore the pod to exactly how it was.',
+  },
+  {
+    title: 'PROD needs a typed confirmation',
+    text: 'Deploying to a production pod requires typing the pod name. No accidental pushes to live.',
+  },
+];
+---
+
+<ProductPage
+  name="JMJ Relay"
+  tagline="Move BI Publisher content between Fusion pods with confidence."
+  description="JMJ Relay moves BI Publisher content between Oracle Fusion pods with confidence: browse the catalog, design codepacks, compare against the target, and deploy with backups and a full log."
+  badges={['Windows + macOS', 'Your own Fusion sign-on', 'Compare before deploy', 'Backup before overwrite']}
+  problemTitle="Moving BIP content between pods is risky"
+  problems={problems}
+  demoSrc="/demos/relay/index.html"
+  demoTitle="JMJ Relay product demo"
+  features={features}
+  trust={trust}
+/>
