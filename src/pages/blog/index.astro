@@ -5,12 +5,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
 import BlogSearch from '../../components/BlogSearch.astro';
 import { getCollection } from 'astro:content';
+import { isArchived } from '../../lib/blog';
 
 // Get all non-draft blog posts sorted by date
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+
+const currentPosts = sortedPosts.filter((post) => !isArchived(post));
+const archivedPosts = sortedPosts.filter((post) => isArchived(post));
 ---
 
 <BaseLayout
@@ -29,16 +33,41 @@ const sortedPosts = allPosts.sort(
 
       <BlogSearch />
 
-      <div id="posts-grid" class="posts-grid">
-        {sortedPosts.map((post) => (
-          <BlogPostCard
-            title={post.data.title}
-            date={post.data.date}
-            summary={post.data.summary}
-            slug={post.slug}
-            tags={post.data.tags}
-          />
-        ))}
+      <div id="posts-grid">
+        <div class="posts-grid">
+          {currentPosts.map((post) => (
+            <BlogPostCard
+              title={post.data.title}
+              date={post.data.date}
+              summary={post.data.summary}
+              slug={post.slug}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+
+        {archivedPosts.length > 0 && (
+          <details class="blog-archive">
+            <summary class="archive-summary">
+              Archive: {archivedPosts.length} posts from 2016 to 2021
+            </summary>
+            <p class="archive-note">
+              Earlier writing on APEX, ORDS, and Oracle ERP. The ideas hold up, but
+              product versions and screens have moved on since these were written.
+            </p>
+            <div class="posts-grid">
+              {archivedPosts.map((post) => (
+            <BlogPostCard
+              title={post.data.title}
+              date={post.data.date}
+              summary={post.data.summary}
+              slug={post.slug}
+              tags={post.data.tags}
+            />
+              ))}
+            </div>
+          </details>
+        )}
       </div>
 
       {sortedPosts.length === 0 && (
@@ -74,6 +103,30 @@ const sortedPosts = allPosts.sort(
   .posts-grid {
     display: grid;
     gap: var(--space-6);
+  }
+
+  .blog-archive {
+    margin-top: var(--space-16);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: var(--space-8);
+  }
+
+  .archive-summary {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .archive-summary:hover {
+    color: var(--accent-primary);
+  }
+
+  .archive-note {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: var(--space-4) 0 var(--space-8);
+    max-width: 640px;
   }
 
   .no-posts {

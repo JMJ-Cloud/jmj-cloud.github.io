@@ -3,6 +3,7 @@
 // Individual blog post pages
 import { getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import { isArchived } from '../../lib/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -22,6 +23,7 @@ const { Content } = await post.render();
   author={post.data.author}
   tags={post.data.tags}
   summary={post.data.summary}
+  archived={isArchived(post)}
 >
   <Content />
 </BlogPost>
