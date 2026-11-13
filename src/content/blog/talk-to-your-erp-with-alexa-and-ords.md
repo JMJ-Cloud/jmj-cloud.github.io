@@ -227,7 +227,7 @@ Your ORDS handler orchestrates calls to multiple services and delivers a unified
 
 ## Conclusion
 
-The technology is available and functional today. Organizations running Oracle databases—whether on-premise or cloud—can implement voice-enabled ERP access at no additional licensing cost using APEX and ORDS.
+The technology is available and functional today. Organizations running Oracle databases (whether on-premise or cloud) can implement voice-enabled ERP access at no additional licensing cost using APEX and ORDS.
 
 The combination of Alexa's natural language processing, Amazon's voice infrastructure, and ORDS' database connectivity opens new possibilities for how users interact with enterprise data.
 
