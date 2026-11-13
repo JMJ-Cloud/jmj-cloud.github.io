@@ -79,6 +79,30 @@ const latestProjects = featuredProjects.map(project => ({
     </div>
   </section>
 
+  <!-- Credibility Section -->
+  <section class="home-cred">
+    <div class="container">
+      <div class="home-cred-stats">
+        <div class="home-cred-stat">
+          <p class="home-cred-value">25+</p>
+          <p class="home-cred-label">years extending E-Business Suite</p>
+        </div>
+        <div class="home-cred-stat">
+          <p class="home-cred-value">15+</p>
+          <p class="home-cred-label">Fusion implementations delivered</p>
+        </div>
+        <div class="home-cred-stat">
+          <p class="home-cred-value">30 min</p>
+          <p class="home-cred-label">billing increments, no minimum</p>
+        </div>
+        <div class="home-cred-stat">
+          <p class="home-cred-value">100%</p>
+          <p class="home-cred-label">US-based delivery</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Services Section -->
   <section class="services">
     <div class="container">
@@ -233,6 +257,35 @@ const latestProjects = featuredProjects.map(project => ({
 
   .hero-work-link a:hover {
     color: var(--accent-primary);
+  }
+
+  /* Credibility Section */
+  .home-cred {
+    padding: 0 0 var(--space-16);
+  }
+
+  .home-cred-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .home-cred-stat {
+    text-align: center;
+  }
+
+  .home-cred-value {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .home-cred-label {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
   }
 
   /* Services Section */
@@ -409,6 +462,10 @@ const latestProjects = featuredProjects.map(project => ({
 
     .home-products-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-cred-stats {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
