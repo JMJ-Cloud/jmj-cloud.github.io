@@ -9,6 +9,8 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()).default([]),
     summary: z.string(),
     draft: z.boolean().default(false),
+    // Overrides the date-based archive rule in src/lib/blog.ts
+    archived: z.boolean().optional(),
   }),
 });
 
