@@ -18,7 +18,7 @@ metrics:
   - "Integration development started within 48 hours"
   - "Best practice common projects pre-built for connections and notifications"
   - "Developer standards guide delivered"
-featured: true
+featured: false
 order: 8
 ---
 

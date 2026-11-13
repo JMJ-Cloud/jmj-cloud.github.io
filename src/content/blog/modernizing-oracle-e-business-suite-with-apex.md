@@ -108,7 +108,7 @@ AI is no longer a separate project from the ERP. Because the database can call R
 
 Document extraction is the clearest example. In one project we used an AI document service to read tax exemption certificates stored as PDFs and write the extracted fields into tables alongside EBS R12.2. The backlog was more than 5,700 certificates, extraction confidence scores ran at 95 to 99%, and each document took about 15 seconds. The detail is in our [tax certificate extraction case study](/projects/azure-tax-certificate-extraction).
 
-APEX 26.1 also adds AI capabilities of its own, including AI Interactive Reports (users describe the report they want in plain language) and AI Agents that can act only through approved tools. We have built on 26.1 in our own lab and expect these to become part of EBS extension work as clients upgrade.
+APEX 26.1 also adds AI capabilities of its own, including AI Interactive Reports (users describe the report they want in plain language) and AI Agents that can act only through approved tools. These are already in production client work: our [AI-native plant statistics case study](/projects/ai-plant-statistics-apex-26) describes an EBS reporting application on 26.1 that uses both, with an assistant that answers questions about plant figures in plain English.
 
 ### If You Move to Fusion Cloud Later
 
