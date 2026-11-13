@@ -63,7 +63,7 @@ The SFTP configuration supports environment-specific credentials stored in BI Pu
 
 BirchStreet's budget import expects a specific comma-separated format with Action Type, Budget Period, Department Code, GL Account Code, Budget Amount, and Inn Code fields. The integration maps Oracle's 7-segment COA structure to BirchStreet's expected format, using the complete account string as the GL Account Code to enforce combination-level validation.
 
-All budget amounts are sent as zero values—the integration's purpose is identifying valid code combinations for invoice coding, not transmitting actual budget figures. This approach was confirmed with the client's finance team as the optimal method for enabling code combination validation without creating misleading budget data in the procurement system.
+All budget amounts are sent as zero values: the integration's purpose is identifying valid code combinations for invoice coding, not transmitting actual budget figures. This approach was confirmed with the client's finance team as the optimal method for enabling code combination validation without creating misleading budget data in the procurement system.
 
 ## Technical Highlights
 
@@ -71,11 +71,11 @@ All budget amounts are sent as zero values—the integration's purpose is identi
 
 **Period Generation Pattern:** Rather than hardcoding budget periods, the data model uses Oracle's CONNECT BY LEVEL syntax to dynamically generate 12 monthly periods. The PERIODS CTE calculates period numbers from January through December of the current fiscal year using ADD_MONTHS and TRUNC functions, creating a reusable pattern that automatically adjusts as the year changes without requiring annual report modifications.
 
-**Segment Value Filtering:** The integration filters code combinations to specific business requirements—only expense accounts (account_type = 'E') with a particular PreOpening segment value are included. An additional filter uses a custom value set (WMI_BIRCHSTREET_ORG_MAP) to control which Entity values are eligible for BirchStreet integration, providing finance with configuration-based control over integration scope without code changes.
+**Segment Value Filtering:** The integration filters code combinations to specific business requirements, only expense accounts (account_type = 'E') with a particular PreOpening segment value are included. An additional filter uses a custom value set (WMI_BIRCHSTREET_ORG_MAP) to control which Entity values are eligible for BirchStreet integration, providing finance with configuration-based control over integration scope without code changes.
 
 **eText Report Layout:** The output file uses BI Publisher's eText template format for precise control over field positioning and delimiters. The single-field layout extracts the concatenated row data directly from the SQL, avoiding the formatting inconsistencies that can occur with standard RTF templates when generating delimited text files. UTF-8 encoding ensures proper handling of any special characters in description fields.
 
-**Dual-Destination Bursting:** The bursting SQL uses UNION ALL to create two delivery records per execution—one for the outbound directory and one for the archive directory. This pattern ensures every file delivered to BirchStreet has a corresponding archived copy for audit purposes, with identical content guaranteed by the single-execution delivery model.
+**Dual-Destination Bursting:** The bursting SQL uses UNION ALL to create two delivery records per execution, one for the outbound directory and one for the archive directory. This pattern ensures every file delivered to BirchStreet has a corresponding archived copy for audit purposes, with identical content guaranteed by the single-execution delivery model.
 
 **Environment-Agnostic Configuration:** SFTP server names are stored as BI Publisher server definitions rather than hardcoded in report SQL. The same report definition deploys across development, test, and production environments, with environment-specific SFTP credentials managed through BI Publisher's administrative interface. This separation of configuration from code simplifies deployment and reduces environment-specific maintenance.
 
@@ -89,7 +89,7 @@ All budget amounts are sent as zero values—the integration's purpose is identi
 
 **Audit and Compliance:** Complete archive of every file delivered to BirchStreet provides full traceability for financial audits. Timestamped file names and dual-directory delivery create a clear audit trail linking procurement coding to Oracle's Chart of Accounts as it existed at each point in time.
 
-**Technical Success:** The BI Publisher approach leverages Oracle's native reporting infrastructure without requiring additional middleware, integration platforms, or custom code deployments. Standard Oracle tools—SQL data models, bursting delivery, and SFTP connectivity—combine to deliver a robust integration that finance teams can monitor and troubleshoot without specialized technical skills.
+**Technical Success:** The BI Publisher approach leverages Oracle's native reporting infrastructure without requiring additional middleware, integration platforms, or custom code deployments. Standard Oracle tools (SQL data models, bursting delivery, and SFTP connectivity) combine to deliver a robust integration that finance teams can monitor and troubleshoot without specialized technical skills.
 
 ## Deliverables
 

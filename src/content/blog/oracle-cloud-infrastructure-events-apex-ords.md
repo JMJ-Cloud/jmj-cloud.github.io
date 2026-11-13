@@ -107,7 +107,7 @@ Grab the URL and open it on your browser. One you have done this; your Notificat
 }
 ```
 
-### 4 – ORDS Service
+### 4: ORDS Service
 
 The ORDS web service definition is pretty simple. Here is a screen shot (from SQLDeveloper) of the Module, Template and Handler for a service that can receive a payload from an OCI Notification.
 
@@ -117,7 +117,7 @@ The ORDS web service definition is pretty simple. Here is a screen shot (from SQ
 
 The PL/SQL code you add to the handler can do anything you want. In our case it submits a Database Scheduler Job to fetch and process the file asynchronously.
 
-### 5 – Process File
+### 5: Process File
 
 In our DB Scheduler Job, we use the OCI Object Store REST services to fetch the file from the OCI Object Store bucket. This connectivity between APEX and OCI was made much easier in APEX 19.2 when Web Credentials were enhanced to include the 'Oracle Cloud Infrastructure (OCI)' Authentication Type. This allows us to configure a native Web Credential for connecting to OCI Web Services. I recommend this Oracle A-Team Blog which describes in detail the OCI and APEX setups that are required to get this integration working.
 

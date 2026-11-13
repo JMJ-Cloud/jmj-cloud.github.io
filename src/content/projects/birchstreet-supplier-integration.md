@@ -52,7 +52,7 @@ A comprehensive Oracle BI Publisher integration that extracts, validates, transf
 
 ### Intelligent Data Selection and Change Detection
 
-The solution implements sophisticated change detection logic that identifies suppliers requiring synchronization based on multiple update vectors. The integration queries suppliers where the supplier profile, supplier site, or supplier address was created or modified within the previous two hours—capturing updates regardless of which table changed. This multi-table monitoring ensures that changes to vendor names, site assignments, contact information, or address details all trigger appropriate downstream updates to BirchStreet.
+The solution implements sophisticated change detection logic that identifies suppliers requiring synchronization based on multiple update vectors. The integration queries suppliers where the supplier profile, supplier site, or supplier address was created or modified within the previous two hours, capturing updates regardless of which table changed. This multi-table monitoring ensures that changes to vendor names, site assignments, contact information, or address details all trigger appropriate downstream updates to BirchStreet.
 
 The hourly execution frequency balances timeliness requirements against system load considerations. Procurement users typically don't need real-time supplier updates, but several-hour lags would create confusion when suppliers are added or modified in Oracle but don't appear available in BirchStreet. The two-hour lookback window provides overlap between runs to ensure no changes fall through timing gaps.
 
@@ -60,7 +60,7 @@ The hourly execution frequency balances timeliness requirements against system l
 
 Before supplier records flow to BirchStreet, the integration enforces strict data completeness requirements that mirror BirchStreet's operational needs. Supplier sites must have phone numbers for vendor contact, email addresses or fax numbers for purchase order transmission, complete address information including address line 1, city, country, postal code, state or province codes for US and Canadian addresses, and valid assignments to procurement business units. Records failing these validations are excluded from the feed, preventing incomplete data from creating downstream processing issues.
 
-This validation framework ensures BirchStreet receives only operationally useful supplier records. The integration doesn't attempt to "fix" incomplete Oracle data—instead, it surfaces data quality issues that require resolution in the source system, maintaining Oracle as the authoritative supplier master.
+This validation framework ensures BirchStreet receives only operationally useful supplier records. The integration doesn't attempt to "fix" incomplete Oracle data: instead, it surfaces data quality issues that require resolution in the source system, maintaining Oracle as the authoritative supplier master.
 
 ### Address Standardization and Geographic Formatting
 
@@ -82,7 +82,7 @@ Each supplier site record includes the appropriate inn code based on its procure
 
 ### SFTP Delivery with Bursting
 
-BI Publisher's bursting capability delivers the supplier file to multiple SFTP directories simultaneously—the outbound folder where BirchStreet retrieves files for processing and an archive folder that maintains a complete history of transmitted data. The file naming convention includes timestamps (bss_vendors_YYYYMMDDHHMMSS.txt) to prevent filename collisions and enable chronological sorting of historical transmissions.
+BI Publisher's bursting capability delivers the supplier file to multiple SFTP directories simultaneously: the outbound folder where BirchStreet retrieves files for processing and an archive folder that maintains a complete history of transmitted data. The file naming convention includes timestamps (bss_vendors_YYYYMMDDHHMMSS.txt) to prevent filename collisions and enable chronological sorting of historical transmissions.
 
 Separate SFTP accounts for development, test, and production environments ensure proper change control and testing isolation. The integration uses BI Publisher's native SFTP delivery configuration, eliminating the need for additional middleware or file transfer utilities.
 
@@ -112,7 +112,7 @@ Separate SFTP accounts for development, test, and production environments ensure
 
 **AP Automation Success:** Ensured 100% vendor code accuracy flowing from BirchStreet vouchers back to Oracle for payment processing. The maintained Oracle-to-BirchStreet identifier cross-reference enables seamless payment automation without manual code mapping or reconciliation. AP teams process invoice vouchers from BirchStreet knowing that vendor codes will match Oracle supplier records, eliminating payment posting failures that require research and correction.
 
-**Data Quality Improvement:** The integration's validation rules surfaced incomplete supplier records in Oracle that would have created BirchStreet processing issues. Finance teams proactively remediated data quality gaps—adding missing phone numbers, email addresses, and properly formatted addresses—improving overall supplier master data hygiene. The enforced data completeness standards prevent future incomplete records from flowing to downstream systems.
+**Data Quality Improvement:** The integration's validation rules surfaced incomplete supplier records in Oracle that would have created BirchStreet processing issues. Finance teams proactively remediated data quality gaps (adding missing phone numbers, email addresses, and properly formatted addresses), improving overall supplier master data hygiene. The enforced data completeness standards prevent future incomplete records from flowing to downstream systems.
 
 **Operational Scalability:** The hourly automated synchronization scales effortlessly as the supplier base grows, with no incremental labor required regardless of supplier volume. New suppliers added to Oracle appear available in BirchStreet for procurement without manual setup or intervention. The solution handles hundreds of supplier updates per day during onboarding periods without performance degradation or operational impact.
 
@@ -136,11 +136,11 @@ This integration demonstrates JMJ Cloud's ability to bridge Oracle ERP with spec
 
 **Procurement Platform Integration Expertise:** Modern procurement transformations increasingly involve best-of-breed specialized platforms like BirchStreet that must integrate deeply with ERP supplier master data. Success requires understanding both the source system's data model complexity and the target platform's operational requirements. This integration showcases expertise in navigating Oracle Fusion's supplier, site, and address table relationships while meeting BirchStreet's specific format and data quality needs.
 
-**Data Quality as Integration Discipline:** The solution demonstrates that effective integration goes beyond moving data—it requires enforcing data quality standards that ensure downstream systems receive operationally useful information. The validation framework prevents bad data propagation while surfacing data quality issues that require source system remediation. This discipline protects the integrity of both systems and builds confidence in automated workflows.
+**Data Quality as Integration Discipline:** The solution demonstrates that effective integration goes beyond moving data: it requires enforcing data quality standards that ensure downstream systems receive operationally useful information. The validation framework prevents bad data propagation while surfacing data quality issues that require source system remediation. This discipline protects the integrity of both systems and builds confidence in automated workflows.
 
 **Geographic and Regulatory Intelligence:** Address formatting requirements vary significantly across countries and systems, creating subtle integration challenges that simple field mapping approaches cannot address. The state and province code transformation logic shows deep understanding of Oracle's geography reference data and the intelligence to navigate complex lookup hierarchies. Organizations operating internationally need integration solutions that respect these complexities rather than imposing rigid formatting that loses data fidelity.
 
-**Supplier Lifecycle Management:** The deactivation logic demonstrates that supplier synchronization encompasses more than just adding new vendors—it requires managing the complete supplier lifecycle including status changes that affect procurement availability. Automated deactivation prevents procurement exceptions and ensures both systems reflect consistent supplier availability, critical for organizations with robust supplier management policies and compliance requirements.
+**Supplier Lifecycle Management:** The deactivation logic demonstrates that supplier synchronization encompasses more than just adding new vendors: it requires managing the complete supplier lifecycle including status changes that affect procurement availability. Automated deactivation prevents procurement exceptions and ensures both systems reflect consistent supplier availability, critical for organizations with robust supplier management policies and compliance requirements.
 
 **BI Publisher as Integration Platform:** While often thought of only as a reporting tool, BI Publisher provides powerful capabilities for batch data extraction and file generation that make it an effective integration platform for scheduled data exports. This implementation proves that Oracle Cloud customers can leverage native tooling for many integration scenarios without requiring specialized middleware or integration-platform-as-a-service subscriptions, reducing licensing costs and architectural complexity.
 

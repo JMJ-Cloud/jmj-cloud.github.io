@@ -1,5 +1,5 @@
 ---
-title: "APEX Office Print – Is it the APEX printing solution we have all been waiting for?"
+title: "APEX Office Print: Is it the APEX printing solution we have all been waiting for?"
 date: 2018-11-16
 author: "Jon Dixon"
 tags: ["APEX", "Printing", "AOP", "Documents", "Integration"]
