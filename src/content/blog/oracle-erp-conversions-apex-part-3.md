@@ -5,6 +5,8 @@ author: "Matt Paine"
 tags: ["APEX", "Oracle ERP", "ERP Cloud", "Data Conversion", "HDL", "FBDi", "Web Services"]
 summary: "In this final part of our blog series, we show you how APEX will make your ERP Cloud conversions simpler, faster and repeatable with real-world examples including employee conversion and PO change orders."
 ---
+*This series has been replaced by our 2026 guide: [Oracle ERP Data Conversions with APEX](/blog/oracle-erp-data-conversions-with-apex).*
+
 
 ![APEX to the Rescue](/images/blog/erp-conversions-part3/snip20200610-113_orig.png)
 
@@ -46,7 +48,7 @@ An APEX application used to convert data to ERP Cloud can:
 
 Sounds good? Let's move on to look at some real-world examples.
 
-## Real-World Example 1 – Employee Conversion
+## Real-World Example 1: Employee Conversion
 
 A client recently needed help converting workers for an ERP Cloud project. The number of fields to be populated was small, as Oracle HCM was being used only to support Expenses and Self-Service Procurement. External systems were in place for HR and Payroll.
 
@@ -70,7 +72,7 @@ A mapping page was built using an APEX Interactive Grid, allowing us to enter an
 
 A key field for ERP Cloud Finance projects is the Default Expense Account, used by Expenses and Procurement. As the Chart of Accounts structure could vary depending on which Ledger the Business Unit is linked to, the mapping simply populates any segments provided in the source file, then fills in any missing segments based on the Company. In this case, the Company, Division, and Department are in the source file, and the Account is defaulted in from the Company mapping.
 
-The mapping is applied to the imported file, and the enriched data can be reviewed. At this stage, data has also been cleansed – for example worker names are trimmed of leading or trailing spaces and changed to uppercase.
+The mapping is applied to the imported file, and the enriched data can be reviewed. At this stage, data has also been cleansed, for example worker names are trimmed of leading or trailing spaces and changed to uppercase.
 
 ![Enriched data review](/images/blog/erp-conversions-part3/picture4_orig.png)
 
@@ -106,9 +108,9 @@ Back on the original Worker Upload page, the Build Supervisor HDL File button ca
 
 ![Build Supervisor HDL](/images/blog/erp-conversions-part3/picture11_orig.png)
 
-APEX helped us reliably validate, map, and load 1000 workers from five different sources in under an hour on cutover weekend – and this process can be repeated on subsequent projects.
+APEX helped us reliably validate, map, and load 1000 workers from five different sources in under an hour on cutover weekend, and this process can be repeated on subsequent projects.
 
-## Real-World Example 2 – PO Change Orders
+## Real-World Example 2: PO Change Orders
 
 Another customer needed assistance doing a mass-update of 7,000 PO Line Schedules from 3-Way Match to 2-Way Match.
 

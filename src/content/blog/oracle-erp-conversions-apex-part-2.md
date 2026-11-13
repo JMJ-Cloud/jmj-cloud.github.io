@@ -5,6 +5,8 @@ author: "Matt Paine"
 tags: ["APEX", "Oracle ERP", "ERP Cloud", "Data Conversion", "FBDi", "REST", "SOAP"]
 summary: "Part 2 of our ERP conversions series discusses tools available in ERP Cloud and highlights associated challenges. We review ADFDi, FBDi, SOAP and REST web services, HCM Data Loader, BI Publisher, and BI Cloud Connector."
 ---
+*This series has been replaced by our 2026 guide: [Oracle ERP Data Conversions with APEX](/blog/oracle-erp-data-conversions-with-apex).*
+
 
 ![ERP Cloud conversion header](/images/blog/erp-conversions-part2/snip20200513-130.png)
 
@@ -26,13 +28,13 @@ Multiple tools exist for moving data in and out of ERP Cloud databases. Some are
 
 ![ADFDi Create Journal spreadsheet](/images/blog/erp-conversions-part2/picture1_4.png)
 
-ADFDi spreadsheets resemble GLDi spreadsheets used with Oracle EBS—preconfigured, heavily-coded sheets for data population. Common uses include loading GL journals or AP invoices.
+ADFDi spreadsheets resemble GLDi spreadsheets used with Oracle EBS: preconfigured, heavily-coded sheets for data population. Common uses include loading GL journals or AP invoices.
 
 ![ADFDi Create Invoices spreadsheet](/images/blog/erp-conversions-part2/picture2_2_orig.png)
 
 These provide advantages including pre-validation and built-in dropdowns for valid field values. However, they struggle with larger volumes, don't work on MacOS, can be finicky (undo buttons don't function), and require refreshing after quarterly upgrades.
 
-They also demand local Excel framework installation—problematic in some corporate environments—and availability is limited to specific business objects. Customer loading isn't available through ADFDi.
+They also demand local Excel framework installation (problematic in some corporate environments), and availability is limited to specific business objects. Customer loading isn't available through ADFDi.
 
 ### File-Based Data Integrator - FBDi
 
@@ -62,7 +64,7 @@ FBDi lends itself to automation via Oracle's SOAP and REST web services. Using E
 - Check ESS Job Statuses
 - Download and verify logs and output reports
 
-Writing full integration flows calling each service sequentially can be cumbersome. Oracle provides a bulk import web service—a single call transfers files and runs required import processes in correct order, with optional email notifications upon completion.
+Writing full integration flows calling each service sequentially can be cumbersome. Oracle provides a bulk import web service, a single call transfers files and runs required import processes in correct order, with optional email notifications upon completion.
 
 ERPIntegrationService documentation:
 - SOAP: https://docs.oracle.com/en/cloud/saas/financials/20b/oeswf/business-object-services.html#erpintegrationservice-d13711e35899
@@ -84,7 +86,7 @@ Some accept single transactions; others allow multiple with per-record errors.
 
 ![REST web service example](/images/blog/erp-conversions-part2/picture8_1_orig.png)
 
-REST web service expansion continues with each quarterly release—good news. If both REST and SOAP services exist, choose REST.
+REST web service expansion continues with each quarterly release: good news. If both REST and SOAP services exist, choose REST.
 
 Verify REST service completeness before starting; many only allow GET operations currently. Check that required fields are included; early releases sometimes omitted necessary fields.
 
@@ -92,11 +94,11 @@ Business Object REST services documentation: https://docs.oracle.com/en/cloud/sa
 
 ### HCM Data Loader (HDL)
 
-HCM Cloud provides HDL, accessed through Data Exchange usage. It covers various HCM business objects—users, roles, workers, and setup elements like Jobs and Locations.
+HCM Cloud provides HDL, accessed through Data Exchange usage. It covers various HCM business objects: users, roles, workers, and setup elements like Jobs and Locations.
 
 HDL expects pipe-separated format (PSV) text files. Metadata lines describe data fields; data rows follow.
 
-For complex multi-level entities like Workers, multiple metadata rows combine in single files—Names, Emails, and Assignments alongside Person Numbers.
+For complex multi-level entities like Workers, multiple metadata rows combine in single files: Names, Emails, and Assignments alongside Person Numbers.
 
 Date-tracking warrants careful attention; changing start dates can create problems later if workers have complex employment histories with multiple hires/rehires across legal entities with timesheets.
 
@@ -135,7 +137,7 @@ Documentation for 19A: https://docs.oracle.com/en/cloud/saas/applications-common
 
 Using ERP Cloud tools for data conversions without automation creates problems:
 
-- Manual Excel manipulation is slow and error-prone. Users make mistakes—trailing spaces, inconsistent date formats, blank mandatory fields. Formulas become out-of-sync; Excel lookups fail. Opening and closing CSV files corrupts date and number formats.
+- Manual Excel manipulation is slow and error-prone. Users make mistakes, trailing spaces, inconsistent date formats, blank mandatory fields. Formulas become out-of-sync; Excel lookups fail. Opening and closing CSV files corrupts date and number formats.
 
 - Excel security is problematic. Passwords crack easily online; files often sit unencrypted locally. Data security requires treating sensitive information (PII) cautiously.
 

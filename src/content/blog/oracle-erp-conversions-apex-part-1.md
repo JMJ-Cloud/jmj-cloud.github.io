@@ -5,6 +5,8 @@ author: "Jon Dixon"
 tags: ["APEX", "Oracle ERP", "E-Business Suite", "Data Conversion", "APEX_DATA_PARSER"]
 summary: "This is the first in a two-part post on how to use APEX to facilitate data conversions (and data uploads) into Oracle e-Business Suite (EBS) and Oracle ERP Cloud. In this first post, we will focus on Oracle e-Business Suite (EBS)."
 ---
+*This series has been replaced by our 2026 guide: [Oracle ERP Data Conversions with APEX](/blog/oracle-erp-data-conversions-with-apex).*
+
 
 ![ERP Conversions Icon](/images/blog/erp-conversions-part1/main-blog-image.png)
 

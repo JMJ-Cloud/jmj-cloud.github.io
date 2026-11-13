@@ -1,129 +1,113 @@
 ---
-title: "Oracle ERP Robotic Process Automation (RPA) with APEX"
-date: 2020-09-10
-author: "Jon Dixon"
-tags: ["APEX", "Oracle ERP", "RPA", "Automation", "E-Business Suite", "Integration"]
-summary: "By now, most people have heard about Robotic Process Automation (RPA) tools. In this post I will describe a real-world example where APEX automates and orchestrates a repetitive e-Business Suite process, and why APEX may be a better choice than traditional RPA tools."
+title: "From RPA Bots to AI Agents: Why Oracle ERP Transactions Still Belong in APEX"
+date: 2026-11-12
+author: "JMJ Cloud"
+tags: ["APEX", "Oracle ERP", "AI Agents", "RPA", "Automation", "E-Business Suite", "Integration"]
+summary: "In 2020 the question was whether to buy an RPA bot. In 2026 it is whether an AI agent should do the work. Our answer has the same core: let an APEX page call the ERP's own APIs for the transaction itself, and use AI at the edges, where it reads, explains and drafts for a person to confirm."
 ---
 
-![RPA with APEX](/images/blog/erp-rpa-apex/title-image.png)
+*Originally published in 2020 by Jon Dixon. Rewritten in November 2026 for the move from RPA bots to AI agents.*
 
-By now, most people have heard about Robotic Process Automation (RPA) tools. While these tools come with the glow of the next new thing in technology, in my experience, ERP integration and automated scenarios are complex, and I am not yet convinced RPAs can handle them as well as the latest hype may lead one to think. I am convinced that APEX can and has handled many real-world automation and integration scenarios in the ERP world. In this post I will describe a real-world example where APEX automates and orchestrates a repetitive e-Business Suite process. ERP Cloud examples will be featured in future posts.
+When we first wrote this post, the question we heard from Oracle ERP customers was "should we buy an RPA bot for this?" Robotic Process Automation was the new thing, and the pitch was attractive: record what a user does on screen, then let software repeat it.
 
-## Background
+Six years on, the question has changed to "should an AI agent do this?" Our answer has barely moved. For the transaction itself, an Oracle APEX page that calls the ERP's own APIs is still the right tool. What has changed is everything around the transaction, and that is where AI now earns its place.
 
-My whole career has been focused on building software to automate manual processes. Most of this automation work has been focused on Oracle's e-Business Suite (EBS) and ERP Cloud. ERP software has a huge amount of functionality, but it is necessarily geared toward the most common business processes. In view of this, common processes like creating items must be broken down into their component steps, e.g., Create Item > Assign Categories to the Item > Choose Catalog Values for the Item > Create Item Cross References. If you are creating hundreds of items a week, this can be a very time-consuming (and error-prone) process. Of course, item creation is just an example. Depending on your business, there may be many opportunities for automating costly manual processes that occur in your ERP software. Given the hype around RPAs, one obvious solution is to deploy an RPA to solve your automation challenges. I am not so sure….
+This post keeps the worked example from the original, an item creation process in Oracle E-Business Suite (EBS), and then looks at where AI fits in 2026.
 
-## What is an RPA?
+## The Problem Has Not Changed
 
-If you have ever used automated testing tools like Selenium or Cypress, then you have a head start in understanding RPA tools. RPAs automate steps that an end user performs via the UI. It repeats steps like button clicks, data entry into fields and page navigation in a web UI.
+ERP software has a huge amount of functionality, but it is geared toward the most common business processes. A common task like creating an item is broken into its component steps: create the item, assign categories, choose catalog values, create cross references. If you create hundreds of items a week, that is slow and error-prone work, and item creation is only one example.
 
-For example, if you need to onboard one new user, you might perform the following steps:
+## What an RPA Bot Does
 
-1. Login to the Application
-2. Navigate to the User Entry page
-3. Enter information about the new user
-4. Click the Create User button
-5. Navigate back to the User Entry page
+If you have used automated testing tools such as Selenium or Cypress, you already understand RPA. A bot repeats what an end user does in the UI: button clicks, data entry and page navigation.
 
-To onboard 100 users you would repeat steps three to five 100 times while reading data from a file. This is where RPA steps in and performs this series of repetitive steps for you. Being able to perform automations at the UI level makes adoption relatively easy. There is no database to connect to, no code to write or APIs to learn. Essentially you don't really need to involve IT!
+To onboard one user, you log in, navigate to the user entry page, enter the details, click Create User and navigate back. To onboard 100 users, the bot repeats the last three steps 100 times while reading from a file. There is no database connection, no code and no API to learn, which is why adoption looks easy.
 
-## RPA Tool Vs Low Code API Automation
+## Why We Preferred APIs in 2020
 
-In my opinion, RPAs fall short in two important areas when compared to an Low Code API solution like APEX.
+We argued that bots fall short of an API-based solution in three areas. All three still hold.
 
-### Changing UI
+**A changing UI.** Bots depend on a consistent UI: certain HTML tags, field IDs and labels. Oracle ERP Cloud releases new functionality every quarter, and those releases often change the UI. An API is not immune to change, but there is an assumed contract between the API's developer and its consumers, and developers break that contract at their peril.
 
-RPAs rely heavily on a consistent UI. They depend on certain HTML tags being present or fields having specific IDs, Labels, etc.
+**Performance and reliability.** A bot is only as fast and stable as the screen it drives. A five second delay after each Save adds up quickly at volume. If a page fails to load, the script fails, and someone has to work out where it stopped and restart it from the right place. An API returns a specific response that your code can handle directly, and many APIs offer bulk options that take thousands of records in one call.
 
-The problem is, modern ERP solutions like ERP Cloud release new functionality on a quarterly basis. Releases often comes with changes to the UI which can break your RPA processes. A low code solution will typically call APIs (e.g. REST services) to perform automations. While APIs are not completely immune to change, there is the assumption of a contract between an API developer and its consumers. Developers break this contract at their peril.
+**Cost and skills.** A bot may not need a developer, but it does need skilled people to keep it running, and it carries its own license. Weigh the cost of any automation against the cost of doing nothing, and ask whether your team can maintain it. Automation built on software that only specialists can support may end up costing more than the manual process did.
 
-### Performance and Reliability
+## The Worked Example: Item Creation in EBS
 
-Because RPAs interact with the UI they rely on the stability and speed of the UI in order to work effectively. What if there is a 5 second delay between clicking the Save button and the next page appearing? While you can accommodate for the delay in an RPA script, it can have a huge impact on how long it takes to load high volumes of data. In addition, if a page fails to load completely, then your RPA script will fail. You are left figuring out where it failed and having to re-start it from the right spot.
+APEX is a low-code platform that is included with your Oracle Database license. On EBS it lives in the same database as the ERP, so it can call the EBS public APIs directly. For a cloud ERP, it calls REST services through `APEX_WEB_SERVICE` with stored credentials.
 
-APIs are typically more stable and always more performant than the UI they serve. When you call an API to create a record, you get a specific response from the API and can handle what happens next directly in your code. In addition, there are often API options to perform bulk loads of data where you can send thousands of records in one post.
+In this use case, the goal was to let a user create inventory items in EBS with as few manual steps as possible. Done by hand, the process looks like this:
 
-### License and Resource Costs
-
-You should also consider that while it may not always require the specialized skills of a Developer, RPAs do still require skilled functional resources to keep them running smoothly. When comparing to APEX, you also have to consider the additional license costs that come with an RPA solution.
-
-## Considerations for Automation
-
-There are a few things you should consider before diving into any automated solution. The first is cost. You should weight the cost of developing an automated solution vs the cost of not doing it at all. You should also consider your ability to maintain the solution once it has been implemented. If you build automations based on complex integration software that requires highly specialized skills to maintain, it may end up costing you more (in consulting fees and monthly subscriptions) than the manual processes did.
-
-## Enter APEX
-
-APEX is a Low Code development platform that, assuming you have an Oracle database, requires no additional software licenses. If you are running EBS you can install APEX on your EBS database. If you are running ERP Cloud, you can stand up a PaaS AWS RDS Oracle instance with APEX for as little as $100/month.
-
-We have already blogged that APEX is an ideal partner for both EBS and ERP Cloud. On EBS, APEX lives in the same database as EBS and can easily call EBS public APIs to automate EBS activities. In the cloud, APEX comes complete with numerous utilities to make calling web services easier (web source modules, credential stores, APEX_WEB_SERVICE APIs with automated token renewal, etc.). Used in conjunction with Oracle REST Data Services (ORDS), you can also create Webhooks to handle events from your ERP systems.
-
-## An Example Automation for EBS
-
-Now that we have decided on APEX to build your automation vs using an RPA, what might an APEX centric-solution look like? Let's use the item creation example I mentioned at the start of this post to illustrate what is possible. In this use case, the goal is for a user to be able to create inventory items in EBS with as few manual steps as possible.
-
-The manual steps required by a user to create an item include:
-
-1. Login to EBS
-2. Launch EBS java forms
-3. Choose an Inventory Organization
-4. Navigate to the Item Entry form
-5. Find the item you want to copy from
-6. Create a new Item as a copy of the item
+1. Log in to EBS
+2. Launch EBS Java forms
+3. Choose an inventory organization
+4. Navigate to the item entry form
+5. Find the item to copy from
+6. Create a new item as a copy
 7. Update the item number and description of the new item
 8. Navigate to the item category form
-9. Assign the correct item category to the item
-10. Navigate to the Item Catalog form
-11. Enter up to 5 catalog name catalog value combinations
-12. Navigate to the Item Cross references form
-13. Create an item cross reference for the new item
-14. Repeat steps 4-13 X times
+9. Assign the correct category to the item
+10. Navigate to the item catalog form
+11. Enter up to 5 catalog name and catalog value combinations
+12. Navigate to the item cross references form
+13. Create a cross reference for the new item
+14. Repeat steps 4 to 13 for every item
 
-Here is what it looks like when we merge steps 4-13 into one APEX page.
+We merged steps 4 to 13 into one APEX page.
 
-### APEX Automation Use Case
+The user chooses an inventory organization and can enter an item prefix to filter the source items. They then add source items, which already exist in EBS, to an interactive grid and set the target values for each one:
 
-When users first navigate to the APEX page, they choose an inventory organization to copy items from and optionally enter an item prefix to filter source items they can choose from.
+- **Item number:** typed in, or generated for all rows from an EBS document sequence with one button
+- **Item template:** EBS items have hundreds of attributes, and the template sets them for the new item
+- **Long description:** optional
+- **Catalog values:** brought in from the source item, so the user only updates what differs
+- **Cross reference:** a type and a value, for example a supplier's item number
 
-![APEX Item Copy - Select Source Items](/images/blog/erp-rpa-apex/apex-app-picture1_orig.png)
+All but two of these fields are optional, and users can upload items from Excel for bulk loads.
 
-The user then adds source items to an interactive grid. Source items are items that already exist in EBS and used as the basis for creating new items in this example.
+The entries are held in an APEX collection until the user clicks Copy Items. A PL/SQL package then calls the EBS public APIs in sequence, using the collection data as parameters:
 
-The target values are handled as follows:
+- Item: `ego_item_pub.process_items`
+- Category: `inv_item_category_pub.create_category_assignment`
+- Catalogs: `inv_item_catalog_elem_pub.process_item_descr_elements`
+- Cross references: `mtl_cross_references_pub.process_xref`
 
-- **Item Number** - Users can manually enter a target item number or click 'Generate Item Numbers' to automatically number the new items using an EBS Document Sequence.
-- **Item Template** – Next the user chooses and item template. Items in EBS have hundreds of attributes. An item template allows you to use the template attributes to set the attributes of newly created items.
-- **Item Long Description** – The user optionally enters a description of the item.
-- **Catalog Values** – Catalogs allow you to assign sets of attributes to an item. The catalog attributes of the source item are brought in automatically and the just must update values for the new item.
-- **Cross Reference** – Cross references allow you to cross reference your items to other entities e.g. Supplier Item Numbers. Finally, the user selects a cross reference type and enters a value.
+When the copy finishes, the page shows the result for each item, step by step, so users can see what completed and what failed.
 
-![APEX Item Copy - Configure Target Items](/images/blog/erp-rpa-apex/apex-app-picture2_orig.png)
+## The 2026 Question: Should an AI Agent Do This?
 
-**Note**: While this looks like a lot, all but two of the above fields are optional. There is even an option for users to upload items Via Excel to perform bulk loads.
+There are two quite different things people mean by this question.
 
-An APEX collection is used to store the user entered data until the user is ready to initiate the copy process by clicking 'Copy Items'.
+The first is an agent that operates the screens for you. Agentic tools can now drive a web browser, and unlike a recorded script they can read a page and adapt when a label moves. That softens the changing UI objection. It does nothing for the other two. The agent still works at the speed of the UI, one item and one form at a time, and it adds a new concern: a language model does not promise the same output for the same input. For a process that creates master data hundreds of times a week, we want the opposite. We want the same input to produce the same result every time, and a specific response from each API call that code can act on.
 
-The actual process automation i.e. copying the items, category assignments, catalog elements and cross references is performed by a PL/SQL package called from APEX. The PL/SQL package calls the related EBS Public APIs in sequence utilizing the data from the APEX collection for the required parameters.
+The second is an agent that calls tools. This is the direction the Oracle platform itself is taking. Oracle Integration 3 projects can be configured as MCP servers, so integrations become tools an agent can discover and call, which we covered in [From Screens to Conversations](/blog/talk-to-your-erp-oic-gen3-mcp-servers). APEX 26.1 added AI Agents and AI Tools, where an agent can act only through the tools the application approves.
 
-EBS Public APIs used by this process:
+Look closely at that second model and you find our 2020 argument sitting underneath it. The tool an agent calls is a small, deterministic piece of automation built on the ERP's own APIs. The PL/SQL package in the item example is exactly that kind of tool. The agent is only as good as what it is allowed to call, so the API-based automation is not replaced by the agent. It is the part that has to be built well first.
 
-- Item (ego_item_pub.process_items)
-- Category (inv_item_category_pub.create_category_assignment)
-- Catalogs (inv_item_catalog_elem_pub.process_item_descr_elements)
-- Cross References (mtl_cross_references_pub.process_xref)
+## Where AI Earns Its Place
 
-When the copy is complete the user is presented with the results of the copy. An added benefit of using APEX is that users can easily see which steps completed successfully and which ones failed.
+Our position is that deterministic, API-based automation in the database stays in charge of the transaction, and AI adds value at the edges. We see four places where it does.
 
-![APEX Item Copy - Results](/images/blog/erp-rpa-apex/apex-app-picture3_orig.png)
+**Reading unstructured input.** For a manufacturing company, we used an AI document service to [extract data from tax exemption certificates](/projects/azure-tax-certificate-extraction) held as PDFs. More than 5,700 certificates are being processed at about 15 seconds each, with extraction confidence of 95 to 99%, and low-confidence results are flagged for a person to review. A bot could never read those documents. The AI reads them, and PL/SQL validates and stores the result.
+
+**Explaining results.** In our [AI-assisted accrual automation for Oracle Fusion General Ledger](/projects/ai-accrual-automation-fusion-gl), fixed rules written in PL/SQL calculate every amount, so the same file always gives the same answer. An AI assistant sits beside the proposed journal and explains any line in plain words, naming the invoice or file behind each figure. That project is still in progress and has been tested on synthetic data so far.
+
+**Answering questions.** Read-only questions are the safest place to start with an agent: what failed today, which records are waiting, what the status of a period is. APEX 26.1 applies the same thinking to reports, turning a plain-language request into visible, editable report settings.
+
+**Drafting changes a person confirms.** In the accrual application, the assistant can prepare a change, but the page asks the analyst to confirm it, with a reason, before anything is recorded. The agent has 11 tools and none of them can reach Fusion. Asked to send the journal, it declines and points to the send button.
+
+Applied to the item copy page, this suggests where we would add AI today, although we have not built these: reading a supplier's specification sheet to propose catalog values for the user to review, or turning an API error into a plain explanation of what to fix. The four API calls and the Copy Items button would stay exactly as they are.
+
+## AI Also Changes the Cost of Building
+
+In 2020, a fair objection to the APEX approach was that someone had to write the page and the PL/SQL behind it. AI coding agents have changed that. Our [software factory](/software-factory) uses them to build and review this kind of extension, with a senior Oracle engineer as the final gate before anything ships, so the deterministic automation we recommend is now much quicker to deliver.
 
 ## Conclusion
 
-There is a place for RPAs in performing repetitive tasks on moderate amounts of data on simple UIs that do not regularly change. ERPs rarely fit this mold. Data volumes are usually too high to justify a RPA versus an API due to an RPA's slow performance compared to an API. Additionally, change is built-in and assumed in the cloud. Inconsistent performance is not an option.
+There is still a place for automating a UI: simple screens that rarely change, moderate volumes, and no API to call. ERPs rarely fit that description, whether the thing clicking the buttons is a script or a model.
 
-APEX answers many questions in the ERP world. In this post we have learned in this post that APEX can also be called on to build complex orchestrated automations both inside and outside of your firewall.
+Our advice in 2026 is to build the transaction once, on the ERP's own APIs, where it is fast, testable and repeatable. Then put AI where judgement about language helps: reading what arrives, explaining what happened, answering questions, and drafting changes for a person to confirm.
 
-Watch this space for future posts geared towards automating manual processes in ERP Cloud using APEX.
-
----
-
-Jon Dixon, Co-Founder JMJ Cloud
+**Have a manual ERP process you are thinking of handing to a bot or an agent?** We can help you work out which parts belong in an API and which parts suit AI. [Let's talk](/contact).
