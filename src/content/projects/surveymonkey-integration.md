@@ -26,7 +26,7 @@ order: 4
 
 A multi-plant galvanizing company needed systematic customer feedback to measure satisfaction, identify service issues, and track performance across their 40+ facilities. Their existing approach relied on sporadic phone calls and informal conversations, providing no quantifiable metrics, no trending data, and no early warning system for customer dissatisfaction. Management had no visibility into customer sentiment, and service problems often went undetected until customers reduced orders or switched providers.
 
-We built a comprehensive SurveyMonkey integration that automatically sends satisfaction surveys to customers after job completion, collects responses in real-time, calculates Net Promoter Scores, and provides detailed analytics on customer feedback trends. The solution seamlessly integrates with the Digital Galvanizing System and Oracle E-Business Suite, triggering surveys based on actual order completion events and enriching customer profiles with satisfaction data.
+We built a comprehensive SurveyMonkey integration that automatically sends satisfaction surveys to customers after job completion, collects responses in real-time, calculates Net Promoter Scores, and provides detailed analytics on customer feedback trends. The solution seamlessly integrates with the plant operations platform and Oracle E-Business Suite, triggering surveys based on actual order completion events and enriching customer profiles with satisfaction data.
 
 The platform now captures structured feedback from customers across all facilities, enabling data-driven service improvements and proactive issue resolution. Operations managers track NPS scores by plant, customer segment, and time period, transforming customer feedback from anecdotal impressions into actionable business intelligence.
 
@@ -50,7 +50,7 @@ A fully automated REST API integration between Oracle APEX, SurveyMonkey, and Or
 
 ### Automated Survey Delivery
 
-The system monitors job completion events in the Digital Galvanizing System and automatically triggers survey invitations to customers. When a job completes and ships, the platform identifies the appropriate contact at the customer organization, selects the correct survey template based on plant and customer characteristics, and submits the invitation through SurveyMonkey's REST API.
+The system monitors job completion events in the plant operations platform and automatically triggers survey invitations to customers. When a job completes and ships, the platform identifies the appropriate contact at the customer organization, selects the correct survey template based on plant and customer characteristics, and submits the invitation through SurveyMonkey's REST API.
 
 Survey invitations include contextual information linking responses back to specific jobs, plants, and customer contacts. This granular association enables detailed analysis connecting satisfaction scores to operational characteristics like turnaround time, coating quality, or service responsiveness.
 
